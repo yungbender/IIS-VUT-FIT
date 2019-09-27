@@ -1,0 +1,9 @@
+FROM centos/postgresql-10-centos7
+
+ENV POSTGRESQL_DATABASE iis-database
+ENV POSTGRESQL_USER iis_admin
+ENV POSTGRESQL_PASSWORD iis_passwd
+
+ADD test.sql ${CONTAINER_SCRIPTS_PATH}/start/
+
+EXPOSE 5432

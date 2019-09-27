@@ -1,0 +1,18 @@
+version: '3'
+services:
+  iis-webapp:
+    image: iis-webapp
+    build:
+      context: .
+      dockerfile: Dockerfile-webapp
+    ports:
+    - "6969:6969"
+  iis-database:
+    image: iis-database
+    build:
+      context: .
+      dockerfile: Dockerfile-database
+    ports:
+    - "5432:5432"
+    volumes:
+      - /var/lib/pgsql/data
