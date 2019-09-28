@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Krobot</title>
+</head>
+
+<body>
+
+    <form method="POST" action="/login">
+        {{ form.csrf_token }}
+        {{ form.username.label }} {{ form.username }}
+        <br>
+        {{ form.password.label }} {{ form.password }}
+        <input type="submit" value="Login">
+    </form>
+
+</body>
+</html>

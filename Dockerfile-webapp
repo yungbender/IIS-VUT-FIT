@@ -8,4 +8,4 @@ ADD ./ iis-webapp
 RUN chmod 777 iis-webapp
 ENV LANG=en_US.utf8
 
-CMD cd iis-webapp && bash run.sh
+CMD cd iis-webapp && bash webapp_run.sh

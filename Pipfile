@@ -1,3 +1,6 @@
 [packages]
 flask = "*"
 gunicorn = "*"
+Flask-WTF = "*"
+WTForms = "*"
+peewee = "*"

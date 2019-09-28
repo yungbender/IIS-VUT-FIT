@@ -2,6 +2,7 @@ version: '3'
 services:
   iis-webapp:
     image: iis-webapp
+    container_name: iis-webapp
     build:
       context: .
       dockerfile: Dockerfile-webapp
@@ -9,6 +10,7 @@ services:
     - "6969:6969"
   iis-database:
     image: iis-database
+    container_name: iis-database
     build:
       context: .
       dockerfile: Dockerfile-database
