@@ -3,6 +3,8 @@ services:
   iis-webapp:
     image: iis-webapp
     container_name: iis-webapp
+    env_file: 
+      - ./enviroment/database_user.env
     build:
       context: .
       dockerfile: Dockerfile-webapp
