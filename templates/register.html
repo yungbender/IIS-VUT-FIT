@@ -7,6 +7,7 @@
     min-width: 400px;
     margin: 0;
     padding: 0;
+    color: white;
   }
   
   #logo {
@@ -64,6 +65,43 @@
   h4 {
     margin: 0;
   }
+
+  #form-wrapper {
+    margin: 140 0 0 0px;
+  }
+
+  #form {
+    border-radius: 15px;
+    background-color: black;
+    text-align: center;
+    margin: 0 auto;
+    width: 900px;
+    height: 520px;
+  }
+
+  #form p {
+    font-weight: normal;
+    font-style: oblique;
+    font-size: 17px;
+  }
+
+  #form h2 {
+    border-style: solid;
+    border-color: #e6e6e6;
+    border-width: 0 0 6 0px;
+    padding: 20px;
+  }
+
+  #form button {
+    background-color: #1aa3ff;
+    width: 90px;
+    height: 30px;
+    border-color: #80ccff;
+    border-radius: 5px;
+    color: black;
+    font-weight: bold;
+  }
+
 </style>
 
 <html>
@@ -76,12 +114,11 @@
     <div id="mainbar">
       <h1 id="logo">BugTrack</h1>
       
-      <div>
-      
+      <div>      
         <input id="main" type="text" placeholder="Search for bugs..">
         <h4>
           <ul>
-            <li><a href="register.html">Register</a></li>
+            <li><a href="./register">Register</a></li>
             <li><a href="./login">Login</a></li>
           </ul>
         </h4>
@@ -89,8 +126,21 @@
       
     </div>
 
-    <div>
-    	
+    <div id="form-wrapper">
+      <div id="form">
+        <h2>Registration</h2>
+        <p>Username</p>
+        <input type="text">
+        <p>Mail</p>
+        <input type="text">
+        <p>Password</p>
+        <input type="text">
+        <p>Write your password again</p>
+        <input type="text">
+        <p>
+          <button type="submit">Send</button>
+        </p>
+      </div>
     </div>
     
   </body>
