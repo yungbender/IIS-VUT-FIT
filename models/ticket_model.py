@@ -1,7 +1,7 @@
 import peewee as pw
-from basemodel import BaseModel
-from clientmodel import Client
-from productmodel import Product
+from models.base_model import BaseModel
+from models.client_model import Client
+from models.product_model import Product
 
 class Ticket(BaseModel):
     id = pw.AutoField(primary_key=True)

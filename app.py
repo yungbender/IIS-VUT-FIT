@@ -1,13 +1,17 @@
 from flask import Flask, render_template, request
 from mainpage import MAINPAGE_API
-from login import LOGIN_API
+from login import LOGIN_API,SECRET_KEY
+from login_manager import LOGIN_MANAGER
+
 
 def create_app():
     app = Flask(__name__, template_folder="templates")
     
     app.register_blueprint(MAINPAGE_API)
     app.register_blueprint(LOGIN_API)
-    app.secret_key = "30c2eaa65b970b48317e4120efc4a7f8"
+    app.secret_key = SECRET_KEY
+
+    LOGIN_MANAGER.init_app(app)
     
     return app
 

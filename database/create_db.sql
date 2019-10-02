@@ -3,9 +3,9 @@ CREATE TABLE client
     clientname VARCHAR(64) PRIMARY KEY,
     mail VARCHAR(64) NOT NULL,
     password VARCHAR(128) NOT NULL,
-    name VARCHAR(64) NOT NULL,
-    surname VARCHAR(64) NOT NULL,
-    birth DATE NOT NULL,
+    name VARCHAR(64),
+    surname VARCHAR(64),
+    birth DATE,
     image VARCHAR(64) NOT NULL DEFAULT 'default',
     position VARCHAR(64) NOT NULL DEFAULT 'customer',
     work_time INTEGER DEFAULT 0
@@ -20,8 +20,7 @@ CREATE TABLE task
     state SMALLINT NOT NULL DEFAULT 0,
     creation_date TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
     worker_id VARCHAR(64) REFERENCES client(clientname),
-    creator_id VARCHAR(64) REFERENCES client(clientname),
-    based_on VARCHAR(64) REFERENCES ticket(id)
+    creator_id VARCHAR(64) REFERENCES client(clientname)
 );
 
 CREATE TABLE product
@@ -61,6 +60,12 @@ CREATE TABLE product_customer
     state SMALLINT NOT NULL DEFAULT 0,
     customer_id VARCHAR(64) REFERENCES client(clientname),
     product_id VARCHAR(64) REFERENCES product(name)
+);
+
+CREATE TABLE task_ticket
+(
+    task_id SERIAL REFERENCES task(id),
+    ticket_id SERIAL REFERENCES ticket(id)
 );
 
 CREATE USER iis_webapp WITH ENCRYPTED PASSWORD 'iis_passwd';

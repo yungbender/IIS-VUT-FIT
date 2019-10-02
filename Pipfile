@@ -1,7 +1,8 @@
 [packages]
 flask = "*"
-gunicorn = "*"
 Flask-WTF = "*"
+flask-login = "*"
+gunicorn = "*"
 WTForms = "*"
 peewee = "*"
 psycopg2-binary = "*"

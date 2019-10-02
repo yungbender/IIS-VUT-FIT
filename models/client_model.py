@@ -1,7 +1,7 @@
 import peewee as pw
-from basemodel import BaseModel
+from models.base_model import BaseModel
 
-class Client(BaseModel):
+class UserModel(BaseModel):
     clientname = pw.CharField(null=False, primary_key=True)
     mail = pw.CharField(null=False)
     password = pw.CharField(null=False)

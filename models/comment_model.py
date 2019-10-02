@@ -1,7 +1,7 @@
 import peewee as pw
-from basemodel import BaseModel
-from ticketmodel import Ticket
-from clientmodel import Client
+from models.base_model import BaseModel
+from models.ticket_model import Ticket
+from models.client_model import Client
 
 class Comment(BaseModel):
     id = pw.AutoField(primary_key=True)

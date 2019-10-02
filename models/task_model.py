@@ -1,7 +1,7 @@
 import peewee as pw
-from basemodel import BaseModel
-from clientmodel import Client
-from ticketmodel import Ticket
+from models.base_model import BaseModel
+from models.client_model import Client
+from models.ticket_model import Ticket
 
 class Task(BaseModel):
     id = pw.AutoField(primary_key=True)

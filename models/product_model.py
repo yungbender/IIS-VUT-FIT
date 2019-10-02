@@ -1,6 +1,6 @@
 import peewee as pw
-from basemodel import BaseModel
-from clientmodel import Client
+from models.base_model import BaseModel
+from models.client_model import Client
 
 class Product(BaseModel):
     name = pw.CharField(primary_key=True)
