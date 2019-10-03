@@ -1,9 +1,11 @@
 from flask import render_template, Blueprint, redirect, url_for, flash
 from templates.login import LoginForm
+from templates.register import RegisterForm
 
 from models.user import User
-from flask_login import login_user
+from flask_login import login_user, current_user
 from repositories.user_repository import UserRepository
+from login_manager import login_forbidden
 
 from hashlib import sha512
 
@@ -13,6 +15,7 @@ USER_REPOSITORY = UserRepository()
 SECRET_KEY = "30c2eaa65b970b48317e4120efc4a7f8"
 
 @LOGIN_API.route("/login", methods=["GET", "POST"])
+#@login_forbidden("mainpage.index")
 def login():
     loginForm = LoginForm()
     if loginForm.validate_on_submit():

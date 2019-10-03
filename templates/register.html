@@ -127,20 +127,18 @@
     </div>
 
     <div id="form-wrapper">
-      <div id="form">
-        <h2>Registration</h2>
-        <p>Username</p>
-        <input type="text">
-        <p>Mail</p>
-        <input type="text">
-        <p>Password</p>
-        <input type="text">
-        <p>Write your password again</p>
-        <input type="text">
-        <p>
-          <button type="submit">Send</button>
-        </p>
-      </div>
+      <form method="POST" action="/register" id="form" y>
+        {{ form.csrf_token }}
+        <p>{{ form.username.label }}</p>
+        {{ form.username }}
+        <p>{{ form.mail.label }}</p>
+        {{ form.mail }}
+        <p>{{ form.password.label }}</p>
+        {{ form.password }}
+        <p>{{ form.password_re.label }}</p>
+        {{ form.password_re }}
+        <input type="submit" value="Register">
+      </form>
     </div>
     
   </body>
