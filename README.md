@@ -26,3 +26,13 @@ Databáze na pozadí sa potom vypne príkazom
 ```
 docker-compose stop iis-database
 ```
+
+### Spúštanie skriptov v databázi a vytvorenie schémy
+Na toto je urobený skript ```exec_script.sh``` v datbase priečinku, čiže pre pustenie sql skriptu v databázi
+```
+bash exec_script.sh <sql_súbor>
+```
+Čiže ak prvý krát pustíme celú aplikáciu je treba naincializovať databázovu schému.
+```
+bash exec_script.sh create_db.sql
+```

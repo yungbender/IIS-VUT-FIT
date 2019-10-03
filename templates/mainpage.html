@@ -81,8 +81,12 @@
         <input id="main" type="text" placeholder="Search for bugs..">
         <h4>
           <ul>
-            <li><a href="register.html">Register</a></li>
-            <li><a href="./login">Login</a></li>
+            {% if user.is_authenticated %}
+              <li><a href="./logout">Logout</a>
+            {% else %}
+              <li><a href="./register">Register</a></li>
+              <li><a href="./login">Login</a></li>
+            {% endif %}
           </ul>
         </h4>
         <h1>Hello {{ user.clientname }}!</h1>

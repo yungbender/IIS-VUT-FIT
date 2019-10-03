@@ -7,7 +7,6 @@ from templates.register import RegisterForm
 from models.user import User
 from flask_login import login_user, current_user
 from repositories.user_repository import UserRepository
-from login_manager import login_forbidden
 
 from hashlib import sha512
 
@@ -15,8 +14,11 @@ REGISTER_API = Blueprint("register", __name__)
 USER_REPOSITORY = UserRepository()
 
 @REGISTER_API.route("/register", methods=["GET", "POST"])
-#@login_forbidden("mainpage.index")
 def register():
+    print(current_user.is_authenticated)
+    if current_user.is_authenticated:
+        return redirect(url_for("mainpage.index"))
+
     registerForm = RegisterForm()
     if registerForm.validate_on_submit():
         user = USER_REPOSITORY.get_user(registerForm.username.data)
