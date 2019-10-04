@@ -3,7 +3,7 @@ from wtforms import StringField, PasswordField
 import wtforms.validators as Validators
 
 class RegisterForm(FlaskForm):
-    username = StringField("Username", [Validators.input_required()], render_kw={"placeholder": "Your username"})
-    mail = StringField("E-mail", [Validators.input_required()], render_kw={"placeholder": "Your e-mail"})
-    password = PasswordField("Password", [Validators.input_required()], render_kw={"placeholder": "Your password"})
-    password_re = PasswordField("Confirm Password", [Validators.input_required(), Validators.equal_to("password", message="Passwords must be equal!")], render_kw={"placeholder": "Please repeat your password."})
+    username = StringField("Username", [Validators.input_required()], render_kw={"placeholder": "  Your username"})
+    mail = StringField("E-mail", [Validators.input_required()], render_kw={"placeholder": "  Your e-mail"})
+    password = PasswordField("Password", [Validators.input_required()], render_kw={"placeholder": "  Your password"})
+    password_re = PasswordField("Confirm Password", [Validators.input_required(), Validators.equal_to("password", message="Passwords must be equal!")], render_kw={"placeholder": "  Please repeat your password."})

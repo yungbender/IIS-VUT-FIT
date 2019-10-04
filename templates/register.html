@@ -1,13 +1,13 @@
 <style>
   body {
-    background-color: #e6e6e6;
+    background: rgb(184,184,184);
+    background: linear-gradient(0deg, rgba(184,184,184,1) 0%, rgba(239,239,239,1) 45%,  rgba(242,242,242,1) 50%, rgba(239,239,239,1) 55%, rgba(184,184,184,1) 100%); 
     background-attachment: fixed;
     font-family: 'Playfair Display', serif;
     text-align: center;
     min-width: 400px;
     margin: 0;
     padding: 0;
-    color: white;
   }
   
   #logo {
@@ -17,8 +17,13 @@
     border-color: black;
     font-weight: bold;
     float: left;
-    padding: 10 40 10 ;
+    padding: 10 40 10px;
     margin: 0;
+  }
+
+  #logo a {
+    text-decoration: none;
+    color: white;
   }
   
   #mainbar {
@@ -29,9 +34,16 @@
   
   #mainbar input {
     float: left;
-    margin: 18px;
+    margin: 18px 0px 18px 18px;
     padding: 0px;
     height: 18px;
+  }
+
+  #mainbar img {
+    float: left;
+    margin: 18px 18px 18px 0px;
+    padding: 0px;
+    height: 34px;
   }
   
   ul {
@@ -45,14 +57,14 @@
     height: 50%;
   }
   
-  a {
+  .bar-links {
     text-decoration: none;
     color: white;
     display: block;
-    padding: 24 10;
+    padding: 24 10px;
   }
 
-  a:hover {
+  a.bar-links:hover {
     background-color: #b3b3b3;
     color: black;
   }
@@ -75,8 +87,9 @@
     background-color: black;
     text-align: center;
     margin: 0 auto;
-    width: 900px;
-    height: 520px;
+    width: 500px;
+    height: 430px;
+    display: block;
   }
 
   #form p {
@@ -86,20 +99,41 @@
   }
 
   #form h2 {
-    border-style: solid;
-    border-color: #e6e6e6;
-    border-width: 0 0 6 0px;
+    color: white;
     padding: 20px;
   }
 
-  #form button {
+  .reg-form {
+    background-color: #cccccc;
+    height: 35px;
+    width: 220px;
+    border-radius: 0px;
+    border-width: 0px;
+    margin: 2px;
+  }
+
+  #reg-submit {
     background-color: #1aa3ff;
-    width: 90px;
-    height: 30px;
+    font-weight: bold;
+    width: 220px;
+    height: 35px;
     border-color: #80ccff;
     border-radius: 5px;
     color: black;
     font-weight: bold;
+    margin: 20px;
+  }
+
+  #wrapper {
+    margin: 0 auto;
+  }
+
+  #form-side {
+    wiadth: 1000px;
+    haeight: 200px;
+    margin: 0 auto;
+    background-color: grey;
+    float: left;
   }
 
 </style>
@@ -107,38 +141,44 @@
 <html>
   <head>
     <link href="https://fonts.googleapis.com/css?family=Playfair+Display&display=swap" rel="stylesheet">
-    <script type="text/javascript" src="http://livejs.com/live.js"></script>
+    <schjript type="text/javascript" src="http://livejs.com/live.js"></script>
   </head>
   <body>
   
     <div id="mainbar">
-      <h1 id="logo">BugTrack</h1>
+      <h1 id="logo"><a href="./">BugTrack</a></h1>
       
       <div>      
         <input id="main" type="text" placeholder="Search for bugs..">
+        <img src="/img/search.png" height="30px" width="30px"></img>
         <h4>
           <ul>
-            <li><a href="./register">Register</a></li>
-            <li><a href="./login">Login</a></li>
+            <li><a class="bar-links" href="./register">Sign up</a></li>
+            <li><a class="bar-links" href="./login">Sign in</a></li>
           </ul>
         </h4>
       </div>
       
     </div>
 
-    <div id="form-wrapper">
-      <form method="POST" action="/register" id="form" y>
-        {{ form.csrf_token }}
-        <p>{{ form.username.label }}</p>
-        {{ form.username }}
-        <p>{{ form.mail.label }}</p>
-        {{ form.mail }}
-        <p>{{ form.password.label }}</p>
-        {{ form.password }}
-        <p>{{ form.password_re.label }}</p>
-        {{ form.password_re }}
-        <input type="submit" value="Register">
-      </form>
+    <div id="wrapper">
+      <div id="form-wrapper">
+        <form method="POST" action="/register" id="form" y>
+          {{ form.csrf_token }}
+          <h2>Sign up</h2>
+          <p>{{ form.username(class_="reg-form")}}</p>
+          <p>{{ form.mail(class_="reg-form")}}</p>
+          <p>{{ form.password(class_="reg-form")}}</p>
+          <p>{{ form.password_re(class_="reg-form")}}</p>
+          <p>
+            <input id="reg-submit" type="submit" value="Register">
+          </p>
+        </form>
+      </div>
+      </div>
+      <div id="form-side">
+        
+      </div>
     </div>
     
   </body>

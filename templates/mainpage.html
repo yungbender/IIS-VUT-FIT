@@ -1,6 +1,7 @@
 <style>
   body {
-    background-color: #e6e6e6;
+    background: rgb(184,184,184);
+    background: linear-gradient(0deg, rgba(184,184,184,1) 0%, rgba(239,239,239,1) 45%,  rgba(242,242,242,1) 50%, rgba(239,239,239,1) 55%, rgba(184,184,184,1) 100%); 
     background-attachment: fixed;
     font-family: 'Playfair Display', serif;
     text-align: center;
@@ -19,6 +20,12 @@
     padding: 10 40 10 ;
     margin: 0;
   }
+
+  #logo a {
+    text-decoration: none;
+    color: white;
+  }
+
   
   #mainbar {
     display: block;
@@ -28,9 +35,16 @@
   
   #mainbar input {
     float: left;
-    margin: 18px;
+    margin: 18px 0px 18px 18px;
     padding: 0px;
     height: 18px;
+  }
+
+  #mainbar img {
+    float: left;
+    margin: 18px 18px 18px 0px;
+    padding: 0px;
+    height: 34px;
   }
   
   ul {
@@ -44,14 +58,14 @@
     height: 50%;
   }
   
-  a {
+  .bar-links {
     text-decoration: none;
     color: white;
     display: block;
     padding: 24 10;
   }
 
-  a:hover {
+  a.bar-links:hover {
     background-color: #b3b3b3;
     color: black;
   }
@@ -69,23 +83,23 @@
 <html>
   <head>
     <link href="https://fonts.googleapis.com/css?family=Playfair+Display&display=swap" rel="stylesheet">
-    <script type="text/javascript" src="http://livejs.com/live.js"></script>
+    <scrigvpt type="text/javascript" src="http://livejs.com/live.js"></script>
   </head>
   <body>
   
     <div id="mainbar">
-      <h1 id="logo">BugTrack</h1>
-      
+      <h1 id="logo"><a href="./">BugTrack</a></h1>      
       <div>
       
         <input id="main" type="text" placeholder="Search for bugs..">
+        <img src="/img/search.png" height="30px" width="30px"></img>
         <h4>
           <ul>
             {% if user.is_authenticated %}
-              <li><a href="./logout">Logout</a>
+              <li><a class="bar-links" href="./logout">Logout</a>
             {% else %}
-              <li><a href="./register">Register</a></li>
-              <li><a href="./login">Login</a></li>
+            <li><a class="bar-links" href="./register">Sign up</a></li>
+            <li><a class="bar-links" href="./login">Sign in</a></li>
             {% endif %}
           </ul>
         </h4>
