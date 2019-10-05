@@ -46,13 +46,13 @@
     height: 34px;
   }
   
-  ul {
+  #mainbar ul {
     margin: 0;
     list-style-type: none;
     color: white;
   }
   
-  li {
+  #mainbar li {
     float: right;
     height: 50%;
   }
@@ -69,12 +69,12 @@
     color: black;
   }
   
-  h1 {
+  #mainbar h1 {
     margin: 0;
     color: white;
   }
   
-  h4 {
+  #mainbar h4 {
     margin: 0;
   }
 
@@ -128,20 +128,12 @@
     margin: 0 auto;
   }
 
-  #form-side {
-    wiadth: 1000px;
-    haeight: 200px;
-    margin: 0 auto;
-    background-color: grey;
-    float: left;
-  }
-
 </style>
 
 <html>
   <head>
     <link href="https://fonts.googleapis.com/css?family=Playfair+Display&display=swap" rel="stylesheet">
-    <schjript type="text/javascript" src="http://livejs.com/live.js"></script>
+    <script type="text/javascript" src="http://livejs.com/live.js"></script>
   </head>
   <body>
   
@@ -150,7 +142,7 @@
       
       <div>      
         <input id="main" type="text" placeholder="Search for bugs..">
-        <img src="/img/search.png" height="30px" width="30px"></img>
+        <img src="/static/search.png" height="30px" width="30px"></img>
         <h4>
           <ul>
             <li><a class="bar-links" href="./register">Sign up</a></li>
@@ -173,11 +165,7 @@
           </p>
         </form>
       </div>
-      </div>
-      <div id="form-side">
-        
-      </div>
     </div>
-    
+        
   </body>
 </html>

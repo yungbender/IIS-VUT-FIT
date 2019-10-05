@@ -1,0 +1,34 @@
+{% extends "mainpage.html" %}
+
+<html>
+  <head>
+    {% block head %}
+    <link href="https://fonts.googleapis.com/css?family=Playfair+Display&display=swap" rel="stylesheet">
+    <script type="text/javascript" src="http://livejs.com/live.js"></script>
+    {% endblock %}
+  </head>
+  <body>
+    triskolet
+    {% block content %}
+    <div id="mainbar">
+      <h1 id="logo"><a href="./">BugTrack</a></h1>
+      <div>  
+        <input id="main" type="text" placeholder="Search for bugs..">
+        <img src="{{ search_image }}" height="30px" width="30px"><a></a></img>
+        <h4>
+          <ul>
+            {% if user.is_authenticated %}
+              <li><a class="bar-links" href="./logout">Logout</a>
+            {% else %}
+            <li><a class="bar-links" href="./register">Sign up</a></li>
+            <li><a class="bar-links" href="./login">Sign in</a></li>
+            {% endif %}
+          </ul>
+        </h4>
+      </div>      
+    </div>
+    <div>    	
+    </div>
+    {% endblock %}    
+  </body>
+</html>

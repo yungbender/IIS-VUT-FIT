@@ -5,11 +5,12 @@ from login import LOGIN_API,SECRET_KEY
 from register import REGISTER_API
 from logout import LOGOUT_API
 from ticket import TICKET_API
+import os
 
 
 def create_app():
-    app = Flask(__name__, template_folder="templates")
-    
+    app = Flask(__name__, template_folder="templates", static_folder=os.path.join(os.getcwd(), "templates", "Static"))
+
     app.register_blueprint(MAINPAGE_API)
     app.register_blueprint(LOGIN_API)
     app.register_blueprint(REGISTER_API)
@@ -20,7 +21,6 @@ def create_app():
     LOGIN_MANAGER.init_app(app)
     
     return app
-
     
 app = create_app()
 
