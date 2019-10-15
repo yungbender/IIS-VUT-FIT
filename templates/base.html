@@ -1,14 +1,13 @@
-{% extends "mainpage.html" %}
-
+<!DOCTYPE html>
 <html>
   <head>
+    <link rel="stylesheet" href="static/base.css">
     {% block head %}
     <link href="https://fonts.googleapis.com/css?family=Playfair+Display&display=swap" rel="stylesheet">
     <script type="text/javascript" src="http://livejs.com/live.js"></script>
     {% endblock %}
   </head>
   <body>
-    triskolet
     {% block content %}
     <div id="mainbar">
       <h1 id="logo"><a href="./">BugTrack</a></h1>
@@ -26,8 +25,6 @@
           </ul>
         </h4>
       </div>      
-    </div>
-    <div>    	
     </div>
     {% endblock %}    
   </body>

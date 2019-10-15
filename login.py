@@ -32,4 +32,4 @@ def login():
         
         flash("Incorrect username or password!")
 
-    return render_template("login.html", form=loginForm)
+    return render_template("login.html", form=loginForm, user=current_user)

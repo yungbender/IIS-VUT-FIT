@@ -1,0 +1,128 @@
+body {
+    background: rgb(184,184,184);
+    background: linear-gradient(0deg, rgba(184,184,184,1) 0%, rgba(239,239,239,1) 45%,  rgba(242,242,242,1) 50%, rgba(239,239,239,1) 55%, rgba(184,184,184,1) 100%); 
+    background-attachment: fixed;
+    font-family: 'Playfair Display', serif;
+    text-align: center;
+    min-width: 400px;
+    margin: 0;
+    padding: 0;
+  }
+  
+  #logo {
+    background-color: #004d80;
+    color: white;
+    border-style: solid;
+    border-color: black;
+    font-weight: bold;
+    float: left;
+    padding: 10 40 10px;
+    margin: 0;
+  }
+
+  #logo a {
+    text-decoration: none;
+    color: white;
+  }
+  
+  #mainbar {
+    display: block;
+    background-color: #000f1a;
+    height: 69px;    
+  }
+  
+  #mainbar input {
+    float: left;
+    margin: 18px 0px 18px 18px;
+    padding: 0px;
+    height: 18px;
+  }
+
+   #mainbar img {
+    float: left;
+    margin: 18px 18px 18px 0px;
+    padding: 0px;
+    height: 34px;
+  }
+  
+  #mainbar ul {
+    margin: 0;
+    list-style-type: none;
+    color: white;
+  }
+  
+  #mainbar li {
+    float: right;
+    height: 50%;
+  }
+  
+  .bar-links {
+    text-decoration: none;
+    color: white;
+    display: block;
+    padding: 24 10px;
+  }
+
+  a.bar-links:hover {
+    background-color: #b3b3b3;
+    color: black;
+  }
+  
+  #mainbar h1 {
+    margin: 0;
+    color: white;
+  }
+  
+  #mainbar h4 {
+    margin: 0;
+  }
+
+  #form-wrapper {
+    margin: 140 0 0 0px;
+  }
+
+  #form {
+    border-radius: 15px;
+    background-color: black;
+    text-align: center;
+    margin: 0 auto;
+    width: 500px;
+    height: 320px;
+    display: block;
+  }
+
+  #form p {
+    font-weight: normal;
+    font-style: oblique;
+    font-size: 17px;
+  }
+
+  #form h2 {
+    color: white;
+    padding: 20px;
+  }
+
+  .log-form {
+    background-color: #cccccc;
+    height: 35px;
+    width: 220px;
+    border-radius: 0px;
+    border-width: 0px;
+    margin: 2px;
+  }
+
+  #log-submit {
+    background-color: #1aa3ff;
+    font-weight: bold;
+    width: 220px;
+    height: 35px;
+    border-color: #80ccff;
+    border-radius: 5px;
+    color: black;
+    font-weight: bold;
+    margin: 20px;
+  }
+
+  #wrapper {
+    margin: 0 auto;
+  }

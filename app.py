@@ -9,7 +9,7 @@ import os
 
 
 def create_app():
-    app = Flask(__name__, template_folder="templates", static_folder=os.path.join(os.getcwd(), "templates", "Static"))
+    app = Flask(__name__, template_folder="templates", static_folder=os.path.join(os.getcwd(), "templates", "static"))
 
     app.register_blueprint(MAINPAGE_API)
     app.register_blueprint(LOGIN_API)

@@ -1,7 +1,7 @@
-from models.client_model import UserModel
+from models.client_model import Client
 from flask_login import UserMixin
 
-class User(UserModel, UserMixin):
+class User(Client, UserMixin):
     
     """ Set table in database for user. (peewee)"""
     class Meta:
