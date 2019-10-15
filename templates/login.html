@@ -1,6 +1,15 @@
 {% extends "base.html" %}
-{% block content %}
-{{ super() }}
+
+<html>
+  <head>
+    {% block head %}
+    <link rel="stylesheet" href="static/login.css">
+    {{ super() }}
+    {% endblock %}
+  </head>
+  <body>
+    {% block content %}
+    {{ super() }}
     <div id="wrapper">
         <div id="form-wrapper">
           <form method="POST" action="/login" id="form" y>
@@ -14,4 +23,6 @@
           </form>
         </div>
     </div>
-{% endblock %}
+    {% endblock %}
+  </body>
+</html>

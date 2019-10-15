@@ -1,4 +1,4 @@
-
+{% extends "base.html" %}
 
 <style>
   body {
@@ -86,12 +86,12 @@
 <html>
   <head>
     {% block head %}
-    vreveli mi
+    {{ super() }}
     {% endblock %} 
   </head>
   <body>
     {% block content %}
-    ty si k
+    {{ super() }}
     <h1>Hello {{ user.clientname }}!</h1>
     {% endblock %}
   </body>

@@ -1,0 +1,20 @@
+Administrator
+	+panel na vyhladávanie užívaťelovň
+
+Vedoucí
+	#stránka - tvorba produktu
+
+Manažér
+	#stránka - profil produktu
+	#stránka - tvorba úloh
+
+Pracovník
+	#stránka - info o úlohe
+	+odpoveď k úlohe
+
+Zákazník
+	#stránka tvorba tiketu
+	#stránka info o tikete
+	#stránka info o progile používateľa
+	#stránka editácia profilu
+	

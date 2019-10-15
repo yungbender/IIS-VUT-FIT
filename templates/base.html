@@ -4,7 +4,6 @@
     <link rel="stylesheet" href="static/base.css">
     {% block head %}
     <link href="https://fonts.googleapis.com/css?family=Playfair+Display&display=swap" rel="stylesheet">
-    <script type="text/javascript" src="http://livejs.com/live.js"></script>
     {% endblock %}
   </head>
   <body>
@@ -13,7 +12,7 @@
       <h1 id="logo"><a href="./">BugTrack</a></h1>
       <div>  
         <input id="main" type="text" placeholder="Search for bugs..">
-        <img src="{{ search_image }}" height="30px" width="30px"><a></a></img>
+        <img src="/static/search.png" height="30px" width="30px"><a></a></img>
         <h4>
           <ul>
             {% if user.is_authenticated %}

@@ -1,0 +1,21 @@
+{% extends "base.html" %}
+
+<html>
+  <head>
+    {% block head %}
+    <link rel="stylesheet" href="static/dashboard.css">
+    {{ super() }}
+    {% endblock %}
+  </head>
+  <body>
+    {% block content %}
+    {{ super() }}
+    <div id="icons">
+    	<button></button>
+    	<button></button>
+    	<button></button>
+    	<button></button>
+    </div>
+    {% endblock %}
+  </body>
+</html>

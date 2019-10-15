@@ -28,4 +28,4 @@ def register():
             #login_user(user)
             return redirect(url_for("mainpage.index"))
     print(registerForm.errors)  
-    return render_template("register.html", form=registerForm)
+    return render_template("register.html", form=registerForm, user=current_user)
