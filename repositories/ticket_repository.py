@@ -28,3 +28,12 @@ class TicketRepostory():
                      .join(Comment) \
                      .where(Comment.author_id == userId) \
                      .execute()
+
+    def create_ticket(self, name, description, state=0, image, authorId, productId):
+        Ticket.create(name=name, description=description, state=state, author_id=authorId, product_id=productId)
+    
+    def update_ticket_state(self, ticketId, state):
+        ticket = Ticket()
+        ticket.id = ticketId
+        ticket.state = state
+        ticket.save()

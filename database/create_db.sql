@@ -36,7 +36,7 @@ CREATE TABLE product
     description TEXT,
     image VARCHAR(64) DEFAULT 'default',
     creation_date DATE DEFAULT CURRENT_DATE,
-    completion_date DATE,
+    completion_date VARCHAR(64),
     version VARCHAR(64),
     manager_id VARCHAR(64) REFERENCES client(clientname)
 );
@@ -59,6 +59,7 @@ CREATE TABLE comment
     content TEXT NOT NULL,
     image VARCHAR(64),
     ticket_id SERIAL REFERENCES ticket(id),
+    task_id SERIAL REFERENCES task(id),
     author_id VARCHAR(64) REFERENCES client(clientname)
 );
 

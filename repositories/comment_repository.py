@@ -1,11 +1,23 @@
 from models.comment_model import Comment
 from models.ticket_model import Ticket
+from models.task_model import Task
 
 class CommentRepository:
 
     def get_ticket_comments(self, ticketId):
         return Comment.select() \
-                      .join(Ticket)
-                      .where(Ticket.id == ticketId)
+                      .join(Ticket) \
+                      .where(Ticket.id == ticketId) \
                       .execute()
     
+    def get_task_comments(self, taskId):
+        return Comment.select() \
+                      .join(Task) \
+                      .where(Task.id == taskId) \
+                      .execute()
+    
+    def create_ticket_comment(self, content, image, ticketId, authorId):
+        Ticket.create(content=content, image=image, ticket_id=ticketId, author_id=authorId)
+    
+    def create_task_comment(self, content, image, taskId, authorId):
+        Ticket.create(content=content, image=image, task_id=taskId, author_id=authorId)
