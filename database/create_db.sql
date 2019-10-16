@@ -1,3 +1,10 @@
+CREATE TABLE position
+(
+    id INTEGER PRIMARY KEY,
+    position VARCHAR(64) NOT NULL
+);
+
+
 CREATE TABLE client
 (
     clientname VARCHAR(64) PRIMARY KEY,
@@ -7,7 +14,7 @@ CREATE TABLE client
     surname VARCHAR(64),
     birth DATE,
     image VARCHAR(64) NOT NULL DEFAULT 'default',
-    position VARCHAR(64) NOT NULL DEFAULT 'customer',
+    position_id INTEGER NOT NULL REFERENCES position(id) DEFAULT 0,
     work_time INTEGER DEFAULT 0
 );
 
@@ -55,20 +62,23 @@ CREATE TABLE comment
     author_id VARCHAR(64) REFERENCES client(clientname)
 );
 
-CREATE TABLE product_customer
-(
-    state SMALLINT NOT NULL DEFAULT 0,
-    customer_id VARCHAR(64) REFERENCES client(clientname),
-    product_id VARCHAR(64) REFERENCES product(name)
-);
-
 CREATE TABLE task_ticket
 (
     task_id SERIAL REFERENCES task(id),
     ticket_id SERIAL REFERENCES ticket(id)
 );
 
+CREATE TABLE developer_product
+(
+    developer_id VARCHAR(64) NOT NULL REFERENCES client(clientname),
+    product_id VARCHAR(64) NOT NULL REFERENCES product(name)
+);
+
+INSERT INTO position VALUES (0, 'customer');
+INSERT INTO position VALUES (1, 'developer');
+INSERT INTO position VALUES (2, 'manager');
+INSERT INTO position VALUES (3, 'owner');
+INSERT INTO position VALUES (4, 'admin');
+
 CREATE USER iis_webapp WITH ENCRYPTED PASSWORD 'iis_passwd';
 GRANT ALL PRIVILEGES ON ALL TABLES IN SCHEMA public TO iis_webapp;
-
-COMMIT;
