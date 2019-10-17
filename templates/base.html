@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <link rel="stylesheet" href="static/base.css">
+    <link rel="stylesheet" href="/static/base.css">
     {% block head %}
     <link href="https://fonts.googleapis.com/css?family=Playfair+Display&display=swap" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css?family=Bitter&display=swap" rel="stylesheet">
@@ -10,15 +10,17 @@
   <body>
     {% block content %}
     <div id="mainbar">
-      <h1 id="logo"><a href="./">BugTrack</a></h1>
+      <h1 id="logo"><a href="/">BugTrack</a></h1>
       <div>  
         <input id="main" type="text" placeholder="Search for bugs..">
+        {% if user.is_authenticated %}
         <img src="/static/search.png" height="30px" width="30px"><a></a></img>
+        {% endif %}
         <h4>
           <ul>
             {% if user.is_authenticated %}
             <li><a class="bar-links" href="./logout">Logout</a></li>
-            <li><button id="profile-pic-small"></button></li>
+            <li><a href="/profile/{{ user.clientname }}"><button id="profile-pic-small"></button></a></li>
             {% else %}
             <li><a class="bar-links" href="./register">Sign up</a></li>
             <li><a class="bar-links" href="./login">Sign in</a></li>

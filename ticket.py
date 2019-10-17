@@ -5,7 +5,6 @@ TICKET_API = Blueprint("ticket", __name__)
 
 @TICKET_API.route("/ticket/<id>")
 def ticket(id):
-    ticket = Ticket().select().where(Ticket.id == id).first()
     if ticket:
         return render_template("ticket.html", ticket=ticket)
     else:

@@ -17,7 +17,6 @@ def create_app():
     app.register_blueprint(LOGIN_API)
     app.register_blueprint(REGISTER_API)
     app.register_blueprint(LOGOUT_API)
-    app.register_blueprint(TICKET_API)
     app.register_blueprint(DASHBOARD_API)
     app.register_blueprint(PROFILE_API)
     app.secret_key = SECRET_KEY
