@@ -1,6 +1,87 @@
-#icons button {
-	size: 100px;
-	margin: 800px;
-	padding: 0px;
+#icons input {
+	width: 200px;
+	height: 200px;
+	margin: 30px;
+	padding: 20px;
+	border-width: 0px;
+	background-size: cover;
+	background-color: transparent;
+}
+
+#tickets-butt {
+	background-image: url("/static/tickets.png");
+}
+
+#add-ticket-butt {
+	background-image: url("/static/add_ticket.png");
+}
+
+#icons input:hover{
+	background-color: white;
+}
+
+#icons div {
+	margin: 0 auto;
+	display: block;
+	text-align: center;
+
+}
+
+#icons-wrapper div {
+	margin: 140px 0px 0px 0px;
+
+}
+
+.last-tickets-wrapper {
+	margin: 140px 0px 60px 0px;
+	font-family: 'Bitter', serif;
+}
+
+.last-tickets {
+	border-radius: 7px;
 	background-color: black;
+	text-align: center;
+	margin: 0px 20px 0px 20px;
+	padding: 0px 0px 10px 0px;
+	width: 800px;
+	height: auto;
+	display: inline-block;
+	vertical-align: top;
+}
+
+.last-tickets p{
+	text-align: center;
+	color: white;
+	/*! font-size: 20px; */
+}
+
+.ticket div{
+
+	width: 600px;
+	height: auto;
+	text-align: center;
+	margin: 0px auto;
+	background-color: #004d80;
+	font-size: 12px;
+	border-style: solid;
+	border-radius: 0px;
+	border-width: 0px 0px 7px 0px;
+	border-color: black;
+	align-content: center;
+}
+
+.ticket-left {
+	float: left;
+	padding: 5px;
+	margin: 0px;
+	vertical-align: top;
+	font-size: 14px;
+}
+
+.ticket-right {
+	float: right;
+	padding: 5px;
+	margin: 0px;
+	vertical-align: top;
+	font-size: 14px;
 }

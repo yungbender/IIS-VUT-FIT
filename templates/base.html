@@ -4,6 +4,7 @@
     <link rel="stylesheet" href="static/base.css">
     {% block head %}
     <link href="https://fonts.googleapis.com/css?family=Playfair+Display&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Bitter&display=swap" rel="stylesheet">
     {% endblock %}
   </head>
   <body>
@@ -16,7 +17,8 @@
         <h4>
           <ul>
             {% if user.is_authenticated %}
-              <li><a class="bar-links" href="./logout">Logout</a>
+            <li><a class="bar-links" href="./logout">Logout</a></li>
+            <li><button id="profile-pic-small"></button></li>
             {% else %}
             <li><a class="bar-links" href="./register">Sign up</a></li>
             <li><a class="bar-links" href="./login">Sign in</a></li>

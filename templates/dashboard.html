@@ -10,11 +10,49 @@
   <body>
     {% block content %}
     {{ super() }}
-    <div id="icons">
-    	<button></button>
-    	<button></button>
-    	<button></button>
-    	<button></button>
+    <div id="icons-wrapper">
+      <div id="icons">
+        <input id="tickets-butt" type="button">
+        <input id="add-ticket-butt" type="button">
+      </div>
+    </div>
+    <div class="last-tickets-wrapper">
+      <div class="last-tickets">
+        <p>Your last tickets</p>
+        <div class="ticket">
+          <div class="ticket-text">
+            <p class="ticket-left">Bug <b>Its broken</b> on <b>miroOS</b></p>
+            <p class="ticket-right">By <b>stepan</b> on <b>17.10.2019</b></p>
+            <div style="clear: both; user-select: auto;"></div>
+          </div>
+        </div>
+        <div class="ticket">
+          <div class="ticket-text">
+            <p class="ticket-left">Bug <b>Its not working</b> on <b>miroOS</b></p>
+            <p class="ticket-right">By <b>stepan</b> on <b>16.10.2019</b></p>
+            <div style="clear: both; user-select: auto;"></div>
+          </div>
+        </div>
+        <div class="ticket">
+          <div class="ticket-text">
+            <p class="ticket-left">Bug <b>Cant log in</b> on <b>GitFIT</b></p>
+            <p class="ticket-right">By <b>stepan</b> on <b>10.9.2019</b></p>
+            <div style="clear: both; user-select: auto;"></div>
+          </div>
+        </div>
+        <p>See more...</p>
+      </div>
+      <div class="last-tickets">
+        <p>Your last commented tickets</p>
+        <div class="ticket">
+          <div class="ticket-text">
+            <p class="ticket-left">Bug <b>Cant log in</b> on <b>GitFIT</b></p>
+            <p class="ticket-right">By <b>stepan</b> on <b>17.10.2019</b>
+            <div style="clear: both; user-select: auto;"></div>
+          </div>
+        </div>
+        <p>See more...</p>
+      </div>
     </div>
     {% endblock %}
   </body>

@@ -31,7 +31,7 @@ body {
   height: 69px;    
 }
 
-#mainbar input {
+#main {
   float: left;
   margin: 18px 0px 18px 18px;
   padding: 0px;
@@ -75,4 +75,18 @@ a.bar-links:hover {
 
 #mainbar h4 {
   margin: 0;
+}
+
+#profile-pic-small{
+  width: 45px;
+  height: 45px;
+  margin: 10px 5px;
+  padding: 0px;
+  border-width: 1px;
+  border-radius: 45px;
+  border-color: white;
+  background-size: cover;
+  background-color: white;
+  background-image: url("/static/user.png");
+  cursor: pointer;
 }
