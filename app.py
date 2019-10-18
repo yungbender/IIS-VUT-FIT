@@ -21,6 +21,7 @@ def create_app():
     app.register_blueprint(PROFILE_API)
     app.secret_key = SECRET_KEY
     app.config["REMEMBER_COOKIE_DURATION"] = 10
+    app.config["TEMPLATES_AUTO_RELOAD"] = True
     LOGIN_MANAGER.init_app(app)
     
     return app
