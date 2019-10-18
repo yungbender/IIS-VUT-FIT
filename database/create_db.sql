@@ -1,3 +1,10 @@
+-- Delete previous database and initialize new one
+DROP SCHEMA public CASCADE;
+CREATE SCHEMA public;
+GRANT ALL ON SCHEMA public TO postgres;
+GRANT ALL ON SCHEMA public TO public;
+DROP ROLE IF EXISTS iis_webapp;
+
 CREATE TABLE position
 (
     id INTEGER PRIMARY KEY,
@@ -75,11 +82,18 @@ CREATE TABLE developer_product
     product_id VARCHAR(64) NOT NULL REFERENCES product(name)
 );
 
+-- Create positions
 INSERT INTO position VALUES (0, 'customer');
 INSERT INTO position VALUES (1, 'developer');
 INSERT INTO position VALUES (2, 'manager');
 INSERT INTO position VALUES (3, 'owner');
 INSERT INTO position VALUES (4, 'admin');
 
+-- Create webapp account for admin because someone has to be first admin
+-- Username: admin, Password: adminananas
+INSERT INTO client (clientname, mail, password, name, surname, birth, position_id) 
+VALUES ('admin', 'admin@admin.com', 'ccd95ba02a8fde0c44da61e0b96771e9194bfe914c479313b3c5260ba6c80fb50882f9698ff1d1009ba8b690364fb95b12e320c8c3e497d297e532dcbd9e8dfd', 'admin', 'ananas', CURRENT_TIMESTAMP, 4);
+
+-- Create DB account for webapp to select, delete, etc
 CREATE USER iis_webapp WITH ENCRYPTED PASSWORD 'iis_passwd';
 GRANT ALL PRIVILEGES ON ALL TABLES IN SCHEMA public TO iis_webapp;
