@@ -1,5 +1,8 @@
 {% extends "base.html" %}
 
+<style>
+</style>
+
 <html>
   <head>
     {% block head %}
@@ -10,6 +13,14 @@
   <body>
     {% block content %}
     {{ super() }}
+	<img src="/static/user.png" style="width:20%">
+    <h1>{{ user.clientname }}</h1>
+   	<p>{{ user.mail }}</p>
+   	<p>{{ user.name }}</p>
+	<p>{{user.surname}}</p>
+   	<p>{{ user.birth }}</p>
+   	<p>{{ user.position_id }}</p>
+   	<p>{{ user.work_time }}</p>
     {% endblock %}
   </body>
 </html>
