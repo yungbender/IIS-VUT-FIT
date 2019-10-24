@@ -5,6 +5,8 @@
     {% block head %}
     <link href="https://fonts.googleapis.com/css?family=Playfair+Display&display=swap" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css?family=Bitter&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Playfair+Display&display=swap" rel="stylesheet">
+      <script type="text/javascript" src="http://livejs.com/live.js"></script>
     {% endblock %}
   </head>
   <body>
@@ -19,11 +21,11 @@
         <h4>
           <ul>
             {% if user.is_authenticated %}
-            <li><a class="bar-links" href="./logout">Logout</a></li>
-            <li><a href="/profile/{{ user.clientname }}"><button id="profile-pic-small"></button></a></li>
+            <li><a class="bar-links" href="/logout">Logout</a></li>
+            <li><form action="/profile/{{ user.clientname }}"><input type="submit" value="" id="profile-pic-small"></input></form></li>
             {% else %}
-            <li><a class="bar-links" href="./register">Sign up</a></li>
-            <li><a class="bar-links" href="./login">Sign in</a></li>
+            <li><a class="bar-links" href="/register">Sign up</a></li>
+            <li><a class="bar-links" href="/login">Sign in</a></li>
             {% endif %}
           </ul>
         </h4>

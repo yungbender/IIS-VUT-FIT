@@ -12,8 +12,20 @@
     {{ super() }}
     <div id="icons-wrapper">
       <div id="icons">
-        <input id="tickets-butt" type="button">
-        <input id="add-ticket-butt" type="button">
+      	<form class="ticket-form">
+      		<input id="tickets-butt" type="submit" value="">
+      	</form>
+      	<form class="ticket-form" action="">
+      		<input id="add-ticket-butt" type="submit" value="">
+      	</form>
+        {% if user.position_id.id >= 3 %}
+        <form class="ticket-form" action="products">
+          <input id="products-butt" type="submit" value="">
+        </form>
+        <form class="ticket-form" action="products/new">
+          <input id="add-product-butt" type="submit" value="">
+        </form>
+        {% endif %}
       </div>
     </div>
     <div class="last-tickets-wrapper">

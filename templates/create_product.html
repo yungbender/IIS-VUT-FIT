@@ -1,0 +1,38 @@
+{% extends "base.html" %}
+
+<html>
+  <head>
+    {% block head %}
+    <link rel="stylesheet" href="/static/create_product.css">
+    {{ super() }}
+    {% endblock %}
+  </head>
+  <body>
+    {% block content %}
+    {{ super() }}
+    <div id="form-wrapper">
+      <div id="form">
+        <p id="form-title">Create new product</p>
+        <div id="form-inner">
+          <div class="column-left">
+            <img height="200" width="200" src="/static/dummy_product.jpg">
+            <p>
+              <input id="choose-image" type="submit" value="Choose image">
+            </p>          </div>
+          <div class="column-right">
+            <p>{{ form.name(class_="product-form")}}</p>
+            <p>{{ form.completion_date(class_="product-form")}}</p>
+            <p>{{ form.version(class_="product-form")}}</p>
+          </div>
+          <div>
+            <p>{{ form.description(class_="product-form")}}</p>
+          </div>
+          <p>
+            <input id="product-submit" type="submit" value="Save product">
+          </p> 
+        </div>
+      </div>
+    </div>
+    {% endblock %}
+  </body>
+</html>
