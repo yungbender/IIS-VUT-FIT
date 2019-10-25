@@ -20,7 +20,7 @@ CREATE TABLE client
     name VARCHAR(64),
     surname VARCHAR(64),
     birth DATE,
-    image VARCHAR(64) NOT NULL DEFAULT 'default',
+    image VARCHAR(64) NOT NULL DEFAULT '1.jpg',
     position_id INTEGER NOT NULL REFERENCES position(id) DEFAULT 0,
     work_time INTEGER DEFAULT 0
 );
@@ -41,7 +41,7 @@ CREATE TABLE product
 (
     name VARCHAR(64) PRIMARY KEY,
     description TEXT,
-    image VARCHAR(64) DEFAULT 'default',
+    image VARCHAR(64) DEFAULT '2.jpg',
     creation_date DATE DEFAULT CURRENT_DATE,
     completion_date VARCHAR(64),
     version VARCHAR(64),
@@ -57,7 +57,7 @@ CREATE TABLE ticket
     creation_date TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
     image VARCHAR(64),
     author_id VARCHAR(64) REFERENCES client(clientname),
-    product_name VARCHAR(64) REFERENCES product(name)
+    product_id VARCHAR(64) REFERENCES product(name)
 );
 
 CREATE TABLE comment

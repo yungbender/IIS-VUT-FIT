@@ -36,3 +36,8 @@ class UserRepository():
 
     def register_user(self, username, mail, password):
         User.create(clientname=username, mail=mail, password=password)
+    
+    def check_user(self, userId):
+        return User.select() \
+                   .where(User.clientname == userId) \
+                   .exists()

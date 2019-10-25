@@ -15,7 +15,6 @@ SECRET_KEY = "30c2eaa65b970b48317e4120efc4a7f8"
 
 @LOGIN_API.route("/login", methods=["GET", "POST"])
 def login():
-    print(current_user.is_authenticated)
     if current_user.is_authenticated:
         return redirect(url_for("dashboard.index"))
     

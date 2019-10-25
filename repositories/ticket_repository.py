@@ -16,6 +16,7 @@ class TicketRepostory():
         return Ticket.select(Ticket.id, \
                              Ticket.name, \
                              Ticket.creation_date) \
+                     .where() \
                      .execute()
     
     def get_created_tickets(self, userId):
@@ -29,7 +30,7 @@ class TicketRepostory():
                      .where(Comment.author_id == userId) \
                      .execute()
 
-    def create_ticket(self, name, description, state=0, image, authorId, productId):
+    def create_ticket(self, name, description, image, authorId, productId, state=0):
         Ticket.create(name=name, description=description, state=state, author_id=authorId, product_id=productId)
     
     def update_ticket_state(self, ticketId, state):

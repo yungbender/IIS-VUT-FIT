@@ -1,4 +1,5 @@
 from flask import Flask, render_template, request
+import os
 from login_manager import LOGIN_MANAGER
 from mainpage import MAINPAGE_API
 from login import LOGIN_API,SECRET_KEY
@@ -8,7 +9,7 @@ from ticket import TICKET_API
 from dashboard import DASHBOARD_API
 from profile import PROFILE_API
 from products import PRODUCTS_API
-import os
+from upload_handler import MAX_UPLOAD_SIZE
 
 
 def create_app():
@@ -21,9 +22,11 @@ def create_app():
     app.register_blueprint(DASHBOARD_API)
     app.register_blueprint(PROFILE_API)
     app.register_blueprint(PRODUCTS_API)
+    app.register_blueprint(TICKET_API)
     app.secret_key = SECRET_KEY
     app.config["REMEMBER_COOKIE_DURATION"] = 10
     app.config["TEMPLATES_AUTO_RELOAD"] = True
+    app.config["MAX_CONTENT_LENGTH"] = MAX_UPLOAD_SIZE
     LOGIN_MANAGER.init_app(app)
     
     return app

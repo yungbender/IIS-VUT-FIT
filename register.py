@@ -15,17 +15,16 @@ USER_REPOSITORY = UserRepository()
 
 @REGISTER_API.route("/register", methods=["GET", "POST"])
 def register():
-    print(current_user.is_authenticated)
     if current_user.is_authenticated:
         return redirect(url_for("mainpage.index"))
 
     registerForm = RegisterForm()
     if registerForm.validate_on_submit():
-        user = USER_REPOSITORY.get_user(registerForm.username.data)
-        if not user:
+        username = registerForm.username.data
+        mail = registerForm.mail.data
+        if not USER_REPOSITORY.check_user(username):
             pwd_encrypted = sha512((registerForm.password.data + SECRET_KEY).encode("utf-8")).hexdigest()
-            USER_REPOSITORY.register_user(registerForm.username.data, registerForm.mail.data, pwd_encrypted)
+            USER_REPOSITORY.register_user(username, mail, pwd_encrypted)
             #login_user(user)
             return redirect(url_for("mainpage.index"))
-    print(registerForm.errors)  
     return render_template("register.html", form=registerForm, user=current_user)
