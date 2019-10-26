@@ -21,6 +21,7 @@ def create_products():
             productDesc = productForm.description.data
             productCompletion = productForm.completion_date.data
             productVer = productForm.version.data
-            PRODUCTS_REPO.create_product(productName, productDesc, productCompletion, productVer)
+            productManager = productForm.version.data
+            PRODUCTS_REPO.create_product(productName, productDesc, productCompletion, productVer, productManager)
 
     return render_template("create_product.html", user=current_user, search_image="/Static/search.png", productForm=productForm)

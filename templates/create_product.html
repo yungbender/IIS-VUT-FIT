@@ -10,22 +10,53 @@
   <body>
     {% block content %}
     {{ super() }}
+    <div id="search-manager-wrapper" style="display: none;">
+      <div id="search-manager">
+        <div id="search-manager-bar">
+          <input id="search-manager-bar-input" type="text" placeholder="Search for manager..">
+          <input id="search-manager-bar-butt" type="submit" value="">
+        </div>
+        <div id="search-manager-list">
+          <p class="search-manager-list-item">Godzila</p>
+          <p class="search-manager-list-item">Vano</p>
+          <p class="search-manager-list-item">Tomino Sasino</p>
+          <p class="search-manager-list-item">Vodník</p>
+        </div>
+      </div>
+    </div>
     <div id="form-wrapper">
       <div id="form">
         <p id="form-title">Create new product</p>
         <div id="form-inner">
           <div class="column-left">
-            <img height="200" width="200" src="/static/dummy_product.jpg">
+            <img id="product-image" src="/static/uploads/2.jpg">
             <p>
               <input id="choose-image" type="submit" value="Choose image">
             </p>          </div>
           <div class="column-right">
-            <p>{{ form.name(class_="product-form")}}</p>
-            <p>{{ form.completion_date(class_="product-form")}}</p>
-            <p>{{ form.version(class_="product-form")}}</p>
+            {{ productForm.csrf_token }}
+            <p>{{ productForm.name(class_="product-form")}}</p>
+            <p>{{ productForm.completion_date(class_="product-form")}}</p>
+            <p>{{ productForm.version(class_="product-form")}}</p>
+            <p>{{ productForm.manager_id(class_="product-form")}}</p>
+            <p>
+              <button id="search-manager-butt" onclick="hideSearch()">Search for manager</button>
+              <script type='text/javascript'>
+              function hideSearch()
+              {
+                var div = document.getElementById("search-manager-wrapper");
+                if (div.style.display === "none") {
+                  div.style.display = "initial";
+                } else {
+                  div.style.display = "none";
+                }
+              } 
+
+              </script>
+            </p> 
           </div>
           <div>
-            <p>{{ form.description(class_="product-form")}}</p>
+            <p>{{ productForm.description}}</p>
           </div>
           <p>
             <input id="product-submit" type="submit" value="Save product">

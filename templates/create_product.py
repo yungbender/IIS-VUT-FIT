@@ -1,9 +1,10 @@
 from flask_wtf import FlaskForm
-from wtforms import StringField, PasswordField
+from wtforms import StringField, PasswordField, TextAreaField
 import wtforms.validators as Validators
 
 class ProductForm(FlaskForm):
     name = StringField("Name", [Validators.input_required()], render_kw={"placeholder": "  Product name"})
-    description = StringField("Description", [Validators.input_required()], render_kw={"placeholder": "  Product description"})
+    description = TextAreaField("Description", [Validators.input_required()], render_kw={"placeholder": "  Product description"})
     completion_date = StringField("Completion date", [Validators.input_required()], render_kw={"placeholder": "  Product completion date"})
     version = StringField("Version", [Validators.input_required()], render_kw={"placeholder": "  Product version"})
+    manager_id = StringField("Manager ID", [Validators.input_required()], render_kw={"placeholder": "  Responsible manager"})
