@@ -8,7 +8,7 @@ from logout import LOGOUT_API
 from ticket import TICKET_API
 from dashboard import DASHBOARD_API
 from profile import PROFILE_API
-from products import PRODUCTS_API
+from product import PRODUCT_API
 from upload_handler import MAX_UPLOAD_SIZE
 
 
@@ -21,7 +21,7 @@ def create_app():
     app.register_blueprint(LOGOUT_API)
     app.register_blueprint(DASHBOARD_API)
     app.register_blueprint(PROFILE_API)
-    app.register_blueprint(PRODUCTS_API)
+    app.register_blueprint(PRODUCT_API)
     app.register_blueprint(TICKET_API)
     app.secret_key = SECRET_KEY
     app.config["REMEMBER_COOKIE_DURATION"] = 10

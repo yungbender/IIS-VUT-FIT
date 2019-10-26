@@ -18,7 +18,13 @@ class UserRepository():
     def get_managers(self, username):
         return User.select() \
                    .join(Position) \
-                   .where(Position.position == "manager" and User.clientname != username) \
+                   .where(Position.position == "manager") \
+                   .execute()
+
+    def search_managers(self, managerPattern):
+        return User.select() \
+                   .join(Position) \
+                   .where(Position.position == "manager" and User.clientname.startswith(managerPattern)) \
                    .execute()
 
     def get_developers(self, username):

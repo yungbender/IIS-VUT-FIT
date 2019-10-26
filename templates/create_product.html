@@ -13,26 +13,29 @@
     <div id="search-manager-wrapper" style="display: none;">
       <div id="search-manager">
         <div id="search-manager-bar">
-          <input id="search-manager-bar-input" type="text" placeholder="Search for manager..">
-          <input id="search-manager-bar-butt" type="submit" value="">
+          <form method="POST" action="/products/new">
+            {{ managerForm.csrf_token }}
+            <p id="search-manager-bar-input">{{ managerForm.manager }}</p>
+            <input id="search-manager-bar-butt" type="submit">
+          </form>
         </div>
         <div id="search-manager-list">
-          <p class="search-manager-list-item">Godzila</p>
-          <p class="search-manager-list-item">Vano</p>
-          <p class="search-manager-list-item">Tomino Sasino</p>
-          <p class="search-manager-list-item">Vodník</p>
+          {% for manager in managers %}
+          <p class="search-manager-list-item">{{ manager.clientname }}</p>
+          {% endfor %}
         </div>
       </div>
     </div>
     <div id="form-wrapper">
-      <div id="form">
+      <form id="form" method="POST" action="/products/new" enctype="multipart/form-data">
         <p id="form-title">Create new product</p>
         <div id="form-inner">
           <div class="column-left">
             <img id="product-image" src="/static/uploads/2.jpg">
             <p>
-              <input id="choose-image" type="submit" value="Choose image">
-            </p>          </div>
+              {{ productForm.image }}
+            </p>
+          </div>
           <div class="column-right">
             {{ productForm.csrf_token }}
             <p>{{ productForm.name(class_="product-form")}}</p>
@@ -51,18 +54,18 @@
                   div.style.display = "none";
                 }
               } 
-
               </script>
             </p> 
           </div>
           <div>
-            <p>{{ productForm.description}}</p>
+            <p>{{ productForm.description }}</p>
           </div>
           <p>
             <input id="product-submit" type="submit" value="Save product">
           </p> 
         </div>
-      </div>
+      </form>
+     </div>
     </div>
     {% endblock %}
   </body>

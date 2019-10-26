@@ -41,7 +41,7 @@ CREATE TABLE product
 (
     name VARCHAR(64) PRIMARY KEY,
     description TEXT,
-    image VARCHAR(64) DEFAULT '2.jpg',
+    image VARCHAR(64) NOT NULL DEFAULT '2.jpg',
     creation_date DATE DEFAULT CURRENT_DATE,
     completion_date VARCHAR(64),
     version VARCHAR(64),
