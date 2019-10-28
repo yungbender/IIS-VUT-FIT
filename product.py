@@ -4,6 +4,7 @@ from repositories.product_repository import ProductRepository
 from repositories.user_repository import UserRepository
 from templates.create_product import ProductForm
 from templates.search_manager import SearchManagerForm
+from templates.search_product import SearchProductForm
 from upload_handler import handle_image, remove_file
 import os
 
@@ -11,10 +12,17 @@ PRODUCT_API = Blueprint("products", __name__)
 PRODUCT_REPO = ProductRepository()
 USER_REPO = UserRepository()
 
-@PRODUCT_API.route("/products")
+@PRODUCT_API.route("/products", methods=["GET", "POST"])
 def show_products():
+    searchForm = SearchProductForm()
+
+    if searchForm.validate_on_submit():
+        productPattern = searchForm.product.data
+        products = PRODUCT_REPO.search_product(productPattern)
+        return render_template("products.html", user=current_user, search_image="/Static/search.png", products=products, searchForm=searchForm)
+
     products = PRODUCTS_REPO.get_products()
-    return render_template("products.html", user=current_user, search_image="/Static/search.png", products=products)
+    return render_template("products.html", user=current_user, search_image="/Static/search.png", products=products, searchForm=searchForm)
 
 @PRODUCT_API.route("/products/new", methods=["GET", "POST"])
 def create_products():

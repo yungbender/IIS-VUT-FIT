@@ -17,7 +17,7 @@ class ProductRepository():
         Product.create(name=name, description=description, completion_date=completionDate, image=image, version=version, manager_id=managerId)
     
     def search_product(self, productPattern):
-        return Product.select(Product.name) \
+        return Product.select() \
                       .where(Product.name.startswith(productPattern)) \
                       .execute()
 
