@@ -93,6 +93,13 @@ INSERT INTO position VALUES (4, 'admin');
 -- Username: admin, Password: adminananas
 INSERT INTO client (clientname, mail, password, name, surname, birth, position_id) 
 VALUES ('admin', 'admin@admin.com', 'ccd95ba02a8fde0c44da61e0b96771e9194bfe914c479313b3c5260ba6c80fb50882f9698ff1d1009ba8b690364fb95b12e320c8c3e497d297e532dcbd9e8dfd', 'admin', 'ananas', CURRENT_TIMESTAMP, 4);
+INSERT INTO client (clientname, mail, password, name, surname, birth, position_id) 
+VALUES ('owner', 'owner@owner.com', 'b8f4f2ab6bd0553667fde56ac3af8acdb72fc8c5907331444112cf3fbc5023ec7cba20d835e76e9bfdb7067083518dfa7693fb6c2f15481f818168daf5e3009d', 'owner', 'ananas', CURRENT_TIMESTAMP, 3);
+INSERT INTO client (clientname, mail, password, name, surname, birth, position_id) 
+VALUES ('manager', 'manager@manager.com', 'cae12350c78a0286469d505800a02243b3e6bb9845e2b631fe553669a6ba9900dc79aaee7574afd1203110f775bcdff203789bde5130da4694fa3934823f199a', 'manager', 'ananas', CURRENT_TIMESTAMP, 2);
+INSERT INTO client (clientname, mail, password, name, surname, birth, position_id) 
+VALUES ('developer', 'developer@developer.com', 'c8c4a6fab60b52a0f8c6e7ea6f122aab50191f2104535a1daf4b7546db01b73033e10941ccf3e20a3b578175ed443643dcda723becd7d3d0bc8eaa246176442c', 'developer', 'ananas', CURRENT_TIMESTAMP, 1);
+
 
 -- Create DB account for webapp to select, delete, etc
 CREATE USER iis_webapp WITH ENCRYPTED PASSWORD 'iis_passwd';
