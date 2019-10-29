@@ -13,11 +13,9 @@
     <div id="search-manager-wrapper" style="display: none;">
       <div id="search-manager">
         <div id="search-manager-bar">
-          <form method="POST" action="/products/new">
             {{ managerForm.csrf_token }}
-            <p id="search-manager-bar-input">{{ managerForm.manager }}</p>
-            <input id="search-manager-bar-butt" type="submit">
-          </form>
+            {{ managerForm.manager}}
+            <input id="search-manager-bar-butt" type="submit" value="">
         </div>
         <div id="search-manager-list">
           {% for manager in managers %}
@@ -43,7 +41,7 @@
             <p>{{ productForm.version(class_="product-form")}}</p>
             <p>{{ productForm.manager_id(class_="product-form")}}</p>
             <p>
-              <button id="search-manager-butt" onclick="hideSearch()">Search for manager</button>
+              <button id="search-manager-butt" type="button" onclick="hideSearch()">Search for manager</button>
               <script type='text/javascript'>
               function hideSearch()
               {
@@ -58,13 +56,14 @@
             </p> 
           </div>
           <div>
-            <p>{{ productForm.description }}</p>
+            {{ productForm.description }}
           </div>
           <p>
             <input id="product-submit" type="submit" value="Save product">
           </p> 
-        </div>
+        
       </form>
+      </div>
      </div>
     </div>
     {% endblock %}

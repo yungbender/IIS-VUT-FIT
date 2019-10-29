@@ -7,5 +7,5 @@ class ProductForm(FlaskForm):
     description = TextAreaField("Description", [Validators.input_required()], render_kw={"placeholder": "  Product description"})
     completion_date = StringField("Completion date", [Validators.input_required()], render_kw={"placeholder": "  Product completion date"})
     version = StringField("Version", [Validators.input_required()], render_kw={"placeholder": "  Product version"})
-    image = FileField(render_kw={"placeholder": ""})
+    image = FileField(id="choose-image", render_kw={"placeholder": ""})
     manager_id = StringField("Manager ID", [Validators.input_required()], render_kw={"placeholder": "  Responsible manager"})

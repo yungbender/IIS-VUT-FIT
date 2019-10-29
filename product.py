@@ -14,6 +14,7 @@ USER_REPO = UserRepository()
 
 @PRODUCT_API.route("/products", methods=["GET", "POST"])
 def show_products():
+
     searchForm = SearchProductForm()
 
     if searchForm:
@@ -21,7 +22,7 @@ def show_products():
         products = PRODUCT_REPO.search_product(productPattern)
         return render_template("products.html", user=current_user, search_image="/Static/search.png", products=products, searchForm=searchForm)
 
-    products = PRODUCTS_REPO.get_products()
+    products = PRODUCT_REPO.get_products()
     return render_template("products.html", user=current_user, search_image="/Static/search.png", products=products, searchForm=searchForm)
 
 @PRODUCT_API.route("/products/new", methods=["GET", "POST"])
