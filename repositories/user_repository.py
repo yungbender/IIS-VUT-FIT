@@ -24,13 +24,13 @@ class UserRepository():
     def search_managers(self, managerPattern):
         return User.select() \
                    .join(Position) \
-                   .where(Position.position == "manager" and User.clientname.startswith(managerPattern)) \
+                   .where((Position.position == "manager") & (User.clientname.contains(managerPattern))) \
                    .execute()
 
     def get_developers(self, username):
         return User.select() \
                    .join(Position) \
-                   .where(Position.position == "developer" and user.clientname != username) \
+                   .where(Position.position == "developer") \
                    .execute()
 
     def get_product_developers(self, productId):

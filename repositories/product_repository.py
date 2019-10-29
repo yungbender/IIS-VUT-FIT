@@ -18,7 +18,7 @@ class ProductRepository():
     
     def search_product(self, productPattern):
         return Product.select() \
-                      .where(Product.name.startswith(productPattern)) \
+                      .where(Product.name.contains(productPattern)) \
                       .execute()
 
     def check_product(self, productId):
