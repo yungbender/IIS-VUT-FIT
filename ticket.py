@@ -1,20 +1,18 @@
 from flask import Blueprint, render_template, abort, request, flash, jsonify
 from flask_login import login_required, current_user
 from models.ticket_model import Ticket
-from repositories.ticket_repository import TicketRepostory
+from repositories.ticket_repository import TicketRepository
 from repositories.product_repository import ProductRepository
 from templates.create_ticket import CreateTicketForm
 from templates.search_product import SearchProductForm
 from upload_handler import handle_image, InvalidFile, remove_file
 
 TICKET_API = Blueprint("ticket", __name__)
-TICKET_REPO = TicketRepostory()
-
+TICKET_REPO = TicketRepository()
 PRODUCT_REPO = ProductRepository()
-
 HTTP_NOT_FOUND = 404
 
-@TICKET_API.route("/tickets/<productId>/<ticketId>")
+@TICKET_API.route("/tickets/<int:productId>/<int:ticketId>")
 def product_ticket(productId, ticketId):
     ticket = TICKET_REPO.get_ticket(ticketId)
     if ticket:
@@ -22,11 +20,11 @@ def product_ticket(productId, ticketId):
     else:
         return abort(HTTP_NOT_FOUND)
 
-@TICKET_API.route("/tickets/<productId>")
+@TICKET_API.route("/tickets/<int:productId>")
 def product_tickets(productId):
     tickets = TICKET_REPO.get_product_tickets(productId)
     if tickets:
-        return render_template("ticket.html", ticket=tickets)
+        return render_template("ticket.html", tickets=tickets)
     else:
         return abort(HTTP_NOT_FOUND)
 
@@ -44,7 +42,7 @@ def create_ticket_products():
     # Else user did not search for product, just render the search bar and page
     return render_template("product_choice.html", products=[])
 
-@TICKET_API.route("/tickets/new/<productId>", methods=["GET", "POST"])
+@TICKET_API.route("/tickets/new/<int:productId>", methods=["GET", "POST"])
 @login_required
 def create_ticket(productId):
     # User selected the product to which the ticket will be created

@@ -1,4 +1,4 @@
-from flask import Blueprint, render_template, url_for, redirect
+from flask import Blueprint, render_template, url_for, redirect, abort, request
 from flask_login import login_required, current_user
 from repositories.product_repository import ProductRepository
 from repositories.user_repository import UserRepository
@@ -11,6 +11,7 @@ import os
 PRODUCT_API = Blueprint("products", __name__)
 PRODUCT_REPO = ProductRepository()
 USER_REPO = UserRepository()
+HTTP_NOT_FOUND = 404
 
 @PRODUCT_API.route("/products", methods=["GET", "POST"])
 def show_products():
@@ -33,28 +34,29 @@ def create_products():
     if productForm.validate_on_submit():
         productName = productForm.name.data
         
-        if not PRODUCT_REPO.check_product(productName):
+        if not PRODUCT_REPO.check_product_productname(productName):
             productDesc = productForm.description.data
             productCompletion = productForm.completion_date.data
             productVer = productForm.version.data
             productManager = productForm.manager_id.data
-            if USER_REPO.check_user(productManager):
+            productManager = USER_REPO.get_manager_username(productManager)
+            if productManager:
                 productImage = handle_image(productForm.image)
                 try:
-                    PRODUCT_REPO.create_product(productName, productDesc, productCompletion, productVer, productManager, productImage)
-                except Exception:
+                    PRODUCT_REPO.create_product(productName, productDesc, productCompletion, productVer, productManager.id, productImage)
+                except Exception as e:
                     remove_file(productImage)
+                    raise(e)
                 return redirect(url_for("dashboard.index"))
-
-    if managerForm.validate_on_submit():
-        managerPattern = managerForm.manager.data
-    
-        managers = USER_REPO.search_managers(managerPattern)
-        
-        return render_template("create_product.html", user=current_user, \
-                               search_image="/Static/search.png", productForm=productForm, \
-                               managerForm=managerForm, managers=managers)
 
     return render_template("create_product.html", user=current_user, \
                            search_image="/Static/search.png", productForm=productForm, \
-                           managerForm=managerForm, managers=[])
+                               managerForm=managerForm, managers=[])
+
+@PRODUCT_API.route("/products/<int:productId>")
+def get_product(productId):
+    product = PRODUCT_REPO.get_product(productId)
+    if not product:
+        return abort(HTTP_NOT_FOUND)
+    return render_template("base.html", user=current_user, product=product)
+    

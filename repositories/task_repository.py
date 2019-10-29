@@ -2,7 +2,8 @@ from models.task_model import Task
 from models.user import User
 from models.product_model import Product
 from models.ticket_model import Ticket
-from models.task_ticket_model import TaskTicket
+from models.task_ticket_model import Task_Ticket
+from models.task_state_model import Task_State
 
 class TaskRepository():
 
@@ -26,7 +27,7 @@ class TaskRepository():
                    .execute()
     
     def get_product_tasks(self, product):
-        return Task.select()
+        return Task.select() \
                    .join(User, on=(User.clientname == Task.creator_id)) \
                    .join(Product, on=(User.clientname == Product.manager_id)) \
                    .where(Product.name == product) \
@@ -36,16 +37,25 @@ class TaskRepository():
         return Task.select() \
                    .join(TaskTicket) \
                    .join(Ticket) \
-                   .where(Ticket.id = ticketId) \
+                   .where(Ticket.id == ticketId) \
                    .execute()
 
-    def create_task(self, title, description, completionDate, state=0, workerId, creatorId):
-        Task.create(title=title, description=description, 
+    def create_task(self, title, description, completionDate, workerId, creatorId, state, basedOn):
+        print(print(basedOn))
+        newTask = Task.create(title=title, description=description, 
                     completion_date=completionDate, 
-                    state=state, worker_id=workerId, creator_id=creatorId)
+                    state=state, worker_id=workerId, creator_id=creatorId,
+                    based_on=basedOn)
+        
+        if basedOn:
+            TaskTicket.create(task_id=newTask.id, ticket_id=basedOn)
 
-    def update_task_state(self, taskId, state)
+    def update_task_state(self, taskId, state):
         task = Task()
         task.id = taskId
         task.state = state
         task.save()
+
+    def get_task_states(self):
+        return Task_State.select() \
+                        .execute()

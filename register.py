@@ -22,7 +22,7 @@ def register():
     if registerForm.validate_on_submit():
         username = registerForm.username.data
         mail = registerForm.mail.data
-        if not USER_REPOSITORY.check_user(username):
+        if not USER_REPOSITORY.check_user_username(username):
             pwd_encrypted = sha512((registerForm.password.data + SECRET_KEY).encode("utf-8")).hexdigest()
             USER_REPOSITORY.register_user(username, mail, pwd_encrypted)
             #login_user(user)

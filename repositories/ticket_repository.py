@@ -1,7 +1,7 @@
 from models.ticket_model import Ticket
 from models.comment_model import Comment
 
-class TicketRepostory():
+class TicketRepository():
 
     def get_ticket(self, ticketId):
         return Ticket.select() \

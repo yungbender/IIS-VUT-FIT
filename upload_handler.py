@@ -44,4 +44,5 @@ def handle_image(file):
 
 def remove_file(fileName):
     # Method removes file from upload folder
-    remove(join(UPLOAD_FOLDER, fileName))
+    cwd = getcwd()
+    remove(cwd + UPLOAD_FOLDER + fileName)

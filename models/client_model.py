@@ -3,7 +3,8 @@ from models.base_model import BaseModel
 from models.position_model import Position
 
 class Client(BaseModel):
-    clientname = pw.CharField(null=False, primary_key=True)
+    id = pw.AutoField(primary_key=True)
+    clientname = pw.CharField(null=False)
     mail = pw.CharField(null=False)
     password = pw.CharField(null=False)
     name = pw.CharField(null=True)

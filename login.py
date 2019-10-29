@@ -20,7 +20,7 @@ def login():
     
     loginForm = LoginForm()
     if loginForm.validate_on_submit():
-        user = USER_REPOSITORY.get_user(loginForm.username.data)
+        user = USER_REPOSITORY.get_user_username(loginForm.username.data)
         if user:
 
             pwd_encrypted = sha512((loginForm.password.data + SECRET_KEY).encode("utf-8")).hexdigest()

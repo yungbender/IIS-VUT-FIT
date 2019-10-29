@@ -5,21 +5,26 @@ from models.product_model import Product
 
 class UserRepository():
 
-    def get_user(self, username):
+    def get_user_username(self, userId):
         return User.select() \
-                   .where(User.clientname == username) \
+                   .where(User.clientname == userId) \
+                   .first()
+
+    def get_user(self, userId):
+        return User.select() \
+                   .where(User.id == userId) \
                    .first()
     
-    def get_users(self, username):
+    def get_users(self, userId):
         return User.select() \
-                    .where(User.clientname != username) \
+                    .where(User.id != userId) \
                     .execute()
 
-    def get_managers(self, username):
+    def get_manager_username(self, username):
         return User.select() \
                    .join(Position) \
-                   .where(Position.position == "manager") \
-                   .execute()
+                   .where((Position.position == "manager") & (User.clientname == username)) \
+                   .first()
 
     def search_managers(self, managerPattern):
         return User.select() \
@@ -27,17 +32,17 @@ class UserRepository():
                    .where((Position.position == "manager") & (User.clientname.contains(managerPattern))) \
                    .execute()
 
-    def get_developers(self, username):
+    def get_developer_username(self, username):
         return User.select() \
                    .join(Position) \
-                   .where(Position.position == "developer") \
-                   .execute()
+                   .where((Position.position == "developer") & (User.clientname == username)) \
+                   .first()
 
     def get_product_developers(self, productId):
         return User.select() \
                    .join(DeveloperProduct) \
                    .join(Product) \
-                   .where(Product.name == productId) \
+                   .where(Product.id == productId) \
                    .execute()
 
     def register_user(self, username, mail, password):
@@ -45,5 +50,10 @@ class UserRepository():
     
     def check_user(self, userId):
         return User.select() \
-                   .where(User.clientname == userId) \
+                   .where(User.id == userId) \
+                   .exists()
+    
+    def check_user_username(self, username):
+        return User.select() \
+                   .where(User.clientname == username) \
                    .exists()
