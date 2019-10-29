@@ -16,7 +16,7 @@ USER_REPO = UserRepository()
 def show_products():
     searchForm = SearchProductForm()
 
-    if searchForm.validate_on_submit():
+    if searchForm:
         productPattern = searchForm.product.data
         products = PRODUCT_REPO.search_product(productPattern)
         return render_template("products.html", user=current_user, search_image="/Static/search.png", products=products, searchForm=searchForm)
