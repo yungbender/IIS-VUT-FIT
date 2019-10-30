@@ -23,7 +23,9 @@
       <div id="products">
         <p id="products-title">List of products</p>
         {% for product in products %}
-        <img id="product" src="/static/uploads/{{ product.image }}" title="{{ product.name }}">
+        <a href="/products/{{product.name}}">
+          <img id="product" src="/static/uploads/{{product.image}}" title="{{ product.name }}">
+        </a>
         {% endfor %}
       </div>
     </div>

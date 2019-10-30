@@ -1,0 +1,60 @@
+{% extends "base.html" %}
+
+<html>
+  <head>
+    {% block head %}
+    <link rel="stylesheet" href="/static/create_product.css">
+    {{ super() }}
+    {% endblock %}
+  </head>
+  <body>
+    {% block content %}
+    {{ super() }}
+    <div id="form-wrapper">
+      <form id="form" method="POST" action="/products/new" enctype="multipart/form-data">
+        <p id="form-title">Create new product</p>
+        <div id="form-inner">
+          <div class="column-left">
+            <img id="product-image" src="/static/uploads/{{ productForm.image }}.jpg">
+            <p>
+            </p>
+          </div>
+          <div class="column-right">
+            {{ productForm.csrf_token }}
+            <p>Product name</p>
+            <p>{{ productForm.name(class_="product-form")}}</p>
+            <p>Product completion date</p>
+            <p>{{ productForm.completion_date(class_="product-form")}}</p>
+            <p>Product version</p>
+            <p>{{ productForm.version(class_="product-form")}}</p>
+            <p>Responsible manager</p>
+            <p>{{ productForm.manager_id(class_="product-form")}}</p>
+            <p>
+              <button id="search-manager-butt" type="button" onclick="hideSearch()">Search for manager</button>
+              <script type='text/javascript'>
+              function hideSearch()
+              {
+                var div = document.getElementById("search-manager-wrapper");
+                if (div.style.display === "none") {
+                  div.style.display = "initial";
+                } else {
+                  div.style.display = "none";
+                }
+              } 
+              </script>
+            </p> 
+          </div>
+          <div>
+            {{ productForm.description }}
+          </div>
+          <p>
+            <input id="product-submit" type="submit" value="Save product">
+          </p> 
+        
+      </form>
+      </div>
+     </div>
+    </div>
+    {% endblock %}
+  </body>
+</html>

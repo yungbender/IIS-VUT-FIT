@@ -1,0 +1,157 @@
+#form-wrapper {
+	margin: 0px auto;
+	height: auto;
+	width: 55%;
+	font-family: 'Bitter', serif;
+	color: white;
+}
+
+#form {
+	margin: 140px 0px 0px 0px;
+	background-color: black;
+	min-width: 545px;
+}
+
+#form-title {
+	font-size: 25px;
+	margin: 0px;
+	padding: 10px;
+	font-weight: bold;
+}
+
+#form-inner {
+
+}
+
+#task-image {
+	margin: 15px;
+	height: 240px;
+	width: 240px;
+}
+
+
+.column-left {
+	float: left;
+	vertical-align: top;
+	width: 50%;
+}
+
+.column-right {
+	float: right;
+	vertical-align: top;
+	width: 50%;
+}
+
+.task-form {
+	background-color: #cccccc;
+	height: 35px;
+	width: 260px;
+	border-radius: 0px;
+	border-width: 0px;
+	margin: 5px;
+}
+
+#choose-image {
+	background-color: #1aa3ff;
+	font-weight: bold;
+	width: 200px;
+	height: 35px;
+	border-color: #80ccff;
+	border-radius: 5px;
+	color: black;
+	font-weight: bold;
+	margin: 0px 20px 20px 20px;
+}
+
+#description {
+	min-width: 450px;
+	min-height: 200px;
+	width: 80%;
+	padding: 10px;
+	background-color: #cccccc;
+	border-radius: 0px;
+	border-width: 0px;
+	font-size: 16px;
+	font-family: 'Bitter', serif;
+}
+
+#task-submit {
+	background-color: #1aa3ff;
+	font-weight: bold;
+	width: 200px;
+	height: 35px;
+	border-color: #80ccff;
+	border-radius: 5px;
+	color: black;
+	font-weight: bold;
+	margin: 20px;
+}
+
+#search-developer-wrapper {
+	width: 22%;
+	float: right;
+	margin: 140px 0px 0px 0px;
+}
+
+#search-developer {
+	margin: 0px auto;
+	height: auto;
+	width: 80%;
+	background-color: black;
+}
+
+#search-developer-butt {
+	background-color: #1aa3ff;
+	font-weight: bold;
+	width: 200px;
+	height: 35px;
+	border-color: #80ccff;
+	border-radius: 5px;
+	color: black;
+	font-weight: bold;
+	margin: 23px;
+}
+
+#search-developer-bar {
+	margin: auto;
+	width: 80%;
+	border-color: white;
+	border-style: solid;
+	border-width: 0px 0px 2px 0px;
+}
+
+#search-developer-bar-input
+{
+	display: inline;
+	padding: 0px;
+	margin: 10px 0px 10px 0px;
+	height: 18px;
+	width: 70%;
+}
+
+#search-developer-bar-butt {
+	display: inline;
+	padding: 0px;
+	margin: 10px 0px 10px 0px;
+	height: 34px;
+	width: 34px;
+	background-color: transparent;
+	background-image: url("/static/search.png");
+	background-size: cover;
+	border-width: 0px;
+	cursor: pointer;
+}
+
+
+#search-developer-list {
+	color: white;
+	font-family: 'Bitter', serif;
+	list-style-type: none;
+	padding: 5px;
+}
+
+.search-developer-list-item {
+	background: rgb(0,0,0);
+	background: linear-gradient(90deg, rgba(0,0,0,1) 0%, rgba(204,204,204,0.25) 50%, rgba(0,0,0,1) 100%); 
+	padding: 5px;
+}

@@ -1,6 +1,6 @@
 #icons input {
-	width: 200px;
-	height: 200px;
+	width: 170px;
+	height: 170px;
 	margin: 30px;
 	padding: 20px;
 	border-width: 0px;
@@ -22,6 +22,14 @@
 
 #add-product-butt {
 	background-image: url("/static/add_product.png");
+}
+
+#tasks-butt {
+	background-image: url("/static/tasks.png");
+}
+
+#add-task-butt {
+	background-image: url("/static/add_task.png");
 }
 
 #icons input:hover{
@@ -51,7 +59,7 @@
 	text-align: center;
 	margin: 0px 20px 0px 20px;
 	padding: 0px 0px 10px 0px;
-	width: 800px;
+	width: 750px;
 	height: auto;
 	display: inline-block;
 	vertical-align: top;

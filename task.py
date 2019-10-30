@@ -18,7 +18,7 @@ MANAGER = 2
 def get_tasks():
     assignedTasks = TASK_REPO.get_user_tasks(current_user.id)
     createdTasks = TASK_REPO.get_tasks_by(current_user.id)
-    return render_template("base.html", user=current_user, 
+    return render_template("tasks.html", user=current_user, 
                            assignedTasks=assignedTasks, createdTasks=createdTasks)
 
 @TASK_API.route("/tasks/<int:taskId>")
@@ -32,7 +32,7 @@ def get_specific_task(taskId):
     if taskRequester != task.creator_id.id and taskRequester != task.worker_id.id:
         abort(HTTP_UNAUTHORIZED)
 
-    return render_template("base.html", user=current_user, task=task)
+    return render_template("task.html", user=current_user, task=task)
 
 @TASK_API.route("/tasks/new", methods=["GET", "POST"])
 def create_task():
@@ -69,4 +69,4 @@ def create_task():
                         TASK_REPO.create_task(taskTitle, taskDesc, taskDate, developer.id, taskCreator, taskState, ticketId)
                         return redirect(url_for("dashboard.index"))
 
-    return render_template("base.html", user=current_user, taskForm=taskForm)
+    return render_template("create_task.html", user=current_user, taskForm=taskForm)
