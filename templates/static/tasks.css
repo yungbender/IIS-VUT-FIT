@@ -1,88 +1,71 @@
-#form-wrapper {
+#head-wrapper {
 	margin: 0px auto;
-	height: auto;
-	width: 55%;
+	height: 45px;
+	width: 90%;
 	font-family: 'Bitter', serif;
 	color: white;
-}
-
-#form {
-	margin: 140px 0px 0px 0px;
 	background-color: black;
-	min-width: 545px;
+	min-width: 800px;
 }
 
-#form-title {
+#head {
+	margin: 140px 0px 0px 0px;
+	min-width: 700px;
+}
+
+#tasks-title {
 	font-size: 25px;
 	margin: 0px;
 	padding: 10px;
 	font-weight: bold;
 }
 
-#form-inner {
-
+#state-wrapper {
+	width: 90%;
+	height: auto;
+	margin: 0px auto;
+	background-color: black;
+	min-width: 800px;
 }
 
-#task-image {
-	margin: 15px;
-	height: 240px;
-	width: 240px;
-}
-
-
-.column-left {
+.state {
+	width: 16%;
+	height: 37px;
+	margin: 10px 2%;
 	float: left;
-	vertical-align: top;
-	width: 50%;
+	background: rgb(0,77,128);
+	background: linear-gradient(0deg, rgba(0,77,128,1) 10%, rgba(0,0,0,1) 100%);
 }
 
-.column-right {
-	float: right;
-	vertical-align: top;
-	width: 50%;
+.state-title {
+	margin: 7px;
+	color: white;
+	font-family: 'Staatliches', cursive;
+	font-size: 20px;
 }
 
-.task-form {
-	background-color: #cccccc;
-	height: 35px;
-	width: 260px;
-	border-radius: 0px;
-	border-width: 0px;
-	margin: 5px;
+.tasks {
+	background-color: black;
+	height: auto;
+	color: white;
+	padding: 2px;
+	text-align: left;
 }
 
-#choose-image {
-	background-color: #1aa3ff;
-	font-weight: bold;
-	width: 200px;
-	height: 35px;
-	border-color: #80ccff;
-	border-radius: 5px;
+.tasks p {
+	margin: 0px;
+	padding: 5%;
+	border-width: 1px 0px;
+	border-color: white;
+	border-style: solid;
+}
+
+.tasks a {
+	text-decoration: none;
+	color: white;
+}
+
+.tasks p:hover {
+	background-color: white;
 	color: black;
-	font-weight: bold;
-	margin: 0px 20px 20px 20px;
-}
-
-#description {
-	min-width: 450px;
-	min-height: 200px;
-	width: 80%;
-	padding: 10px;
-	background-color: #cccccc;
-	border-radius: 0px;
-	border-width: 0px;
-	font-size: 16px;
-	font-family: 'Bitter', serif;
-}
-
-#task-submit {
-	background-color: #1aa3ff;
-	font-weight: bold;
-	width: 200px;
-	height: 35px;
-	border-color: #80ccff;
-	border-radius: 5px;
-	color: black;
-	font-weight: bold;
-	margin: 20px;
 }

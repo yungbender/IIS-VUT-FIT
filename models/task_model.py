@@ -13,6 +13,6 @@ class Task(BaseModel):
     description = pw.TextField(null=True)
     completion_date = pw.CharField(null=True)
     creation_date = pw.DateField(constraints=[pw.SQL('DEFAULT CURRENT_TIMESTAMP')])
-    state = pw.ForeignKeyField(Task_State, default=DEFAULT_STATE)
+    state_id = pw.ForeignKeyField(Task_State, default=DEFAULT_STATE)
     worker_id = pw.ForeignKeyField(Client, backref="worked_task")
     creator_id = pw.ForeignKeyField(Client, backref="created_task")

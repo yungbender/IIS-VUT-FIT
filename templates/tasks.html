@@ -10,6 +10,61 @@
   <body>
     {% block content %}
     {{ super() }}
+    <div id="head-wrapper">
+      <div id="head">
+        <p id="tasks-title">Tasks</p>
+      </div>
+    </div>
+    <div id="state-wrapper">
+      <div class="state">
+        <p class="state-title">In progress</p>
+        <div class="tasks">
+          {% for task in assignedTasks %}
+          {% if task.state_id.state ==  "IN PROGRESS" %}
+          <a href="/tasks/{{task.id}}"><p>{{ task.title }}</p></a>
+          {% endif %}
+          {% endfor %}
+        </div>
+      </div>
+      <div class="state">
+        <p class="state-title">On testing</p>
+        <div class="tasks">
+          {% for task in assignedTasks %}
+          {% if task.state_id.state ==  "ON TESTING" %}
+          <a href="/tasks/{{task.id}}"><p>{{ task.title }}</p></a>
+          {% endif %}
+          {% endfor %}
+        </div>
+      </div>
+      <div class="state"> 
+        <p class="state-title">Done</p>
+        <div class="tasks">
+          {% for task in assignedTasks %}
+          {% if task.state_id.state ==  "DONE" %}
+          <a href="/tasks/{{task.id}}"><p>{{ task.title }}</p></a>
+          {% endif %}
+          {% endfor %}
+        </div>
+      </div>
+      <div class="state">
+        <p class="state-title">Specified</p>
+        <div class="tasks">
+          {% for task in assignedTasks %}
+          {% if task.state_id.state ==  "SPECIFIED" %}
+          <a href="/tasks/{{task.id}}"><p>{{ task.title }}</p></a>
+          {% endif %}
+          {% endfor %}
+        </div>
+      </div>
+      <div class="state">
+        <p class="state-title">Created by you</p>
+        <div class="tasks">
+          {% for task in createdTasks %}
+          <a href="/tasks/{{task.id}}"><p>{{ task.title }}</p></a>
+          {% endfor %}
+        </div>
+      </div>
+    </div>
     {% endblock %}
   </body>
 </html>

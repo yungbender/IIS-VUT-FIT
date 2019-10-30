@@ -25,6 +25,7 @@ def get_tasks():
 @login_required
 def get_specific_task(taskId):
     taskRequester = current_user.id
+    taskForm = CreateTaskForm()
     task = TASK_REPO.get_task(taskId)
     if not task:
         abort(HTTP_NOT_FOUND)
@@ -32,7 +33,7 @@ def get_specific_task(taskId):
     if taskRequester != task.creator_id.id and taskRequester != task.worker_id.id:
         abort(HTTP_UNAUTHORIZED)
 
-    return render_template("task.html", user=current_user, task=task)
+    return render_template("task.html", user=current_user, task=task, taskForm=taskForm)
 
 @TASK_API.route("/tasks/new", methods=["GET", "POST"])
 def create_task():

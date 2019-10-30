@@ -18,10 +18,12 @@
       	<form class="ticket-form" action="">
       		<input id="add-ticket-butt" type="submit" value="">
       	</form>
-        {% if user.position_id.id >= 2 %}
+        {% if user.position_id.id >= 1 %}
         <form class="ticket-form" action="tasks">
           <input id="tasks-butt" type="submit" value="">
         </form>
+        {% endif %}
+        {% if user.position_id.id >= 2 %}
         <form class="ticket-form" action="tasks/new">
           <input id="add-task-butt" type="submit" value="">
         </form>

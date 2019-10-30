@@ -58,5 +58,5 @@ def get_product(productId):
     product = PRODUCT_REPO.get_product(productId)
     if not product:
         return abort(HTTP_NOT_FOUND)
-    return render_template("base.html", user=current_user, product=product)
+    return render_template("product.html", user=current_user, product=product)
     

@@ -15,42 +15,24 @@
         <p id="form-title">Create new product</p>
         <div id="form-inner">
           <div class="column-left">
-            <img id="product-image" src="/static/uploads/{{ productForm.image }}.jpg">
+            <img id="product-image" src="/static/uploads/{{ product.image }}">
             <p>
             </p>
           </div>
           <div class="column-right">
-            {{ productForm.csrf_token }}
+            {{ product.csrf_token }}
             <p>Product name</p>
-            <p>{{ productForm.name(class_="product-form")}}</p>
+            <p class_="product-form">{{ product.name }}</p>
             <p>Product completion date</p>
-            <p>{{ productForm.completion_date(class_="product-form")}}</p>
+            <p class_="product-form">{{ product.completion_date }}</p>
             <p>Product version</p>
-            <p>{{ productForm.version(class_="product-form")}}</p>
+            <p class_="product-form">{{ product.version }}</p>
             <p>Responsible manager</p>
-            <p>{{ productForm.manager_id(class_="product-form")}}</p>
-            <p>
-              <button id="search-manager-butt" type="button" onclick="hideSearch()">Search for manager</button>
-              <script type='text/javascript'>
-              function hideSearch()
-              {
-                var div = document.getElementById("search-manager-wrapper");
-                if (div.style.display === "none") {
-                  div.style.display = "initial";
-                } else {
-                  div.style.display = "none";
-                }
-              } 
-              </script>
-            </p> 
+            <p class_="product-form">{{ product.manager_id.clientname}}</p>
           </div>
           <div>
-            {{ productForm.description }}
-          </div>
-          <p>
-            <input id="product-submit" type="submit" value="Save product">
-          </p> 
-        
+            {{ product.description }}
+          </div>     
       </form>
       </div>
      </div>
