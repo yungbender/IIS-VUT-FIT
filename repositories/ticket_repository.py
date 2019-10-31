@@ -23,12 +23,14 @@ class TicketRepository():
     def get_created_tickets(self, userId):
         return Ticket.select() \
                      .where(Ticket.author_id == userId) \
-                     .execute() \
+                     .order_by(Ticket.creation_date.desc()) \
+                     .execute()
 
     def get_commented_tickets(self, userId):
         return Ticket.select() \
                      .join(Comment) \
                      .where(Comment.author_id == userId) \
+                     .order_by(Comment.creation_date.desc()) \
                      .execute()
 
     def get_task_tickets(self, taskId):

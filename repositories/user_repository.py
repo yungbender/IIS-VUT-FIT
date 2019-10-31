@@ -57,3 +57,9 @@ class UserRepository():
         return User.select() \
                    .where(User.clientname == username) \
                    .exists()
+
+    def search_user(self, pattern, position):
+        return User.select() \
+                   .join(Position) \
+                   .where((Position.id == position) & (User.clientname.contains(pattern))) \
+                   .execute()

@@ -11,5 +11,6 @@ class Client(BaseModel):
     surname = pw.CharField(null=True)
     birth = pw.DateField(null=True)
     image = pw.CharField(null=False, default="1.jpg")
+    registration_date = pw.DateField(constraints=[pw.SQL('DEFAULT CURRENT_TIMESTAMP')])
     position_id = pw.ForeignKeyField(Position, null=False, default=0)
     work_time = pw.IntegerField(null=True, default=0)

@@ -9,7 +9,7 @@ from ticket import TICKET_API
 from dashboard import DASHBOARD_API
 from profile import PROFILE_API
 from product import PRODUCT_API
-from manager import MANAGER_API
+from user import USER_API
 from task import TASK_API
 from upload_handler import MAX_UPLOAD_SIZE
 
@@ -25,7 +25,7 @@ def create_app():
     app.register_blueprint(PROFILE_API)
     app.register_blueprint(PRODUCT_API)
     app.register_blueprint(TICKET_API)
-    app.register_blueprint(MANAGER_API)
+    app.register_blueprint(USER_API)
     app.register_blueprint(TASK_API)
     app.secret_key = SECRET_KEY
     app.config["REMEMBER_COOKIE_DURATION"] = 10

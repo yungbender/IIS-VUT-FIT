@@ -1,4 +1,4 @@
--- Delete previous database and initialize new one
+--- Delete previous database and initialize new one
 DROP SCHEMA public CASCADE;
 CREATE SCHEMA public;
 GRANT ALL ON SCHEMA public TO postgres;
@@ -23,6 +23,7 @@ CREATE TABLE client
     birth DATE,
     image VARCHAR(64) NOT NULL DEFAULT '1.jpg',
     position_id INTEGER NOT NULL REFERENCES position(id) DEFAULT 0,
+    registration_date TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
     work_time INTEGER DEFAULT 0
 );
 
@@ -51,7 +52,7 @@ CREATE TABLE product
     name VARCHAR(64),
     description TEXT,
     image VARCHAR(64) NOT NULL DEFAULT '2.jpg',
-    creation_date DATE DEFAULT CURRENT_DATE,
+    creation_date TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
     completion_date VARCHAR(64),
     version VARCHAR(64),
     manager_id INTEGER REFERENCES client(id)
@@ -75,6 +76,7 @@ CREATE TABLE comment
     id SERIAL PRIMARY KEY,
     content TEXT NOT NULL,
     image VARCHAR(64),
+    creation_date TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
     ticket_id INTEGER REFERENCES ticket(id),
     task_id INTEGER REFERENCES task(id),
     author_id INTEGER REFERENCES client(id)
