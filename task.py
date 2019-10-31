@@ -21,19 +21,43 @@ def get_tasks():
     return render_template("tasks.html", user=current_user, 
                            assignedTasks=assignedTasks, createdTasks=createdTasks)
 
-@TASK_API.route("/tasks/<int:taskId>")
+@TASK_API.route("/tasks/<int:taskId>", methods=["GET", "POST"])
 @login_required
 def get_specific_task(taskId):
-    taskRequester = current_user.id
-    taskForm = CreateTaskForm()
     task = TASK_REPO.get_task(taskId)
     if not task:
         abort(HTTP_NOT_FOUND)
     # Given task is not maintained or fullfilled by requesting user
+    taskRequester = current_user.id
     if taskRequester != task.creator_id.id and taskRequester != task.worker_id.id:
         abort(HTTP_UNAUTHORIZED)
 
-    return render_template("task.html", user=current_user, task=task, taskForm=taskForm)
+    taskForm = CreateTaskForm()
+
+    if taskForm.validate_on_submit():
+        # User wants to edit existing ticket
+        ticketId = taskForm.ticket.data
+        taskTitle = taskForm.title.data
+        taskDesc = taskForm.description.data
+        taskDate = taskForm.completion_date.data 
+        taskState = taskForm.state.data
+        taskWorker = taskForm.worker.data
+        developer = USER_REPO.get_developer_username(taskWorker)
+        if developer:
+            success = TASK_REPO.update_task(taskId, taskTitle, taskDesc, taskDate, taskState, developer.id)
+            if success:
+                return redirect(url_for("dashboard.index"))
+
+    # User wants to see the ticket
+    relatedTickets = TICKET_REPO.get_task_tickets(taskId)
+
+    taskForm.title.data = task.title
+    taskForm.description.data = task.description
+    taskForm.completion_date.data = task.completion_date
+    taskForm.state.data = task.state_id.id 
+    taskForm.worker.data = task.worker_id.clientname
+
+    return render_template("task.html", user=current_user, taskId=taskId, taskForm=taskForm, relatedTickets=relatedTickets)
 
 @TASK_API.route("/tasks/new", methods=["GET", "POST"])
 def create_task():
@@ -61,7 +85,7 @@ def create_task():
                 isCorrect = True
                 try:
                     ticketId = int(taskForm.ticket.data)
-                except TypeError:
+                except ValueError:
                     isCorrect = False
 
                 if isCorrect:

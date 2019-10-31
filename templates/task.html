@@ -11,7 +11,7 @@
     {% block content %}
     {{ super() }}
     <div id="form-wrapper">
-      <form id="form" method="POST" action="/tasks/new">
+      <form id="form" method="POST" action="/tasks/{{ taskId }}">
         <p id="form-title">Task</p>
         <div id="form-inner">
           <div class="column-left">

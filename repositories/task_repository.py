@@ -41,7 +41,6 @@ class TaskRepository():
                    .execute()
 
     def create_task(self, title, description, completionDate, workerId, creatorId, state, basedOn):
-        print(print(basedOn))
         newTask = Task.create(title=title, description=description, 
                     completion_date=completionDate, 
                     state=state, worker_id=workerId, creator_id=creatorId,
@@ -50,11 +49,16 @@ class TaskRepository():
         if basedOn:
             TaskTicket.create(task_id=newTask.id, ticket_id=basedOn)
 
-    def update_task_state(self, taskId, state):
+    def update_task(self, taskId, title, description, completionDate, stateId, workerId):
         task = Task()
         task.id = taskId
-        task.state = state
-        task.save()
+        task.title = title
+        task.description = description
+        task.completion_date = completionDate
+        task.state_id = stateId
+        task.worker_id = workerId
+        rows = task.save()
+        return True if rows > 0 else False
 
     def get_task_states(self):
         return Task_State.select() \
