@@ -1,0 +1,42 @@
+{% extends "base.html" %}
+
+<html>
+  <head>
+    {% block head %}
+    <link rel="stylesheet" href="/static/create_product.css">
+    {{ super() }}
+    {% endblock %}
+  </head>
+  <body>
+    {% block content %}
+    {{ super() }}
+    <div id="form-wrapper">
+      <form id="form" method="POST" action="/products/new" enctype="multipart/form-data">
+        <p id="form-title">Create new product</p>
+        <div id="form-inner">
+          <div class="column-left">
+            <img id="product-image" src="/static/uploads/{{ product.image }}">
+            <p>
+            </p>
+          </div>
+          <div class="column-right">
+            {{ product.csrf_token }}
+            <p>Product name</p>
+            <p class_="product-form">{{ product.name }}</p>
+            <p>Product completion date</p>
+            <p class_="product-form">{{ product.completion_date }}</p>
+            <p>Product version</p>
+            <p class_="product-form">{{ product.version }}</p>
+            <p>Responsible manager</p>
+            <p class_="product-form">{{ product.manager_id.clientname}}</p>
+          </div>
+          <div>
+            {{ product.description }}
+          </div>     
+      </form>
+      </div>
+     </div>
+    </div>
+    {% endblock %}
+  </body>
+</html>

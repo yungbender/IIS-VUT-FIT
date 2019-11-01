@@ -1,0 +1,34 @@
+{% extends "base.html" %}
+
+<html>
+  <head>
+    {% block head %}
+    <link rel="stylesheet" href="/static/products.css">
+    {{ super() }}
+    {% endblock %}
+  </head>
+  <body>
+    {% block content %}
+    {{ super() }}
+    <div id="search-products-wrapper">
+      <div id="search-products">
+        <form method="POST" action="/products">
+          {{ searchForm.csrf_token }}
+          {{ searchForm.product }}
+          <input id="search-bar-butt" type="submit" value="">
+        </form>
+      </div>
+    </div>
+    <div id="products-wrapper">
+      <div id="products">
+        <p id="products-title">List of products</p>
+        {% for product in products %}
+        <a href="/products/{{product.id}}">
+          <img id="product" src="/static/uploads/{{product.image}}" title="{{ product.name }}">
+        </a>
+        {% endfor %}
+      </div>
+    </div>
+    {% endblock %}
+  </body>
+</html>

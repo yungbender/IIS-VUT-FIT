@@ -1,0 +1,66 @@
+{% extends "base.html" %}
+
+<html>
+  <head>
+    {% block head %}
+    <link rel="stylesheet" href="/static/create_task.css">
+    {{ super() }}
+    {% endblock %}
+  </head>
+  <body>
+    {% block content %}
+    {{ super() }}
+    <div id="search-developer-wrapper" style="display: none;">
+      <div id="search-developer">
+        <div id="search-developer-bar">
+            <input id="search-developer-bar-input" type="text" value="">
+            <input id="search-developer-bar-butt" type="submit" value="">
+        </div>
+        <div id="search-developer-list">
+          {% for developer in developers %}
+          <p class="search-developer-list-item">{{ developer.clientname }}</p>
+          {% endfor %}
+        </div>
+      </div>
+    </div>
+    <div id="form-wrapper">
+      <form id="form" method="POST" action="/tasks/new">
+        <p id="form-title">Create new task</p>
+        <div id="form-inner">
+          <div class="column-left">
+            {{ taskForm.csrf_token }}
+            <p>{{ taskForm.title(class_="task-form")}}</p>
+            <p>{{ taskForm.completion_date(class_="task-form")}}</p>
+          </div>
+          <div class="column-right">
+            <p>{{ taskForm.state(class_="task-form")}}</p>
+            <p>{{ taskForm.worker(class_="task-form")}}</p>
+            <p>
+              <button id="search-developer-butt" type="button" onclick="hideSearch()">Search for developer</button>
+              <script type='text/javascript'>
+              function hideSearch()
+              {
+                var div = document.getElementById("search-developer-wrapper");
+                if (div.style.display === "none") {
+                  div.style.display = "initial";
+                } else {
+                  div.style.display = "none";
+                }
+              } 
+              </script>
+            </p> 
+          </div>
+          <div>
+            {{ taskForm.description }}
+          </div>
+          <p>
+            <input id="task-submit" type="submit" value="Save task">
+          </p> 
+        
+      </form>
+      </div>
+     </div>
+    </div>
+    {% endblock %}
+  </body>
+</html>

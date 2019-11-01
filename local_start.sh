@@ -1,5 +1,4 @@
 #!/bin/bash
 
-docker-compose start iis-database;
-pipenv shell;
-python3 app.py;
+docker-compose start iis-database
+pipenv run python3 app.py

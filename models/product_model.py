@@ -3,9 +3,10 @@ from models.base_model import BaseModel
 from models.client_model import Client
 
 class Product(BaseModel):
-    name = pw.CharField(primary_key=True)
+    id = pw.AutoField(primary_key=True)
+    name = pw.CharField(null=False)
     description = pw.TextField(null=True)
-    image = pw.CharField(default="default")
+    image = pw.CharField(default="2.jpg")
     creation_date = pw.DateField(constraints=[pw.SQL('DEFAULT CURRENT_TIMESTAMP')])
     completion_date = pw.DateField(null=True)
     version = pw.CharField(null=True)

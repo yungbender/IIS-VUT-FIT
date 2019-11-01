@@ -4,7 +4,7 @@ body {
   background-attachment: fixed;
   font-family: 'Playfair Display', serif;
   text-align: center;
-  min-width: 400px;
+  min-width: 700px;
   margin: 0px;
   padding: 0px;
 }
@@ -38,11 +38,17 @@ body {
   height: 18px;
 }
 
-#mainbar img {
+#search-img {
   float: left;
   margin: 18px 18px 18px 0px;
   padding: 0px;
   height: 34px;
+  width: 34px;
+  background-color: transparent;
+  background-image: url("/static/search.png");
+  background-size: cover;
+  border-width: 0px;
+  cursor: pointer;
 }
 
 #mainbar ul {

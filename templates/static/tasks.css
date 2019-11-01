@@ -1,0 +1,71 @@
+#head-wrapper {
+	margin: 0px auto;
+	height: 45px;
+	width: 90%;
+	font-family: 'Bitter', serif;
+	color: white;
+	background-color: black;
+	min-width: 800px;
+}
+
+#head {
+	margin: 140px 0px 0px 0px;
+	min-width: 700px;
+}
+
+#tasks-title {
+	font-size: 25px;
+	margin: 0px;
+	padding: 10px;
+	font-weight: bold;
+}
+
+#state-wrapper {
+	width: 90%;
+	height: auto;
+	margin: 0px auto;
+	background-color: black;
+	min-width: 800px;
+}
+
+.state {
+	width: 16%;
+	height: 37px;
+	margin: 10px 2%;
+	float: left;
+	background: rgb(0,77,128);
+	background: linear-gradient(0deg, rgba(0,77,128,1) 10%, rgba(0,0,0,1) 100%);
+}
+
+.state-title {
+	margin: 7px;
+	color: white;
+	font-family: 'Staatliches', cursive;
+	font-size: 20px;
+}
+
+.tasks {
+	background-color: black;
+	height: auto;
+	color: white;
+	padding: 2px;
+	text-align: left;
+}
+
+.tasks p {
+	margin: 0px;
+	padding: 5%;
+	border-width: 1px 0px;
+	border-color: white;
+	border-style: solid;
+}
+
+.tasks a {
+	text-decoration: none;
+	color: white;
+}
+
+.tasks p:hover {
+	background-color: white;
+	color: black;
+}

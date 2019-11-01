@@ -1,0 +1,38 @@
+{% extends "base.html" %}
+
+<html>
+  <head>
+    {% block head %}
+    <link rel="stylesheet" href="/static/create_task.css">
+    {{ super() }}
+    {% endblock %}
+  </head>
+  <body>
+    {% block content %}
+    {{ super() }}
+    <div id="form-wrapper">
+      <form id="form" method="POST" action="/tasks/{{ taskId }}">
+        <p id="form-title">Task</p>
+        <div id="form-inner">
+          <div class="column-left">
+            {{ taskForm.csrf_token }}
+            <p>{{ taskForm.title(class_="task-form")}}</p>
+            <p>{{ taskForm.completion_date(class_="task-form")}}</p>
+          </div>
+          <div class="column-right">
+            <p>{{ taskForm.state(class_="task-form")}}</p>
+            <p>{{ taskForm.worker(class_="task-form")}}</p>
+          </div>
+          <div>
+            {{ taskForm.description }}
+          </div>
+          <p>
+            <input id="task-submit" type="submit" value="Save task">
+          </p> 
+      </form>
+      </div>
+     </div>
+    </div>
+    {% endblock %}
+  </body>
+</html>

@@ -1,7 +1,8 @@
 from models.ticket_model import Ticket
 from models.comment_model import Comment
+from models.task_ticket_model import Task_Ticket
 
-class TicketRepostory():
+class TicketRepository():
 
     def get_ticket(self, ticketId):
         return Ticket.select() \
@@ -16,20 +17,29 @@ class TicketRepostory():
         return Ticket.select(Ticket.id, \
                              Ticket.name, \
                              Ticket.creation_date) \
+                     .where() \
                      .execute()
     
     def get_created_tickets(self, userId):
         return Ticket.select() \
                      .where(Ticket.author_id == userId) \
-                     .execute() \
+                     .order_by(Ticket.creation_date.desc()) \
+                     .execute()
 
     def get_commented_tickets(self, userId):
         return Ticket.select() \
                      .join(Comment) \
                      .where(Comment.author_id == userId) \
+                     .order_by(Comment.creation_date.desc()) \
                      .execute()
 
-    def create_ticket(self, name, description, state=0, image, authorId, productId):
+    def get_task_tickets(self, taskId):
+        return Ticket.select() \
+                     .join(Task_Ticket) \
+                     .where(Task_Ticket.task_id == taskId) \
+                     .execute()
+
+    def create_ticket(self, name, description, image, authorId, productId, state=0):
         Ticket.create(name=name, description=description, state=state, author_id=authorId, product_id=productId)
     
     def update_ticket_state(self, ticketId, state):
