@@ -4,6 +4,7 @@
   <head>
     {% block head %}
     <link rel="stylesheet" href="/static/create_product.css">
+    <script type="text/javascript" src="/static/user_search.js"></script>
     {{ super() }}
     {% endblock %}
   </head>
@@ -13,14 +14,13 @@
     <div id="search-manager-wrapper" style="display: none;">
       <div id="search-manager">
         <div id="search-manager-bar">
+          <form>
             {{ managerForm.csrf_token }}
-            {{ managerForm.manager}}
+            {{ managerForm.manager }}
+          </form>
             <input id="search-manager-bar-butt" type="submit" value="">
         </div>
         <div id="search-manager-list">
-          {% for manager in managers %}
-          <p class="search-manager-list-item">{{ manager.clientname }}</p>
-          {% endfor %}
         </div>
       </div>
     </div>
