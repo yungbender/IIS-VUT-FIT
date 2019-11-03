@@ -14,9 +14,7 @@ class TicketRepository():
                      .execute()
     
     def get_product_tickets(self, productId):
-        return Ticket.select(Ticket.id, \
-                             Ticket.name, \
-                             Ticket.creation_date) \
+        return Ticket.select() \
                      .where() \
                      .execute()
     
@@ -28,6 +26,7 @@ class TicketRepository():
 
     def get_commented_tickets(self, userId):
         return Ticket.select() \
+                     .distinct(Ticket.id) \
                      .join(Comment) \
                      .where(Comment.author_id == userId) \
                      .order_by(Comment.creation_date.desc()) \
@@ -47,3 +46,13 @@ class TicketRepository():
         ticket.id = ticketId
         ticket.state = state
         ticket.save()
+
+    def search_ticket(self, pattern):
+        try:
+            id = int(pattern)
+            if Ticket.select().where(Ticket.id == id).exists():
+                return True
+        except TypeError:
+            tickets = Ticket.select().where(Ticket.name.contains(pattern)).execute()
+            return tickets
+

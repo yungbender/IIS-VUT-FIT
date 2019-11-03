@@ -11,6 +11,7 @@ from profile import PROFILE_API
 from product import PRODUCT_API
 from user import USER_API
 from task import TASK_API
+from search import SEARCH_API
 from upload_handler import MAX_UPLOAD_SIZE
 
 
@@ -27,6 +28,7 @@ def create_app():
     app.register_blueprint(TICKET_API)
     app.register_blueprint(USER_API)
     app.register_blueprint(TASK_API)
+    app.register_blueprint(SEARCH_API)
     app.secret_key = SECRET_KEY
     app.config["REMEMBER_COOKIE_DURATION"] = 10
     app.config["TEMPLATES_AUTO_RELOAD"] = True
