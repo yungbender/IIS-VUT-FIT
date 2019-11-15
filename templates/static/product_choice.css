@@ -1,0 +1,59 @@
+#search-products-wrapper {
+	margin: 0px auto;
+	height: auto;
+	width: 50%;
+	font-family: 'Bitter', serif;
+	color: white;
+}
+
+#search-products {
+	margin: 140px 0px 0px 0px;
+	background-color: black;
+	min-width: 400px;
+	min-height: 80px;
+}
+
+#search-bar {
+	margin: 25px 0px;
+	width: 300px;
+}
+
+#search-bar-butt {
+	display: inline;
+	padding: 0px;
+	height: 34px;
+	width: 34px;
+	background-color: transparent;
+	background-image: url("/static/search.png");
+	background-size: cover;
+	border-width: 0px;
+	cursor: pointer;
+}
+
+#products-wrapper {
+	margin: 0px auto;
+	height: auto;
+	width: 50%;
+	font-family: 'Bitter', serif;
+	color: white;
+}
+
+#products {
+	margin: 50px 0px 0px 0px;
+	background-color: black;
+	min-width: 400px;
+	min-height: 250px;
+}
+
+#products-title {
+	font-size: 25px;
+	margin: 0px;
+	padding: 10px;
+	font-weight: bold;
+}
+
+#product {
+	height: 150px;
+	width: 150px;
+	margin: 18px;
+}

@@ -1,0 +1,52 @@
+#ticket-form-wrapper {
+	margin: 0px auto;
+	height: auto;
+    width: 50%;
+    min-width: 450px;
+	font-family: 'Bitter', serif;
+    color: white;
+	background-color: black;
+}
+
+#ticket-form {
+	margin: 130px auto 0px auto;
+	min-width: 420px;
+    min-height: 250px;
+    width: 90%;
+    padding: 10px;
+}
+
+#ticket-header {
+    padding: 15px;
+    min-width: 95px;
+}
+
+#ticket-name {
+    width: 70%;
+    min-width: 56px;
+}
+
+#ticket-name-label {
+    width: 30%;
+    min-width: 24px;
+}
+
+#ticket-description {
+    width: 90%;
+    min-width: 80px;
+    height: 200px;
+    min-height: 80px;
+}
+
+#ticket-submit {
+    background-color: #1aa3ff;
+    font-weight: bold;
+    width: 220px;
+    height: 35px;
+    border-color: #80ccff;
+    border-radius: 5px;
+    color: black;
+    font-weight: bold;
+    margin: 20px;
+    cursor: pointer;
+}

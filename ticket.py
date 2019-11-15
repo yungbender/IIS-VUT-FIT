@@ -17,14 +17,14 @@ def product_ticket(productId, ticketId):
     if PRODUCT_REPO.check_product(productId):
         ticket = TICKET_REPO.get_ticket(ticketId)
         if ticket:
-            return render_template("ticket.html", ticket=ticket)
+            return render_template("ticket.html", ticket=ticket, user=current_user)
     return abort(HTTP_NOT_FOUND)
 
 @TICKET_API.route("/tickets/<int:productId>")
 def product_tickets(productId):
     if PRODUCT_REPO.check_product(productId):
         tickets = TICKET_REPO.get_product_tickets(productId)
-        return render_template("ticket.html", tickets=tickets)
+        return render_template("tickets.html", tickets=tickets, user=current_user, productId=productId)
     return abort(HTTP_NOT_FOUND)
 
 @TICKET_API.route("/tickets/new", methods=["GET", "POST"])
@@ -37,10 +37,23 @@ def create_ticket_products():
     if productForm.validate_on_submit():
         productPattern = productForm.product.data
         searchedProducts = PRODUCT_REPO.search_product(productPattern)
-        return render_template("product_choice.html", products=searchedProducts)
+        return render_template("product_choice.html", products=searchedProducts, user=current_user, productForm=productForm)
     # Else user did not search for product, just render the search bar and page
     products = PRODUCT_REPO.get_products()
-    return render_template("product_choice.html", products=products)
+    return render_template("product_choice.html", products=products, user=current_user, productForm=productForm)
+
+@TICKET_API.route("/tickets", methods=["GET", "POST"])
+@login_required
+def show_ticket_products():
+    productForm = SearchProductForm()
+    # If user searched for product
+    if productForm.validate_on_submit():
+        productPattern = productForm.product.data
+        searchedProducts = PRODUCT_REPO.search_product(productPattern)
+        return render_template("product_choice2.html", products=searchedProducts, user=current_user, productForm=productForm)
+    # Else user did not search for product, just render the search bar and page
+    products = PRODUCT_REPO.get_products()
+    return render_template("product_choice2.html", products=products, user=current_user, productForm=productForm)
 
 @TICKET_API.route("/tickets/new/<int:productId>", methods=["GET", "POST"])
 @login_required
@@ -54,7 +67,7 @@ def create_ticket(productId):
     # If user submitted new ticket
     if ticketForm.validate_on_submit():
         try:
-            fileName = handle_image(ticketForm.file)
+            fileName = handle_image(ticketForm.image)
         except InvalidFile:
             return flash("Invalid file uploaded!")
 
@@ -70,4 +83,4 @@ def create_ticket(productId):
         
         return redirect(url_for("dashboard.index"))
 
-    return render_template("create_ticket.html", user=current_user)
+    return render_template("create_ticket.html", user=current_user, ticketForm=ticketForm, productId=productId)

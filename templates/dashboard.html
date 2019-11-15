@@ -12,10 +12,10 @@
     {{ super() }}
     <div id="icons-wrapper">
       <div id="icons">
-      	<form class="ticket-form">
+      	<form class="ticket-form" action="tickets">
       		<input id="tickets-butt" type="submit" value="">
       	</form>
-      	<form class="ticket-form" action="">
+      	<form class="ticket-form" action="tickets/new">
       		<input id="add-ticket-butt" type="submit" value="">
       	</form>
         {% if user.position_id.id >= 1 %}

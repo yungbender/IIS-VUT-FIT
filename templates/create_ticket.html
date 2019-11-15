@@ -10,6 +10,19 @@
   <body>
     {% block content %}
     {{ super() }}
+    </div>
+    <div id="ticket-form-wrapper">
+      <form id="ticket-form" method="POST" enctype="multipart/form-data">
+        <div id="ticket-header">
+          <span id="ticket-name-label"> Ticket name:</span>
+          {{ ticketForm.csrf_token }}
+          {{ ticketForm.title(id = "ticket-name")}}
+        </div>
+        {{ ticketForm.description(id = "ticket-description")}}
+        {{ ticketForm.image }}
+        <input id="ticket-submit" type="submit" value="Save ticket">
+      </form>
+    </div>
     {% endblock %}
   </body>
 </html>

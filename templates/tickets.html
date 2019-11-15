@@ -1,0 +1,32 @@
+{% extends "base.html" %}
+
+<html>
+  <head>
+    {% block head %}
+    <link rel="stylesheet" href="/static/tickets.css">
+    {{ super() }}
+    {% endblock %}
+  </head>
+  <body>
+    {% block content %}
+    {{ super() }}
+    <div class="tickets-wrapper">
+      <div class="last-tickets">
+        <p>Tickets of product</p>
+        <div class="ticket">
+          <div class="ticket-text">
+            {% for ticket in tickets %}
+              <a href="{{ ticket.id }}">
+              <p class="ticket-left">Bug <b>{{ ticket.name }}</b></p>
+              <p class="ticket-right">By <b>{{ ticket.author_id.clientname }}</b> on <b>{{ticket.creation_date}}</b>
+              </a>
+            {% endfor %}
+            <div style="clear: both; user-select: auto;"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+    {% endblock %}
+  </body>
+</html>

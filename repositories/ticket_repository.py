@@ -1,5 +1,6 @@
 from models.ticket_model import Ticket
 from models.comment_model import Comment
+from models.product_model import Product
 from models.task_ticket_model import Task_Ticket
 
 class TicketRepository():
@@ -15,7 +16,8 @@ class TicketRepository():
     
     def get_product_tickets(self, productId):
         return Ticket.select() \
-                     .where() \
+                     .join(Product) \
+                     .where(Product.id == productId) \
                      .execute()
     
     def get_created_tickets(self, userId):

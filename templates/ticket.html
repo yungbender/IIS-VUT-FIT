@@ -1,95 +1,27 @@
-<style>
-    body {
-      background-color: #e6e6e6;
-      background-attachment: fixed;
-      font-family: 'Playfair Display', serif;
-      text-align: center;
-      min-width: 400px;
-      margin: 0;
-      padding: 0;
-    }
-    
-    #logo {
-      background-color: #004d80;
-      color: white;
-      border-style: solid;
-      border-color: black;
-      font-weight: bold;
-      float: left;
-      padding: 10 40 10 ;
-      margin: 0;
-    }
-    
-    #mainbar {
-      display: block;
-      background-color: #000f1a;
-      height: 69px;    
-    }
-    
-    #mainbar input {
-      float: left;
-      margin: 18px;
-      padding: 0px;
-      height: 18px;
-    }
-    
-    ul {
-      margin: 0;
-      list-style-type: none;
-      color: white;
-    }
-    
-    li {
-      float: right;
-      height: 50%;
-    }
-    
-    a {
-      text-decoration: none;
-      color: white;
-      display: block;
-      padding: 24 10;
-    }
-  
-    a:hover {
-      background-color: #b3b3b3;
-      color: black;
-    }
-    
-    h1 {
-      margin: 0;
-      color: white;
-    }
-    
-    h4 {
-      margin: 0;
-    }
-  </style>
-  
-  <html>
-    <head>
-      <link href="https://fonts.googleapis.com/css?family=Playfair+Display&display=swap" rel="stylesheet">
-      <script type="text/javascript" src="http://livejs.com/live.js"></script>
-    </head>
-    <body>
-    
-      <div id="mainbar">
-        <h1 id="logo">BugTrack</h1>
-        
-        <div>
-            <p>Title: {{ ticket.name }}</p>
-            <p>Description: {{ ticket.description }}</p>
-            <p>State: {{ ticket.state }}</p>
-            <p>Creation date: {{ ticket.creation_date }}</p>
-            <p>Author: {{ ticket.author_id }}</p>
-            <p>Product: {{ ticket.product }}</p>
+{% extends "base.html" %}
+
+<html>
+  <head>
+    {% block head %}
+    <link rel="stylesheet" href="/static/create_ticket.css">
+    {{ super() }}
+    {% endblock %}
+  </head>
+  <body>
+    {% block content %}
+    {{ super() }}
+    </div>
+    <div id="ticket-form-wrapper">
+      <form id="ticket-form" method="POST" enctype="multipart/form-data">
+        <div id="ticket-header">
+          <span id="ticket-name-label"> Ticket name:</span>
+          <p id="ticket-name">{{ ticket.name }}</p>
         </div>
-        
-      </div>
-  
-      <div>
-          
-      </div>
-      
-    </body>
-  </html>
+        <textarea id="ticket-description">{{ ticket.description }}</textarea>
+        <img src="{{ ticket.image }}" width="200" height="200">
+        <input id="ticket-submit" type="submit" value="Save ticket">
+      </form>
+    </div>
+    {% endblock %}
+  </body>
+</html>
