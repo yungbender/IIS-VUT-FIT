@@ -18,17 +18,13 @@ def product_ticket(productId, ticketId):
         ticket = TICKET_REPO.get_ticket(ticketId)
         if ticket:
             return render_template("ticket.html", ticket=ticket)
-        else:
-            return abort(HTTP_NOT_FOUND)
+    return abort(HTTP_NOT_FOUND)
 
 @TICKET_API.route("/tickets/<int:productId>")
 def product_tickets(productId):
     if PRODUCT_REPO.check_product(productId):
         tickets = TICKET_REPO.get_product_tickets(productId)
-        if tickets:
-            return render_template("ticket.html", tickets=tickets)
-        else:
-            return abort(HTTP_NOT_FOUND)
+        return render_template("ticket.html", tickets=tickets)
     return abort(HTTP_NOT_FOUND)
 
 @TICKET_API.route("/tickets/new", methods=["GET", "POST"])
