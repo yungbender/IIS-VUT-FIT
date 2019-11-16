@@ -41,7 +41,7 @@ class TicketRepository():
                      .execute()
 
     def create_ticket(self, name, description, image, authorId, productId, state=0):
-        Ticket.create(name=name, description=description, state=state, author_id=authorId, product_id=productId)
+        Ticket.create(name=name, image=image, description=description, state=state, author_id=authorId, product_id=productId)
     
     def update_ticket_state(self, ticketId, state):
         ticket = Ticket()

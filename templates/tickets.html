@@ -4,6 +4,7 @@
   <head>
     {% block head %}
     <link rel="stylesheet" href="/static/tickets.css">
+    <script type="text/javascript" src="/static/redirect_ticket.js"></script>
     {{ super() }}
     {% endblock %}
   </head>
@@ -16,7 +17,7 @@
         <div class="ticket">
           <div class="ticket-text">
             {% for ticket in tickets %}
-              <a href="{{ ticket.id }}">
+              <a href="javascript:redirect_to_ticket({{ ticket.id }});">
               <p class="ticket-left">Bug <b>{{ ticket.name }}</b></p>
               <p class="ticket-right">By <b>{{ ticket.author_id.clientname }}</b> on <b>{{ticket.creation_date}}</b>
               </a>

@@ -18,7 +18,9 @@
           <p id="ticket-name">{{ ticket.name }}</p>
         </div>
         <textarea id="ticket-description">{{ ticket.description }}</textarea>
-        <img src="{{ ticket.image }}" width="200" height="200">
+        {% if ticket.image != None %}
+          <img src="/static/uploads/{{ ticket.image }}" width="200" height="200">
+        {% endif %}
         <input id="ticket-submit" type="submit" value="Save ticket">
       </form>
     </div>

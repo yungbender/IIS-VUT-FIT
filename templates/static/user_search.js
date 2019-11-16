@@ -12,7 +12,7 @@ async function search_user(position)
 {
     if(position == 2)
         var managerName = document.getElementById("search-manager-bar-input");
-    else if(position == 1)
+    else
         var managerName = document.getElementById("search-developer-bar-input");
 
     managerName = managerName.value;
@@ -21,7 +21,7 @@ async function search_user(position)
 
     if(position == 2)
         var userElement = document.getElementById("search-manager-list");
-    else if(position == 1)
+    else
         var userElement = document.getElementById("search-developer-list");
     
     userElement.innerHTML = "";
@@ -30,7 +30,7 @@ async function search_user(position)
     {
         if(position == 2)
             userElement.innerHTML = userElement.innerHTML + "<p id=\"search-manager-list-item\" onclick=\"select_manager(this)\">" + json[position][user] + "</p>\n";
-        else if(position == 1)
+        else
             userElement.innerHTML = userElement.innerHTML + "<p id=\"search-developer-list-item\" onclick=\"select_developer(this)\">" + json[position][user] + "</p>\n";
     }
 }
@@ -43,6 +43,11 @@ function search_manager_wrap()
 function search_developer_wrap()
 {
     search_user(1);
+}
+
+function search_basedOnCookie_wrap()
+{
+    search_user(99);
 }
 
 function select_manager(selectedManager)
