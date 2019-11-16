@@ -68,5 +68,5 @@ window.onload = function(){
     if(document.getElementById("search-manager-bar-butt") != null)
         document.getElementById("search-manager-bar-butt").onclick = search_manager_wrap;
     if(document.getElementById("search-developer-bar-butt") != null)
-        document.getElementById("search-developer-bar-butt").onclick = search_developer_wrap;
+        document.getElementById("search-developer-bar-butt").onclick = search_basedOnCookie_wrap;
 }

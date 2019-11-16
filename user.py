@@ -20,7 +20,22 @@ def users_json():
         abort(HTTP_WRONG_INPUT)
 
     if userPosition == COOKIE_POSITION:
-        userPosition = current_user.position_id
+        # If there is special flag at position, the user search will be 
+        # performed based on the position of user, who requested the search
+        # and lower (So manager can search => managers, developers)
+        # (Owner can search => owners, managers, developer)
+        userPosition = current_user.position_id.id
+        users = []
+        for lowerPosition in range(1, (userPosition + 1)):
+            positionUsers = USER_REPO.search_user(userPattern, lowerPosition)
+            for positionUser in positionUsers:
+                users.append(positionUser.clientname)
+
+        result = {}
+        result[COOKIE_POSITION] = users
+
+        return jsonify(result)
+
     elif userPosition < CUSTOMER or userPosition > ADMIN:
         abort(HTTP_WRONG_INPUT)
 
