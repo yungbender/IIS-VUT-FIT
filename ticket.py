@@ -1,6 +1,5 @@
 from flask import Blueprint, render_template, abort, request, flash, jsonify, redirect, url_for
 from flask_login import login_required, current_user
-from models.ticket_model import Ticket
 from repositories.ticket_repository import TicketRepository
 from repositories.product_repository import ProductRepository
 from templates.create_ticket import CreateTicketForm
@@ -12,15 +11,23 @@ TICKET_REPO = TicketRepository()
 PRODUCT_REPO = ProductRepository()
 HTTP_NOT_FOUND = 404
 
-@TICKET_API.route("/tickets/<int:productId>/<int:ticketId>")
+@TICKET_API.route("/tickets/<int:productId>/<int:ticketId>", methods=["GET", "POST"])
 def product_ticket(productId, ticketId):
+    ticketForm = CreateTicketForm()
     if PRODUCT_REPO.check_product(productId):
         ticket = TICKET_REPO.get_ticket(ticketId)
         if ticket:
-            return render_template("ticket.html", ticket=ticket, user=current_user)
+            if ticketForm.validate_on_submit():
+                ticket.name = ticketForm.title.data
+                ticket.description = ticketForm.description.data
+                ticket.save()
+            else:
+                ticketForm.description.data = ticket.description
+                ticketForm.title.data = ticket.name
+            return render_template("ticket.html", ticketForm=ticketForm, user=current_user)
     return abort(HTTP_NOT_FOUND)
 
-@TICKET_API.route("/tickets/<int:productId>")
+@TICKET_API.route("/tickets/<int:productId>", methods=["GET"])
 def product_tickets(productId):
     if PRODUCT_REPO.check_product(productId):
         tickets = TICKET_REPO.get_product_tickets(productId)
