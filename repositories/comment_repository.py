@@ -8,12 +8,14 @@ class CommentRepository:
         return Comment.select() \
                       .join(Ticket) \
                       .where(Ticket.id == ticketId) \
+                      .order_by(Comment.creation_date.asc()) \
                       .execute()
     
     def get_task_comments(self, taskId):
         return Comment.select() \
                       .join(Task) \
                       .where(Task.id == taskId) \
+                      .order_by(Task.creation_date.asc()) \
                       .execute()
     
     def create_ticket_comment(self, content, image, ticketId, authorId):

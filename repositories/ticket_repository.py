@@ -18,6 +18,7 @@ class TicketRepository():
         return Ticket.select() \
                      .join(Product) \
                      .where(Product.id == productId) \
+                     .order_by(Ticket.creation_date.desc()) \
                      .execute()
     
     def get_created_tickets(self, userId):

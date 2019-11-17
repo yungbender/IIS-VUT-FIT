@@ -2,29 +2,50 @@ from flask import Blueprint, render_template, abort, request, flash, jsonify, re
 from flask_login import login_required, current_user
 from repositories.ticket_repository import TicketRepository
 from repositories.product_repository import ProductRepository
+from repositories.comment_repository import CommentRepository
 from templates.create_ticket import CreateTicketForm
 from templates.search_product import SearchProductForm
+from templates.create_comment_ticket import CreateCommentTicket
 from upload_handler import handle_image, InvalidFile, remove_file
 
 TICKET_API = Blueprint("ticket", __name__)
 TICKET_REPO = TicketRepository()
 PRODUCT_REPO = ProductRepository()
+COMMENT_REPO = CommentRepository()
 HTTP_NOT_FOUND = 404
 
 @TICKET_API.route("/tickets/<int:productId>/<int:ticketId>", methods=["GET", "POST"])
 def product_ticket(productId, ticketId):
     ticketForm = CreateTicketForm()
+    commentForm = CreateCommentTicket()
+
+    # Product exists
     if PRODUCT_REPO.check_product(productId):
+        # Get the ticket
         ticket = TICKET_REPO.get_ticket(ticketId)
+        # Ticket exists
         if ticket:
+            # Get ticket comments
+            comments = COMMENT_REPO.get_ticket_comments(ticketId)
+            # If ticket form was sent, update the ticket
             if ticketForm.validate_on_submit():
                 ticket.name = ticketForm.title.data
                 ticket.description = ticketForm.description.data
                 ticket.save()
+            # If comment form was sent, create new comment
+            elif commentForm.validate_on_submit():
+                try:
+                    imageName = handle_image(commentForm.image)
+                except InvalidFile:
+                    return flash("Invalid image uploaded!")
+
+                comment = commentForm.content.data
+                COMMENT_REPO.create_ticket_comment(comment, imageName, ticketId, current_user.id)
+            # Else just return prefilled forms to enable editing
             else:
                 ticketForm.description.data = ticket.description
                 ticketForm.title.data = ticket.name
-            return render_template("ticket.html", ticketForm=ticketForm, user=current_user, ticket=ticket)
+            return render_template("ticket.html", ticketForm=ticketForm, user=current_user, ticket=ticket, comments=comments, commentForm=commentForm)
     return abort(HTTP_NOT_FOUND)
 
 @TICKET_API.route("/tickets/<int:productId>", methods=["GET"])
