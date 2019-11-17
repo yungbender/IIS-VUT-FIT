@@ -3,25 +3,25 @@
 	font-family: 'Bitter', serif;
 }
 
-.last-tickets {
+.tickets {
 	border-radius: 7px;
 	background-color: black;
 	text-align: center;
 	margin: auto;
 	padding: 0px 0px 10px 0px;
-	width: 750px;
+	width: 60%;
 	height: auto;
 	vertical-align: top;
 }
 
-.last-tickets p{
+.tickets p{
 	text-align: center;
 	color: white;
 }
 
 .ticket div{
 
-	width: 600px;
+	width: 80%;
 	height: auto;
 	text-align: center;
 	margin: 0px auto;
@@ -48,4 +48,8 @@
 	margin: 0px;
 	vertical-align: top;
 	font-size: 14px;
+}
+
+#tickets-title {
+	padding: 10px;
 }

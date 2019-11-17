@@ -12,18 +12,18 @@
     {% block content %}
     {{ super() }}
     <div class="tickets-wrapper">
-      <div class="last-tickets">
-        <p>Tickets of product</p>
+      <div class="tickets">
+        <p id="tickets-title">Tickets of product</p>
         <div class="ticket">
-          <div class="ticket-text">
-            {% for ticket in tickets %}
-              <a href="javascript:redirect_to_ticket({{ ticket.id }});">
-              <p class="ticket-left">Bug <b>{{ ticket.name }}</b></p>
-              <p class="ticket-right">By <b>{{ ticket.author_id.clientname }}</b> on <b>{{ticket.creation_date}}</b>
-              </a>
-            {% endfor %}
-            <div style="clear: both; user-select: auto;"></div>
-          </div>
+          {% for ticket in tickets %}
+            <a href="javascript:redirect_to_ticket({{ ticket.id }});">
+              <div class="ticket-text">
+                <p class="ticket-left">Bug <b>{{ ticket.name }}</b></p>
+                <p class="ticket-right">By <b>{{ ticket.author_id.clientname }}</b> on <b>{{ticket.creation_date}}</b>
+                <div style="clear: both; user-select: auto; border-width: 0px;"></div>
+              </div>
+            </a>
+          {% endfor %}
         </div>
       </div>
     </div>

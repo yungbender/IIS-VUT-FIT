@@ -24,7 +24,7 @@ def product_ticket(productId, ticketId):
             else:
                 ticketForm.description.data = ticket.description
                 ticketForm.title.data = ticket.name
-            return render_template("ticket.html", ticketForm=ticketForm, user=current_user)
+            return render_template("ticket.html", ticketForm=ticketForm, user=current_user, ticket=ticket)
     return abort(HTTP_NOT_FOUND)
 
 @TICKET_API.route("/tickets/<int:productId>", methods=["GET"])

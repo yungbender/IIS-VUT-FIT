@@ -1,0 +1,143 @@
+#ticket-form-wrapper {
+	margin: 0px auto;
+	height: auto;
+    width: 60%;
+    min-width: 450px;
+	font-family: 'Bitter', serif;
+    color: white;
+	background-color: black;
+}
+
+#ticket-form {
+	margin: 130px auto 0px auto;
+	min-width: 420px;
+    min-height: 250px;
+}
+
+#ticket-header {
+    padding: 7px;
+    background-color: #1aa3ff;
+    color: black;
+    font-weight: bold;
+}
+
+#ticket-header-left {
+    float: left;
+    padding: 0px 7px 0px 0px;
+}
+
+#ticket-header-right {
+    float: right;
+    padding: 0px 0px 0px 7px;
+}
+
+#ticket-name {
+    background-color: inherit;
+    border-style: none;
+    font-family: inherit;
+    font-size: inherit;
+    color: inherit;
+    font-size: 20px;
+    text-align: center;
+    align-content: center;
+}
+
+#ticket-name:focus {
+    background-color: #E1E1E1;
+    border-style: none;
+    color: black;
+}
+
+#ticket-description {
+    margin: 1vmax;
+    width: 90%;
+    min-width: 80px;
+    height: 200px;
+    min-height: 80px;
+    background-color: black;
+    resize: vertical;
+    font-family: inherit;
+    font-size: inherit;
+    color: inherit;
+    border-style: none;
+}
+
+#ticket-description:focus {
+    background-color: #E1E1E1;
+    color: black;
+}
+
+#ticket-butt {
+    background-color: #1aa3ff;
+    font-weight: bold;
+    width: 120px;
+    height: 35px;
+    border-color: #80ccff;
+    border-radius: 5px;
+    color: black;
+    font-weight: bold;
+    margin: 15px 8px;
+    cursor: pointer;
+    float: right;
+}
+
+#ticket-image {
+    width: 200px;
+    height: 200px;
+}
+
+#new-comment-wrapper {
+	margin: 0px auto;
+	height: auto;
+    width: 60%;
+    min-width: 450px;
+	font-family: 'Bitter', serif;
+    color: white;
+	background-color: black;
+}
+
+#new-comment {
+	margin: 50px auto 50px auto;
+	min-width: 420px;
+    min-height: 250px;
+}
+
+#new-comment-content {
+    margin: 1vmax;
+    width: 90%;
+    min-width: 80px;
+    height: 200px;
+    min-height: 80px;
+    background-color: black;
+    resize: vertical;
+    font-family: inherit;
+    font-size: inherit;
+    color: inherit;
+    border-style: solid;
+    border-width: 1px;
+    border-color: #1aa3ff;
+    padding: 8px;
+}
+
+#comment-wrapper {
+	margin: 0px auto;
+	height: auto;
+    width: 60%;
+    min-width: 450px;
+	font-family: 'Bitter', serif;
+    color: white;
+	background-color: black;
+}
+
+#comment {
+	margin: 130px auto 50px auto;
+	min-width: 420px;
+    min-height: 250px;
+}
+
+#comment-header {
+    padding: 7px;
+    background-color: #1aa3ff;
+    color: black;
+    font-weight: bold;
+}

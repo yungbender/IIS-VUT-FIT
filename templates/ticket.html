@@ -3,27 +3,54 @@
 <html>
   <head>
     {% block head %}
-    <link rel="stylesheet" href="/static/create_ticket.css">
+    <link rel="stylesheet" href="/static/ticket.css">
+    <script type="text/javascript" src="/static/show_images.js"></script>
     {{ super() }}
     {% endblock %}
   </head>
   <body>
     {% block content %}
     {{ super() }}
-    </div>
     <div id="ticket-form-wrapper">
-      <form id="ticket-form" method="POST" enctype="multipart/form-data">
+      <form id="ticket-form" method="POST">
         <div id="ticket-header">
-          <span id="ticket-name-label"> Ticket name:</span>
-          <p id="ticket-name">{{ ticket.name }}</p>
+          <div id="ticket-header-first-row">
+            <span id="ticket-header-left">Ticket name:</span>
+            {{ ticketForm.csrf_token }}
+            {{ ticketForm.title(id = "ticket-name")}}
+            {% if ticket.closed %}
+              <span id="ticket-header-right">State: Closed</span>
+            {% else %}
+              <span id="ticket-header-right">State: Opened</span>
+            {% endif %}
+            <div style="clear: both; user-select: auto; border-width: 0px;"></div>
+          </div>
+          <div id="ticket-header-second-row">
+            <span id="ticket-header-left">Author:</span>
+            <span id="ticket-header-left">{{ ticket.author_id.clientname }}</span>
+            <span id="ticket-header-right">{{ ticket.creation_date }}</span>
+            <span id="ticket-header-right">Creation date:</span>
+            <div style="clear: both; user-select: auto; border-width: 0px;"></div>
+          </div>
         </div>
-        <textarea id="ticket-description">{{ ticket.description }}</textarea>
+
+        {{ ticketForm.description(id = "ticket-description")}}
         {% if ticket.image != None %}
-          <img src="/static/uploads/{{ ticket.image }}" width="200" height="200">
+          <p><img id="ticket-image" src="/static/uploads/{{ ticket.image }}"><p></p>
         {% endif %}
-        <input id="ticket-submit" type="submit" value="Save ticket">
+        <input id="ticket-butt" type="button" value="Add comment">
+        <input id="ticket-butt" type="button" value="Show images" onclick="show_images()">
+        <input id="ticket-butt" type="submit" value="Save ticket">
+        <div style="clear: both; user-select: auto; border-width: 0px;"></div>
       </form>
     </div>
+    <div id="new-comment-wrapper">
+        <form id="new-comment" method="POST">
+          <textarea id="new-comment-content" placeholder="Write your comment here..."></textarea>
+          <input id="ticket-butt" type="submit" value="Send comment">
+          <div style="clear: both; user-select: auto; border-width: 0px;"></div>
+        </form>
+      </div>
     {% endblock %}
   </body>
 </html>
