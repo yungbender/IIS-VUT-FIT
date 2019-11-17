@@ -5,7 +5,7 @@ from repositories.product_repository import ProductRepository
 from repositories.comment_repository import CommentRepository
 from templates.create_ticket import CreateTicketForm
 from templates.search_product import SearchProductForm
-from templates.create_comment_ticket import CreateCommentTicket
+from templates.create_comment_ticket import CreateCommentForm
 from upload_handler import handle_image, InvalidFile, remove_file
 
 TICKET_API = Blueprint("ticket", __name__)
@@ -17,7 +17,7 @@ HTTP_NOT_FOUND = 404
 @TICKET_API.route("/tickets/<int:productId>/<int:ticketId>", methods=["GET", "POST"])
 def product_ticket(productId, ticketId):
     ticketForm = CreateTicketForm()
-    commentForm = CreateCommentTicket()
+    commentForm = CreateCommentForm()
 
     # Product exists
     if PRODUCT_REPO.check_product(productId):
@@ -26,7 +26,6 @@ def product_ticket(productId, ticketId):
         # Ticket exists
         if ticket:
             # Get ticket comments
-            comments = COMMENT_REPO.get_ticket_comments(ticketId)
             # If ticket form was sent, update the ticket
             if ticketForm.validate_on_submit():
                 ticket.name = ticketForm.title.data
@@ -45,6 +44,8 @@ def product_ticket(productId, ticketId):
             else:
                 ticketForm.description.data = ticket.description
                 ticketForm.title.data = ticket.name
+
+            comments = COMMENT_REPO.get_ticket_comments(ticketId)
             return render_template("ticket.html", ticketForm=ticketForm, user=current_user, ticket=ticket, comments=comments, commentForm=commentForm)
     return abort(HTTP_NOT_FOUND)
 

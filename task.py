@@ -3,12 +3,16 @@ from flask_login import current_user, login_required
 from repositories.task_repository import TaskRepository
 from repositories.user_repository import UserRepository
 from repositories.ticket_repository import TicketRepository
+from repositories.comment_repository import CommentRepository
 from templates.create_task import CreateTaskForm
+from templates.create_comment_ticket import CreateCommentForm
+from upload_handler import handle_image, InvalidFile
 
 TASK_API = Blueprint("task", __name__)
 TASK_REPO = TaskRepository()
 TICKET_REPO = TicketRepository()
 USER_REPO = UserRepository()
+COMMENT_REPO = CommentRepository()
 HTTP_UNAUTHORIZED = 401
 HTTP_NOT_FOUND = 404
 MANAGER = 2
@@ -33,6 +37,7 @@ def get_specific_task(taskId):
         abort(HTTP_UNAUTHORIZED)
 
     taskForm = CreateTaskForm()
+    commentForm = CreateCommentForm()
 
     if taskForm.validate_on_submit():
         # User wants to edit existing ticket
@@ -42,14 +47,23 @@ def get_specific_task(taskId):
         taskDate = taskForm.completion_date.data 
         taskState = taskForm.state.data
         taskWorker = taskForm.worker.data
-        developer = USER_REPO.get_developer_username(taskWorker)
-        if developer:
-            success = TASK_REPO.update_task(taskId, taskTitle, taskDesc, taskDate, taskState, developer.id)
+        asignee = USER_REPO.get_user_username(taskWorker)
+        if asignee:
+            success = TASK_REPO.update_task(taskId, taskTitle, taskDesc, taskDate, taskState, asignee.id)
             if success:
                 return redirect(url_for("dashboard.index"))
+    elif commentForm.validate_on_submit():
+        comment = commentForm.content.data
+        try:
+            image = handle_image(commentForm.image)
+        except InvalidFile:
+            return flash("Invalid file uploaded!")
 
-    # User wants to see the ticket
+        COMMENT_REPO.create_task_comment(comment, image, taskId, current_user.id)
+
+    # Get related tickets to the task
     relatedTickets = TICKET_REPO.get_task_tickets(taskId)
+    taskComments = COMMENT_REPO.get_task_comments(taskId)
 
     taskForm.title.data = task.title
     taskForm.description.data = task.description
@@ -57,7 +71,7 @@ def get_specific_task(taskId):
     taskForm.state.data = task.state_id.id 
     taskForm.worker.data = task.worker_id.clientname
 
-    return render_template("task.html", user=current_user, taskId=taskId, taskForm=taskForm, relatedTickets=relatedTickets)
+    return render_template("task.html", user=current_user, taskId=taskId, taskForm=taskForm, relatedTickets=relatedTickets, comments=taskComments, commentForm=commentForm)
 
 @TASK_API.route("/tasks/new", methods=["GET", "POST"])
 def create_task():
@@ -76,10 +90,10 @@ def create_task():
         taskDate = taskForm.completion_date.data 
         taskState = taskForm.state.data
         taskWorker = taskForm.worker.data
-        developer = USER_REPO.get_developer_username(taskWorker)
-        if developer:
+        asignee = USER_REPO.get_user_username(taskWorker)
+        if asignee:
             if ticketId is None:
-                TASK_REPO.create_task(taskTitle, taskDesc, taskDate, developer.id, taskCreator, taskState, ticketId)
+                TASK_REPO.create_task(taskTitle, taskDesc, taskDate, asignee.id, taskCreator, taskState, ticketId)
                 return redirect(url_for("dashboard.index"))
             else:
                 isCorrect = True
@@ -91,7 +105,7 @@ def create_task():
                 if isCorrect:
                     ticket = TICKET_REPO.get_ticket(ticketId)
                     if ticket:
-                        TASK_REPO.create_task(taskTitle, taskDesc, taskDate, developer.id, taskCreator, taskState, ticketId)
+                        TASK_REPO.create_task(taskTitle, taskDesc, taskDate, asignee.id, taskCreator, taskState, ticketId)
                         return redirect(url_for("dashboard.index"))
 
     return render_template("create_task.html", user=current_user, taskForm=taskForm)
