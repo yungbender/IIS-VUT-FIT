@@ -35,7 +35,8 @@ def product_ticket(productId, ticketId):
             elif commentForm.validate_on_submit():
                 try:
                     imageName = handle_image(commentForm.image)
-                except InvalidFile:
+                except Exception as e:
+                    remove_file(imageName)
                     return flash("Invalid image uploaded!")
 
                 comment = commentForm.content.data

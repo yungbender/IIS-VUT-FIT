@@ -47,6 +47,7 @@
     </div>
     <div id="new-comment-wrapper">
       <form id="new-comment" method="POST">
+        {{ commentForm.csrf_token }}
         {{ commentForm.content(id = "new-comment-content")}}
         <input id="ticket-butt" type="submit" value="Send comment">
         <div style="clear: both; user-select: auto; border-width: 0px;"></div>

@@ -19,7 +19,7 @@ class CommentRepository:
                       .execute()
     
     def create_ticket_comment(self, content, image, ticketId, authorId):
-        Ticket.create(content=content, image=image, ticket_id=ticketId, author_id=authorId)
+        Comment.create(content=content, image=image, ticket_id=ticketId, author_id=authorId)
     
     def create_task_comment(self, content, image, taskId, authorId):
-        Ticket.create(content=content, image=image, task_id=taskId, author_id=authorId)
+        Comment.create(content=content, image=image, task_id=taskId, author_id=authorId)

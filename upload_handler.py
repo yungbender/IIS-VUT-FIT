@@ -27,6 +27,9 @@ def generate_image_name():
 
 def handle_image(file):
     # Get filename
+    if file.data == None:
+        return None
+        
     fileName = secure_filename(file.data.filename)
     if fileName == "":
         return None
