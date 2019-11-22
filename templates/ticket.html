@@ -5,6 +5,7 @@
     {% block head %}
     <link rel="stylesheet" href="/static/ticket.css">
     <script type="text/javascript" src="/static/show_images.js"></script>
+    <script type="text/javascript" src="/static/add_comment.js"></script>
     {{ super() }}
     {% endblock %}
   </head>
@@ -38,19 +39,33 @@
         {% if ticket.image != None %}
           <p><img id="ticket-image" src="/static/uploads/{{ ticket.image }}"><p></p>
         {% endif %}
-        <input id="ticket-butt" type="button" value="Add comment">
+        <input id="ticket-butt" type="button" value="Add comment" onclick="add_comment(null)">
         <input id="ticket-butt" type="button" value="Show images" onclick="show_images()">
         <input id="ticket-butt" type="submit" value="Save ticket">
         <div style="clear: both; user-select: auto; border-width: 0px;"></div>
       </form>
     </div>
     <div id="new-comment-wrapper">
-        <form id="new-comment" method="POST">
-          <textarea id="new-comment-content" placeholder="Write your comment here..."></textarea>
-          <input id="ticket-butt" type="submit" value="Send comment">
-          <div style="clear: both; user-select: auto; border-width: 0px;"></div>
-        </form>
+      <form id="new-comment" method="POST">
+        {{ commentForm.content(id = "new-comment-content")}}
+        <input id="ticket-butt" type="submit" value="Send comment">
+        <div style="clear: both; user-select: auto; border-width: 0px;"></div>
+      </form>
+    </div>
+    {% for comment in comments %}
+      <div id="comment-wrapper">
+        <div id="comment">
+          <div id="comment-header">
+            <span id="comment-header-left">Author:</span>
+            <span id="comment-header-left">{{ comment.author_id.clientname }}</span>
+            <span id="comment-header-right">2.8.2025</span>
+            <span id="comment-header-right">Date:</span>
+            <div style="clear: both; user-select: auto; border-width: 0px;"></div>
+          </div>
+          <div id="comment-content">jeba jeba jeba</div>
+        </div>
       </div>
+    {% endfor %}
     {% endblock %}
   </body>
 </html>

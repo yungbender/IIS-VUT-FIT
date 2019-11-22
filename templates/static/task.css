@@ -1,7 +1,7 @@
 #form-wrapper {
 	margin: 0px auto;
 	height: auto;
-	width: 55%;
+	width: 30%;
 	font-family: 'Bitter', serif;
 	color: white;
 }
@@ -19,50 +19,20 @@
 	font-weight: bold;
 }
 
-#form-inner {
-
-}
-
-#task-image {
-	margin: 15px;
-	height: 240px;
-	width: 240px;
-}
-
-
-.column-left {
-	float: left;
-	vertical-align: top;
-	width: 50%;
-}
-
-.column-right {
-	float: right;
-	vertical-align: top;
-	width: 50%;
+#detail {
+	text-align: left;
+	margin: 10px 32%;
+	padding: 0px;
+	width: 100%;
 }
 
 .task-form {
-	background-color: #cccccc;
 	height: 35px;
-	width: 260px;
-	border-radius: 0px;
-	border-width: 0px;
+	border: none;
 	margin: 5px;
 	background-color: black;
 	color: white;
-}
-
-#choose-image {
-	background-color: #1aa3ff;
-	font-weight: bold;
-	width: 200px;
-	height: 35px;
-	border-color: #80ccff;
-	border-radius: 5px;
-	color: black;
-	font-weight: bold;
-	margin: 0px 20px 20px 20px;
+	text-align: left;
 }
 
 #description {
@@ -70,11 +40,18 @@
 	min-height: 200px;
 	width: 80%;
 	padding: 10px;
-	background-color: #cccccc;
+	background-color: black;
+	color: white;
 	border-radius: 0px;
 	border-width: 0px;
 	font-size: 16px;
 	font-family: 'Bitter', serif;
+	margin: 15px 0px 0px 0px;
+}
+
+#description:focus {
+    background-color: #E1E1E1;
+    color: black;
 }
 
 #task-submit {
@@ -87,4 +64,27 @@
 	color: black;
 	font-weight: bold;
 	margin: 20px;
+}
+
+#tab {
+	margin: 0px;
+	padding: 0px;
+	width: 100%;
+	align-content: center;
+}
+
+.tab-button {
+	padding: 15px 0px;
+	margin: 0px;
+	border: none;
+	width: 49%;
+	cursor: pointer;
+}
+
+#detail-butt {
+	background-color: #1aa3ff;
+}
+
+#content-butt {
+	background-color: white;
 }

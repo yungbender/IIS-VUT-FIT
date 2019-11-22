@@ -4,6 +4,8 @@
   <head>
     {% block head %}
     <link rel="stylesheet" href="/static/task.css">
+    <script type="text/javascript" src="/static/change_border.js"></script>
+    <script type="text/javascript" src="/static/tab.js"></script>
     {{ super() }}
     {% endblock %}
   </head>
@@ -13,35 +15,19 @@
     <div id="form-wrapper">
       <form id="form" method="POST" action="/tasks/{{ taskId }}">
         <p id="form-title">Task</p>
-        <div id="form-inner">
-          <div class="column-left">
+        <div id="tab">
+          <input id="detail-butt" class="tab-button" type="button" onclick="selectTab('detail')" value="Detail">
+          <input id="content-butt" class="tab-button" type="button" onclick="selectTab('content')" value="Content">
+        </div>
+        <div id="task">
+          <div id="detail">
             {{ taskForm.csrf_token }}
-            <p>{{ taskForm.title(class_="task-form")}}</p>
-            <script type="text/javascript">
-              window.onload = onLoad;
-
-              function onLoad() {
-                forms = document.getElementsByClassName("task-form")
-                for (var i = forms.length - 1; i >= 0; i--) {
-                  forms[i].onmouseup = function(event) {changeColorOnMouseEnter()};
-                }
-                
-              }
-
-              function changeColorOnMouseEnter()
-              {
-                form = document.getElementsByClassName("task-form")[0]
-                event.target.style.border = "2px solid #1aa3ff";
-              }
-
-            </script>
-            <p>{{ taskForm.completion_date(class_="task-form")}}</p>
+            <p><span>Title: </span>{{ taskForm.title(class_="task-form")}}</p>
+            <p><span>Completion date: </span>{{ taskForm.completion_date(class_="task-form")}}</p>
+            <p><span>State: </span>{{ taskForm.state(class_="task-form")}}</p>
+            <p><span>Assigned: </span>{{ taskForm.worker(class_="task-form")}}</p>
           </div>
-          <div class="column-right">
-            <p>{{ taskForm.state(class_="task-form")}}</p>
-            <p onclick="">{{ taskForm.worker(class_="task-form")}}</p>
-          </div>
-          <div>
+          <div id="content" style="display: none;">
             {{ taskForm.description }}
           </div>
           <p>

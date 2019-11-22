@@ -5,7 +5,8 @@
     min-width: 450px;
 	font-family: 'Bitter', serif;
     color: white;
-	background-color: black;
+    background-color: black;
+    box-shadow: 8px 8px 7px 7px #bfbfbf;
 }
 
 #ticket-form {
@@ -126,11 +127,11 @@
     min-width: 450px;
 	font-family: 'Bitter', serif;
     color: white;
-	background-color: black;
+    background-color: black;
 }
 
 #comment {
-	margin: 130px auto 50px auto;
+	margin: 10px auto 10px auto;
 	min-width: 420px;
     min-height: 250px;
 }
@@ -140,4 +141,25 @@
     background-color: #1aa3ff;
     color: black;
     font-weight: bold;
+}
+
+#comment-header-left {
+    float: left;
+    padding: 0px 7px 0px 0px;
+}
+
+#comment-header-right {
+    float: right;
+    padding: 0px 0px 0px 7px;
+}
+
+#comment-content {
+    margin: 15px auto;
+    width: 90%;
+    min-width: 80px;
+    min-height: 200px;
+    min-height: 80px;
+    background-color: black;
+    text-align: left;
+    padding: 8px;
 }

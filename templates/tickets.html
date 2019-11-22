@@ -13,7 +13,7 @@
     {{ super() }}
     <div class="tickets-wrapper">
       <div class="tickets">
-        <p id="tickets-title">Tickets of product</p>
+        <h2 id="tickets-title">Tickets of product</h2>
         <div class="ticket">
           {% for ticket in tickets %}
             <a href="javascript:redirect_to_ticket({{ ticket.id }});">
