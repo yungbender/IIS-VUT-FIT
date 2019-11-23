@@ -70,3 +70,13 @@ window.onload = function(){
     if(document.getElementById("search-developer-bar-butt") != null)
         document.getElementById("search-developer-bar-butt").onclick = search_basedOnCookie_wrap;
 }
+
+function hideSearch()
+{
+  var div = document.getElementById("search-manager-wrapper");
+  if (div.style.display === "none") {
+    div.style.display = "initial";
+  } else {
+    div.style.display = "none";
+  }
+} 

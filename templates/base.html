@@ -21,7 +21,7 @@
           <ul>
             {% if user.is_authenticated %}
             <li><a class="bar-links" href="/logout">Logout</a></li>
-            <li><form action="/profile/{{ user.id }}"><input type="submit" value="" id="profile-pic-small"></input></form></li>
+            <li><a href="/profile/{{ user.id }}"><img id="profile-pic-small" src="/static/uploads/{{ user.image }}"></a></li>
             {% else %}
             <li><a class="bar-links" href="/register">Sign up</a></li>
             <li><a class="bar-links" href="/login">Sign in</a></li>

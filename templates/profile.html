@@ -1,8 +1,5 @@
 {% extends "base.html" %}
 
-<style>
-</style>
-
 <html>
   <head>
     {% block head %}
@@ -13,15 +10,30 @@
   <body>
     {% block content %}
     {{ super() }}
-	<img src="/static/user.png" style="width:20%">
-    <h1 style="font-size:150px; color: black;">{{ user.clientname }}</h1>
-   	<p>{{ user.mail }}</p>
-   	<p>{{ user.name }}</p>
-	<p>{{user.surname}}</p>
-   	<p>{{ user.birth }}</p>
-   	<p>{{ user.position_id }}</p>
-     <p>{{ user.work_time }}</p>
-     {{ userForm.position }}
+    <div id="form-wrapper">
+      <form id="form" method="POST" action="/profile/{{ user.id }}" enctype="multipart/form-data">
+        <div id="form-inner">
+          <div class="column-left">
+            <p id="form-title">{{user.clientname }}</p>
+            <img id="profile-image" src="/static/uploads/{{ user.image }}">
+            <p>
+              {{ userForm.image(id="choose-image")}}
+            </p>
+          </div>
+          <div class="column-right">
+            {{ userForm.csrf_token }}
+            <p>{{ userForm.mail(class_="profile-form")}}</p>
+            <p>{{ userForm.name(class_="profile-form")}}</p>
+            <p>{{ userForm.surname(class_="profile-form")}}</p>
+            <p>{{ userForm.birth(class_="profile-form")}}</p>
+            <p>{{ userForm.position(class_="profile-form")}}</p>
+            <p><input id="profile-submit" type="submit" value="Save profile"></p> 
+          </div>
+          <div style="clear: both; user-select: auto; border-width: 0px;"></div>
+      </form>
+      </div>
+     </div>
+    </div>
     {% endblock %}
   </body>
 </html>

@@ -49,7 +49,7 @@ def profile_edit(userId):
                 flash("Wrong image uploaded!")
                 remove_file(imageName)
             
-            if uploadOK:
+            if uploadOK and imageName:
                 user.image = imageName
             
             user.save()
