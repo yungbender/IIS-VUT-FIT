@@ -6,6 +6,7 @@
     <link rel="stylesheet" href="/static/ticket.css">
     <script type="text/javascript" src="/static/show_images.js"></script>
     <script type="text/javascript" src="/static/add_comment.js"></script>
+    <script type="text/javascript" src="/static/redirect_ticket.js"></script>
     {{ super() }}
     {% endblock %}
   </head>
@@ -67,7 +68,7 @@
         {% endif %}
         {% if user.id == ticket.author_id.id %}
           <input id="ticket-butt" type="submit" value="Save ticket">
-          <input id="ticket-butt" type="button" value="Close ticket">
+          <input id="ticket-butt" type="button" value="Close ticket" onclick="close_ticket()">
         {% endif %}
         <div style="clear: both; user-select: auto; border-width: 0px;"></div>
       </form>
@@ -107,7 +108,7 @@
             </div>
             <p id="comment-content">{{ comment.content }}</p>
             {% if (user.id == ticket.author_id.id) or (user.position_id.id > 1) %}
-              <input id="ticket-butt" type="button" value="Mark as answer">
+              <input id="ticket-butt" type="button" value="Mark as answer" onclick="mark_answer({{ comment.id }})">
             {% endif %}
             <div style="clear: both; user-select: auto; border-width: 0px;"></div>
           </form>

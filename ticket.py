@@ -13,6 +13,8 @@ TICKET_REPO = TicketRepository()
 PRODUCT_REPO = ProductRepository()
 COMMENT_REPO = CommentRepository()
 HTTP_NOT_FOUND = 404
+HTTP_FORBIDDEN = 403
+HTTP_BAD_REQUEST = 400
 
 @TICKET_API.route("/tickets/<int:productId>/<int:ticketId>", methods=["GET", "POST"])
 def product_ticket(productId, ticketId):
@@ -33,6 +35,8 @@ def product_ticket(productId, ticketId):
                 ticket.save()
             # If comment form was sent, create new comment
             elif commentForm.validate_on_submit():
+                if ticket.closed == True:
+                    return abort(HTTP_BAD_REQUEST)
                 try:
                     imageName = handle_image(commentForm.image)
                 except Exception as e:
@@ -42,8 +46,8 @@ def product_ticket(productId, ticketId):
                 comment = commentForm.content.data
                 COMMENT_REPO.create_ticket_comment(comment, imageName, ticketId, current_user.id)
             # Else just return prefilled forms to enable editing
-                ticketForm.description.data = ticket.description
-                ticketForm.title.data = ticket.name
+            ticketForm.description.data = ticket.description
+            ticketForm.title.data = ticket.name
 
             comments = COMMENT_REPO.get_ticket_comments(ticketId)
             return render_template("ticket.html", ticketForm=ticketForm, user=current_user, ticket=ticket, comments=comments, commentForm=commentForm)
@@ -113,3 +117,41 @@ def create_ticket(productId):
         return redirect(url_for("dashboard.index"))
 
     return render_template("create_ticket.html", user=current_user, ticketForm=ticketForm, productId=productId)
+
+@TICKET_API.route("/tickets/<int:productId>/<int:ticketId>/<int:commentId>")
+@login_required
+def ticket_answer(productId, ticketId, commentId):
+    if PRODUCT_REPO.check_product(productId):
+        ticket = TICKET_REPO.get_ticket(ticketId)
+        if ticket:
+            if ticket.closed == True:
+                return abort(HTTP_BAD_REQUEST)
+            elif ticket.author_id.id != current_user.id or current_user.position_id.id < 2:
+                abort(HTTP_FORBIDDEN)
+            comment = COMMENT_REPO.get_comment(commentId)
+            if comment:
+                comment.answer = True
+                comment.save()
+
+                return redirect("/tickets/" + str(productId) + "/" + str(ticketId))
+
+    return abort(HTTP_NOT_FOUND)
+
+@TICKET_API.route("/tickets/<int:productId>/<int:ticketId>/close")
+@login_required
+def ticket_close(productId, ticketId):
+    if PRODUCT_REPO.check_product(productId):
+        ticket = TICKET_REPO.get_ticket(ticketId)
+        if ticket:
+            if ticket.closed == True:
+                return abort(HTTP_BAD_REQUEST)
+            elif ticket.author_id.id != current_user.id or current_user.position_id.id < 2:
+                return abort(HTTP_FORBIDDEN)
+            ticket.closed = True
+            ticket.save()
+
+            flash("Ticket closed!")
+
+            return redirect("/tickets/" + str(productId) + "/" + str(ticketId))
+
+    return abort(HTTP_NOT_FOUND)

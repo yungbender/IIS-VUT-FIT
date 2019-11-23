@@ -18,6 +18,11 @@ class CommentRepository:
                       .order_by(Task.creation_date.asc()) \
                       .execute()
     
+    def get_comment(self, commentId):
+        return Comment.select() \
+                      .where(Comment.id == commentId) \
+                      .first()
+
     def create_ticket_comment(self, content, image, ticketId, authorId):
         Comment.create(content=content, image=image, ticket_id=ticketId, author_id=authorId)
     

@@ -9,6 +9,7 @@ class Comment(BaseModel):
     content = pw.TextField(null=False)
     image = pw.CharField(null=True)
     creation_date = pw.DateField(constraints=[pw.SQL('DEFAULT CURRENT_TIMESTAMP')])
+    answer = pw.BooleanField(null=False, default=False)
     ticket_id = pw.ForeignKeyField(Ticket, backref="comment_to_ticket")
     author_id = pw.ForeignKeyField(Client, backref="comment_from_author")
     task_id = pw.ForeignKeyField(Task, backref="comment_to_task")

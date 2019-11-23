@@ -77,6 +77,7 @@ CREATE TABLE comment
     content TEXT NOT NULL,
     image VARCHAR(64),
     creation_date TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    answer BOOL NOT NULL DEFAULT false,
     ticket_id INTEGER REFERENCES ticket(id),
     task_id INTEGER REFERENCES task(id),
     author_id INTEGER REFERENCES client(id)
