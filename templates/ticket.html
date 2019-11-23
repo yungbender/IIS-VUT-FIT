@@ -73,7 +73,7 @@
         <div style="clear: both; user-select: auto; border-width: 0px;"></div>
       </form>
     </div>
-    <div id="new-comment-wrapper">
+    <div id="new-comment-wrapper" class="new-comment-hide">
       <form id="new-comment" method="POST">
         {{ commentForm.csrf_token }}
         {{ commentForm.content(id = "new-comment-content")}}
