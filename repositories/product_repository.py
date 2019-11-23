@@ -16,11 +16,11 @@ class ProductRepository():
         return Product.select() \
                       .execute()
 
-    def create_product(self, name, description, completionDate, version, managerId, image):
+    def create_product(self, name, description, completionDate, version, creatorId, managerId, image):
         if not image:
             image = "2.jpg"
 
-        Product.create(name=name, description=description, completion_date=completionDate, image=image, version=version, manager_id=managerId)
+        Product.create(name=name, description=description, completion_date=completionDate, image=image, version=version, creator_id=creatorId, manager_id=managerId)
 
     def search_product(self, productPattern):
         return Product.select() \
@@ -36,3 +36,13 @@ class ProductRepository():
         return Product.select() \
                       .where(Product.name == productname) \
                       .exists()
+
+    def get_product_manager(self, managerId):
+        return Product.select() \
+                      .where(Product.manager_id == managerId) \
+                      .execute()
+
+    def get_product_owner(self, ownerId):
+        return Product.select() \
+                      .where(Product.creator_id == ownerId) \
+                      .execute()

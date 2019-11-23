@@ -18,7 +18,7 @@
         <div id="ticket-header">
           <div id="ticket-header-first-row">
             <span id="ticket-header-left">Ticket name:</span>
-            {% if user.id == ticket.author_id.id %}
+            {% if user.id == ticket.author_id.id and not ticket.closed %}
               {{ ticketForm.csrf_token }}
               {{ ticketForm.title(id = "ticket-name")}}
               {% if ticket.closed %}
@@ -62,13 +62,17 @@
         {% if ticket.image != None %}
           <p><img id="ticket-image" src="/static/uploads/{{ ticket.image }}"></p>
         {% endif %}
-        <input id="ticket-butt" type="button" value="Add comment" onclick="add_comment(null)">
+        {% if not ticket.closed %}
+          <input id="ticket-butt" type="button" value="Add comment" onclick="add_comment(null)">
+        {% endif %}
         {% if ticket.image != None %}
           <input id="ticket-butt" type="button" value="Show images" onclick="show_images()">
         {% endif %}
         {% if user.id == ticket.author_id.id %}
-          <input id="ticket-butt" type="submit" value="Save ticket">
-          <input id="ticket-butt" type="button" value="Close ticket" onclick="close_ticket()">
+        {% if not ticket.closed %}
+            <input id="ticket-butt" type="submit" value="Save ticket">
+            <input id="ticket-butt" type="button" value="Close ticket" onclick="close_ticket()">
+          {% endif %}
         {% endif %}
         <div style="clear: both; user-select: auto; border-width: 0px;"></div>
       </form>
@@ -107,7 +111,7 @@
               <div style="clear: both; user-select: auto; border-width: 0px;"></div>
             </div>
             <p id="comment-content">{{ comment.content }}</p>
-            {% if (user.id == ticket.author_id.id) or (user.position_id.id > 1) %}
+            {% if ((user.id == ticket.author_id.id) or (user.position_id.id > 1)) and not ticket.closed %}
               <input id="ticket-butt" type="button" value="Mark as answer" onclick="mark_answer({{ comment.id }})">
             {% endif %}
             <div style="clear: both; user-select: auto; border-width: 0px;"></div>

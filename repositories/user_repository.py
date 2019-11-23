@@ -63,3 +63,7 @@ class UserRepository():
                    .join(Position) \
                    .where((Position.id == position) & (User.clientname.contains(pattern))) \
                    .execute()
+    
+    def get_positions(self):
+        return Position.select() \
+                       .execute()

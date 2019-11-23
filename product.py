@@ -43,7 +43,7 @@ def create_products():
             if productManager:
                 productImage = handle_image(productForm.image)
                 try:
-                    PRODUCT_REPO.create_product(productName, productDesc, productCompletion, productVer, productManager.id, productImage)
+                    PRODUCT_REPO.create_product(productName, productDesc, productCompletion, productVer, current_user.id, productManager.id, productImage)
                 except Exception as e:
                     remove_file(productImage)
                     raise(e)
@@ -59,4 +59,3 @@ def get_product(productId):
     if not product:
         return abort(HTTP_NOT_FOUND)
     return render_template("product.html", user=current_user, product=product)
-    

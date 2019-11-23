@@ -3,6 +3,7 @@ from models.comment_model import Comment
 from models.product_model import Product
 from models.task_ticket_model import Task_Ticket
 
+
 class TicketRepository():
 
     def get_ticket(self, ticketId):

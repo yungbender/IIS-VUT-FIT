@@ -55,6 +55,7 @@ CREATE TABLE product
     creation_date TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
     completion_date VARCHAR(64),
     version VARCHAR(64),
+    creator_id INTEGER REFERENCES client(id),
     manager_id INTEGER REFERENCES client(id)
 );
 

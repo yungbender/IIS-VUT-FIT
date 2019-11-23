@@ -7,6 +7,7 @@ from templates.create_ticket import CreateTicketForm
 from templates.search_product import SearchProductForm
 from templates.create_comment_ticket import CreateCommentForm
 from upload_handler import handle_image, InvalidFile, remove_file
+from utilities import format_date
 
 TICKET_API = Blueprint("ticket", __name__)
 TICKET_REPO = TicketRepository()
@@ -15,6 +16,10 @@ COMMENT_REPO = CommentRepository()
 HTTP_NOT_FOUND = 404
 HTTP_FORBIDDEN = 403
 HTTP_BAD_REQUEST = 400
+ADMIN = 4
+OWNER = 3
+MANAGER = 2
+DEVELOPER = 1
 
 @TICKET_API.route("/tickets/<int:productId>/<int:ticketId>", methods=["GET", "POST"])
 def product_ticket(productId, ticketId):
@@ -50,6 +55,10 @@ def product_ticket(productId, ticketId):
             ticketForm.title.data = ticket.name
 
             comments = COMMENT_REPO.get_ticket_comments(ticketId)
+            format_date(ticket)
+            for comment in comments:
+                format_date(comment)
+
             return render_template("ticket.html", ticketForm=ticketForm, user=current_user, ticket=ticket, comments=comments, commentForm=commentForm)
     return abort(HTTP_NOT_FOUND)
 
@@ -57,6 +66,8 @@ def product_ticket(productId, ticketId):
 def product_tickets(productId):
     if PRODUCT_REPO.check_product(productId):
         tickets = TICKET_REPO.get_product_tickets(productId)
+        for ticket in tickets:
+            format_date(ticket)
         return render_template("tickets.html", tickets=tickets, user=current_user, productId=productId)
     return abort(HTTP_NOT_FOUND)
 
@@ -155,3 +166,26 @@ def ticket_close(productId, ticketId):
             return redirect("/tickets/" + str(productId) + "/" + str(ticketId))
 
     return abort(HTTP_NOT_FOUND)
+
+@TICKET_API.route("/tickets/json")
+@login_required
+def ticket_json():
+    result = {}
+    if current_user.position_id.id < MANAGER:
+        return abort(HTTP_FORBIDDEN)
+    elif current_user.position_id.id == MANAGER:
+        products = PRODUCT_REPO.get_product_manager(current_user.id)
+    elif current_user.position_id.id == OWNER:
+        products = PRODUCT_REPO.get_product_owner(current_user.id)
+    elif current_user.position_id.id == ADMIN:
+        products = PRODUCT_REPO.get_products()
+
+    for product in products:
+        productTickets = TICKET_REPO.get_product_tickets(product.id)
+        if product_tickets:
+            result[product.name] = []
+            for ticket in productTickets:
+                result[product.name].append({ticket.name:ticket.id}) 
+    
+    return jsonify(result)
+
