@@ -42,7 +42,6 @@ def product_ticket(productId, ticketId):
                 comment = commentForm.content.data
                 COMMENT_REPO.create_ticket_comment(comment, imageName, ticketId, current_user.id)
             # Else just return prefilled forms to enable editing
-            else:
                 ticketForm.description.data = ticket.description
                 ticketForm.title.data = ticket.name
 

@@ -49,7 +49,7 @@
     color: black;
 }
 
-#ticket-description {
+#ticket-description-input {
     margin: 1vmax;
     width: 90%;
     min-width: 80px;
@@ -63,6 +63,21 @@
     border-style: none;
 }
 
+#ticket-description-input:focus {
+    background-color: #E1E1E1;
+    color: black;
+}
+
+#ticket-description {
+    margin: 1vmax auto;
+    width: 90%;
+    min-width: 80px;
+    height: 200px;
+    min-height: 80px;
+    background-color: black;
+    text-align: left;
+}
+
 #ticket-description:focus {
     background-color: #E1E1E1;
     color: black;
@@ -70,13 +85,11 @@
 
 #ticket-butt {
     background-color: #1aa3ff;
-    font-weight: bold;
     width: 120px;
     height: 35px;
     border-color: #80ccff;
     border-radius: 5px;
     color: black;
-    font-weight: bold;
     margin: 15px 8px;
     cursor: pointer;
     float: right;
@@ -143,6 +156,13 @@
     font-weight: bold;
 }
 
+#comment-header-answer {
+    padding: 7px;
+    background-color: #1aff1a;
+    color: black;
+    font-weight: bold;
+}
+
 #comment-header-left {
     float: left;
     padding: 0px 7px 0px 0px;
@@ -157,9 +177,9 @@
     margin: 15px auto;
     width: 90%;
     min-width: 80px;
-    min-height: 200px;
-    min-height: 80px;
+    min-height: 130px;
     background-color: black;
     text-align: left;
     padding: 8px;
+    word-wrap: break-word;
 }

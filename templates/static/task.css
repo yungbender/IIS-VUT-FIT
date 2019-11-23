@@ -35,6 +35,11 @@
 	text-align: left;
 }
 
+.task-form:focus {
+	background-color: #E1E1E1;
+	color: black;
+}
+
 #description {
 	min-width: 450px;
 	min-height: 200px;
@@ -47,6 +52,7 @@
 	font-size: 16px;
 	font-family: 'Bitter', serif;
 	margin: 15px 0px 0px 0px;
+	resize: vertical;
 }
 
 #description:focus {
