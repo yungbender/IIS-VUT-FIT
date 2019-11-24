@@ -67,3 +67,14 @@ class UserRepository():
     def get_positions(self):
         return Position.select() \
                        .execute()
+
+    def update_user(self, userId, mail, name, surname, birth, positionId):
+        user = User()
+        user.id = userId
+        user.mail = mail
+        user.name = name
+        user.surname = surname
+        user.birth = birth
+        user.position_id = positionId
+        rows = user.save()
+        return True if rows > 0 else False

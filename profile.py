@@ -9,6 +9,7 @@ PROFILE_API = Blueprint("profile", __name__)
 USER_REPO = UserRepository()
 HTTP_NOT_FOUND = 404
 HTTP_FORBIDDEN = 403
+ADMIN = 4
 
 @PROFILE_API.route("/profile/<int:userId>", methods=["GET"])
 def profile(userId):
@@ -19,7 +20,7 @@ def profile(userId):
         userForm.name.data = user.name
         userForm.surname.data = user.surname
         userForm.birth.data = user.birth
-        userForm.position.data = user.position_id
+        userForm.position.data = user.position_id.id
 
         return render_template("profile.html", user=current_user, userForm=userForm, shownUser=user)
 
@@ -29,7 +30,7 @@ def profile(userId):
 @login_required
 def profile_edit(userId):
     user = USER_REPO.get_user(userId)
-    if current_user.id != user.id:
+    if current_user.id != user.id and current_user.position_id.id < ADMIN:
         return abort(HTTP_FORBIDDEN)
 
     userForm = EditProfileForm() 
@@ -37,11 +38,11 @@ def profile_edit(userId):
     if user:
         if userForm.validate_on_submit():
             uploadOK = False
-            user.mail = userForm.mail.data
-            user.name = userForm.name.data
-            user.surname = userForm.surname.data
-            user.birth = userForm.birth.data
-            user.position_id = userForm.position.data
+            mail = userForm.mail.data
+            name = userForm.name.data
+            surname = userForm.surname.data
+            birth = userForm.birth.data
+            positionId = userForm.position.data
             try:
                 imageName = handle_image(userForm.image)
                 uploadOK = True
@@ -52,6 +53,6 @@ def profile_edit(userId):
             if uploadOK and imageName:
                 user.image = imageName
             
-            user.save()
+            USER_REPO.update_user(user.id, mail, name, surname, birth, positionId)
 
             return redirect("/profile/" + str(userId))
