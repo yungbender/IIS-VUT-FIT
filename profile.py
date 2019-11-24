@@ -4,6 +4,7 @@ from models.user import User
 from repositories.user_repository import UserRepository
 from templates.profile import EditProfileForm
 from upload_handler import handle_image, remove_file
+from utilities import format_date
 
 PROFILE_API = Blueprint("profile", __name__)
 USER_REPO = UserRepository()
@@ -19,7 +20,7 @@ def profile(userId):
         userForm.mail.data = user.mail
         userForm.name.data = user.name
         userForm.surname.data = user.surname
-        userForm.birth.data = user.birth
+        userForm.birth.data = str(user.birth.day) + "." + str(user.birth.month) + "." + str(user.birth.year)
         userForm.position.data = user.position_id.id
 
         return render_template("profile.html", user=current_user, userForm=userForm, shownUser=user)
