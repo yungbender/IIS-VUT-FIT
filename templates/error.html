@@ -1,0 +1,22 @@
+{% extends "base.html" %}
+
+<html>
+  <head>
+    {% block head %}
+    <link rel="stylesheet" href="/static/errors.css">
+    {{ super() }}
+    {% endblock %}
+  </head>
+  <body>
+    {% block content %}
+    {{ super() }}
+    <img id="spiders" src="/static/spiders.png" alt="Spiders" height="300" width="300">
+    <h1>Ooops!</h1>
+    {% if user.is_authenticated %}
+        <h2>Something went wrong. You can search for bugs on different <a id="redirect-link" href="/tickets">page</a>.</h2>
+    {% else %}
+        <h2>Something went wrong. You can search for bugs on different <a id="redirect-link" href="/">page</a>.</h2>
+    {% endif %}
+    {% endblock %}
+  </body>
+</html>

@@ -14,13 +14,27 @@
       <div id="mainpage">
         {% if user.is_authenticated %}
           <p id="mainpage-title">Welcome back {{ user.clientname }}!</p>
+          <div id="column-left">
+            <div id="column-wrapper">
+              <p>This web aplication offers complex system for reporting bugs.</p>
+              <p>Go to your dashboard to write new ticket, check for old bugs or try to solve tickets from other users</p>
+            </div>
+          </div>
+          <div id="column-right">
+            <img src="/static/bug.png" alt="Bug" height="150" width="150">
+          </div>
         {% else %}
           <p id="mainpage-title">Hello there!</p>
+          <div id="column-left">
+              <div id="column-wrapper">
+                <p>This web aplication offers complex system for reporting bugs.</p>
+                <p>Make new registration or login, so you can write new ticket, check for old bugs or try to solve tickets from other users</p>
+              </div>
+            </div>
+            <div id="column-right">
+              <img src="/static/bug.png" alt="Bug" height="150" width="150">
+            </div>
         {% endif %}
-          <div class="column-left">
-          </div>
-          <div class="column-right">
-          </div>
           <div style="clear: both; user-select: auto; border-width: 0px;"></div>
         </div>
       </div>

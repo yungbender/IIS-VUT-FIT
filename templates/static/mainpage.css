@@ -1,7 +1,7 @@
 #mainpage-wrapper {
 	margin: 0px auto;
 	height: auto;
-	width: 48%;
+	width: 40%;
 	font-family: 'Bitter', serif;
 	color: white;
 }
@@ -9,6 +9,7 @@
 #mainpage {
 	margin: 140px 0px 0px 0px;
 	background-color: black;
+	padding: 20px;
 }
 
 #mainpage-title {
@@ -19,12 +20,17 @@
     text-align: center;
 }
 
-.column-left {
+#column-left {
 	float: left;
 	width: 50%;
 }
 
-.column-right {
+#column-wrapper {
+	width: 85%;
+	margin: auto;
+}
+
+#column-right {
 	float: right;
     width: 50%;
 }
