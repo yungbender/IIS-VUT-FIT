@@ -14,6 +14,8 @@ from task import TASK_API
 from search import SEARCH_API
 from upload_handler import MAX_UPLOAD_SIZE
 
+from errors import not_permitted, page_not_found, wrong_request, internal_error
+
 
 def create_app():
     app = Flask(__name__, template_folder="templates", static_folder=os.path.join(os.getcwd(), "templates", "static"))
@@ -33,6 +35,11 @@ def create_app():
     app.config["REMEMBER_COOKIE_DURATION"] = 10
     app.config["TEMPLATES_AUTO_RELOAD"] = True
     app.config["MAX_CONTENT_LENGTH"] = MAX_UPLOAD_SIZE
+    app.register_error_handler(400, wrong_request)
+    app.register_error_handler(404, page_not_found)
+    app.register_error_handler(403, not_permitted)
+    app.register_error_handler(401, not_permitted)
+    app.register_error_handler(500, internal_error)
     LOGIN_MANAGER.init_app(app)
     
     return app

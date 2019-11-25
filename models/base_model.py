@@ -9,7 +9,7 @@ DB_HOST = os.getenv("DATABASE_HOST", "localhost")
 
 DATABASE = peewee.PostgresqlDatabase(DB_NAME, user=DB_USER, 
                                      password=DB_PASSWORD,
-                                     host=DB_HOST)
+                                     host=DB_HOST, autorollback=True)
 
 # Base model for peewee model mapping
 # If you wanna create new model to map from DB, inherit from this

@@ -51,6 +51,8 @@ class TaskRepository():
         if basedOn:
             TaskTicket.create(task_id=newTask.id, ticket_id=basedOn)
 
+        return True
+
     def update_task(self, taskId, title, description, completionDate, stateId, workerId):
         task = Task()
         task.id = taskId

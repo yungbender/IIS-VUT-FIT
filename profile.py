@@ -6,10 +6,11 @@ from templates.profile import EditProfileForm
 from templates.profile_admin import EditProfileFormAdmin
 from upload_handler import handle_image, remove_file
 from utilities import format_date
+from peewee import PeeweeException
 
 PROFILE_API = Blueprint("profile", __name__)
 USER_REPO = UserRepository()
-HTTP_NOT_FOUND = 404
+HTTP_NOT_FOUND = 400
 HTTP_FORBIDDEN = 403
 ADMIN = 4
 
@@ -63,7 +64,12 @@ def profile_edit(userId):
             if uploadOK and imageName:
                 user.image = imageName
             
-            USER_REPO.update_user(user.id, mail, name, surname, position)
+            try:
+                USER_REPO.update_user(user.id, mail, name, surname, position)
+            except PeeweeException:
+                flash("Cannot save! Check length of elements!", "profile")
+                return render_template("profile.html", user=current_user, userForm=userForm, shownUser=user)
+
         elif userForm.validate_on_submit():
             uploadOK = False
             mail = userForm.mail.data
@@ -76,10 +82,14 @@ def profile_edit(userId):
                 flash("Wrong image uploaded!", "profile")
                 remove_file(imageName)
             
-            if uploadOK:
-                USER_REPO.update_user(user.id, mail, name, surname, user.position_id.id, image=imageName)
-            else:
-                USER_REPO.update_user(user.id, mail, name, surname, user.position_id.id)
+            try:
+                if uploadOK:
+                    USER_REPO.update_user(user.id, mail, name, surname, user.position_id.id, image=imageName)
+                else:
+                    USER_REPO.update_user(user.id, mail, name, surname, user.position_id.id)
+            except PeeweeException:
+                flash("Cannot save! Check length of elements!", "profile")
+                return render_template("profile.html", user=current_user, userForm=userForm, shownUser=user)
                 
 
         return redirect("/profile/" + str(userId))

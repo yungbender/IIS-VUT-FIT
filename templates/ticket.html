@@ -52,7 +52,17 @@
             <div style="clear: both; user-select: auto; border-width: 0px;"></div>
           </div> 
           {% endif %}
-
+          {% with messages = get_flashed_messages(with_categories = True) %}
+          {% if messages %}
+              {% for category, message in messages %}
+                  {% if category == "ticket" %}
+                      <div class="alert" style="color: red;">
+                          {{ message }}
+                      </div>
+                  {% endif %}
+              {% endfor %}
+          {% endif %}
+          {% endwith %}
         </div>
         {% if user.id == ticket.author_id.id %}
           {{ ticketForm.description(id = "ticket-description-input")}}

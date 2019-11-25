@@ -7,7 +7,8 @@ from templates.create_ticket import CreateTicketForm
 from templates.search_product import SearchProductForm
 from templates.create_comment_ticket import CreateCommentForm
 from upload_handler import handle_image, InvalidFile, remove_file
-from utilities import format_date
+from utilities import format_date, make_thumbnail
+from peewee import PeeweeException
 
 TICKET_API = Blueprint("ticket", __name__)
 TICKET_REPO = TicketRepository()
@@ -20,6 +21,8 @@ ADMIN = 4
 OWNER = 3
 MANAGER = 2
 DEVELOPER = 1
+TICKET_THUMBNAIL_MAX_LENGTH = 64
+AUTHOR_THUMBNAIL_MAX_LENGTH = 15
 
 @TICKET_API.route("/tickets/<int:productId>/<int:ticketId>", methods=["GET", "POST"])
 def product_ticket(productId, ticketId):
@@ -37,7 +40,11 @@ def product_ticket(productId, ticketId):
             if ticketForm.validate_on_submit():
                 ticket.name = ticketForm.title.data
                 ticket.description = ticketForm.description.data
-                ticket.save()
+                try:
+                    ticket.save()
+                except PeeweeException:
+                    flash("Cannot save! Check length of elements!", "ticket")
+
             # If comment form was sent, create new comment
             elif commentForm.validate_on_submit():
                 if ticket.closed == True:
@@ -49,15 +56,18 @@ def product_ticket(productId, ticketId):
                     return flash("Invalid image uploaded!", "ticket")
 
                 comment = commentForm.content.data
-                COMMENT_REPO.create_ticket_comment(comment, imageName, ticketId, current_user.id)
+                try:
+                    COMMENT_REPO.create_ticket_comment(comment, imageName, ticketId, current_user.id)
+                except PeeweeException:
+                    flash("Cannot save! Check length of elements!", "ticket")
             # Else just return prefilled forms to enable editing
-            ticketForm.description.data = ticket.description
-            ticketForm.title.data = ticket.name
 
             comments = COMMENT_REPO.get_ticket_comments(ticketId)
             format_date(ticket)
             for comment in comments:
                 format_date(comment)
+            ticketForm.description.data = ticket.description
+            ticketForm.title.data = ticket.name
 
             return render_template("ticket.html", ticketForm=ticketForm, user=current_user, ticket=ticket, comments=comments, commentForm=commentForm)
     return abort(HTTP_NOT_FOUND)
@@ -67,6 +77,8 @@ def product_tickets(productId):
     if PRODUCT_REPO.check_product(productId):
         tickets = TICKET_REPO.get_product_tickets(productId)
         for ticket in tickets:
+            ticket.name = make_thumbnail(ticket.name, TICKET_THUMBNAIL_MAX_LENGTH)
+            ticket.author_id.username = make_thumbnail(ticket.author_id.clientname, AUTHOR_THUMBNAIL_MAX_LENGTH)
             format_date(ticket)
         return render_template("tickets.html", tickets=tickets, user=current_user, productId=productId)
     return abort(HTTP_NOT_FOUND)
@@ -122,6 +134,9 @@ def create_ticket(productId):
             # Try to insert the new ticket but if something goes wrong, the image needs to be deleted
             # from filesystem
             TICKET_REPO.create_ticket(name=ticketTitle, description=ticketDesc, image=fileName, authorId=current_user.id, productId=productId)
+        except PeeweeException:
+            flash("Cannot save! Check length of elements!", "ticket")
+            return render_template("create_ticket.html", user=current_user, ticketForm=ticketForm, productId=productId)
         except Exception as e:
             remove_file(fileName)
         
@@ -137,7 +152,7 @@ def ticket_answer(productId, ticketId, commentId):
         if ticket:
             if ticket.closed == True:
                 return abort(HTTP_BAD_REQUEST)
-            elif ticket.author_id.id != current_user.id or current_user.position_id.id < 2:
+            elif ticket.author_id.id != current_user.id and current_user.position_id.id < 2:
                 abort(HTTP_FORBIDDEN)
             comment = COMMENT_REPO.get_comment(commentId)
             if comment:
@@ -156,7 +171,7 @@ def ticket_close(productId, ticketId):
         if ticket:
             if ticket.closed == True:
                 return abort(HTTP_BAD_REQUEST)
-            elif ticket.author_id.id != current_user.id or current_user.position_id.id < 2:
+            elif ticket.author_id.id != current_user.id and current_user.position_id.id < 2:
                 return abort(HTTP_FORBIDDEN)
             ticket.closed = True
             ticket.save()

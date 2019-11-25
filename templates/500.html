@@ -1,0 +1,18 @@
+{% extends "base.html" %}
+
+<html>
+  <head>
+    {% block head %}
+    <link rel="stylesheet" href="/static/errors.css">
+    {{ super() }}
+    {% endblock %}
+  </head>
+  <body>
+    {% block content %}
+    {{ super() }}
+    <img id="spiders" src="/static/spiders.png" alt="Spiders" height="300" width="300">
+    <h1>Ooops!</h1>
+    <h2>This does not look good! Error is at our side :( .</h2>
+    {% endblock %}
+  </body>
+</html>

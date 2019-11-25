@@ -6,6 +6,7 @@ from templates.create_product import ProductForm
 from templates.search_manager import SearchManagerForm
 from templates.search_product import SearchProductForm
 from upload_handler import handle_image, remove_file
+from peewee import PeeweeException
 import os
 
 PRODUCT_API = Blueprint("products", __name__)
@@ -44,9 +45,13 @@ def create_products():
                 productImage = handle_image(productForm.image)
                 try:
                     PRODUCT_REPO.create_product(productName, productDesc, productCompletion, productVer, current_user.id, productManager.id, productImage)
+                except PeeweeException:
+                    flash("Cannot save! Check length of elements!", "product")
+                    return render_template("create_product.html", user=current_user, \
+                       search_image="/Static/search.png", productForm=productForm, \
+                           managerForm=managerForm, managers=[])
                 except Exception as e:
                     remove_file(productImage)
-                    raise(e)
                 return redirect(url_for("dashboard.index"))
             else:
                 flash("Invalid user selected as manager!", "product")

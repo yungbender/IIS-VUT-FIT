@@ -7,6 +7,8 @@ from repositories.comment_repository import CommentRepository
 from templates.create_task import CreateTaskForm
 from templates.create_comment_ticket import CreateCommentForm
 from upload_handler import handle_image, InvalidFile
+from utilities import make_thumbnail
+from peewee import PeeweeException
 
 TASK_API = Blueprint("task", __name__)
 TASK_REPO = TaskRepository()
@@ -16,12 +18,17 @@ COMMENT_REPO = CommentRepository()
 HTTP_UNAUTHORIZED = 401
 HTTP_NOT_FOUND = 404
 MANAGER = 2
+TASK_MAX_THUMBNAIL_LENGTH = 23
 
 @TASK_API.route("/tasks")
 @login_required
 def get_tasks():
     assignedTasks = TASK_REPO.get_user_tasks(current_user.id)
+    for task in assignedTasks:
+        task.title = make_thumbnail(task.title, TASK_MAX_THUMBNAIL_LENGTH)
     createdTasks = TASK_REPO.get_tasks_by(current_user.id)
+    for task in createdTasks:
+        task.title = make_thumbnail(task.title, TASK_MAX_THUMBNAIL_LENGTH)
     return render_template("tasks.html", user=current_user, 
                            assignedTasks=assignedTasks, createdTasks=createdTasks)
 
@@ -49,7 +56,11 @@ def get_specific_task(taskId):
         taskWorker = taskForm.worker.data
         asignee = USER_REPO.get_user_username(taskWorker)
         if asignee:
-            success = TASK_REPO.update_task(taskId, taskTitle, taskDesc, taskDate, taskState, asignee.id)
+            try:
+                success = TASK_REPO.update_task(taskId, taskTitle, taskDesc, taskDate, taskState, asignee.id)
+            except PeeweeException:
+                flash("Cannot save! Check length of elements!", "task")
+                success = False
             if success:
                 return redirect(url_for("dashboard.index"))
         else:
@@ -61,7 +72,10 @@ def get_specific_task(taskId):
         except InvalidFile:
             return flash("Invalid file uploaded!", "task")
 
-        COMMENT_REPO.create_task_comment(comment, image, taskId, current_user.id)
+        try:
+            COMMENT_REPO.create_task_comment(comment, image, taskId, current_user.id)
+        except PeeweeException:
+            flash("Cannot save! Check length of elements!", "task")
 
     # Get related tickets to the task
     relatedTickets = TICKET_REPO.get_task_tickets(taskId)
@@ -95,8 +109,13 @@ def create_task():
         asignee = USER_REPO.get_user_username(taskWorker)
         if asignee:
             if ticketId is None:
-                TASK_REPO.create_task(taskTitle, taskDesc, taskDate, asignee.id, taskCreator, taskState, ticketId)
-                return redirect(url_for("dashboard.index"))
+                try:
+                    success = TASK_REPO.create_task(taskTitle, taskDesc, taskDate, asignee.id, taskCreator, taskState, ticketId)
+                except PeeweeException:
+                    success = False
+                    flash("Cannot save! Check length of elements!", "task")
+                if success:
+                    return redirect(url_for("dashboard.index"))
             else:
                 isCorrect = True
                 try:
@@ -107,7 +126,12 @@ def create_task():
                 if isCorrect:
                     ticket = TICKET_REPO.get_ticket(ticketId)
                     if ticket:
-                        TASK_REPO.create_task(taskTitle, taskDesc, taskDate, asignee.id, taskCreator, taskState, ticketId)
+                        try:
+                            TASK_REPO.create_task(taskTitle, taskDesc, taskDate, asignee.id, taskCreator, taskState, ticketId)
+                        except PeeweeException:
+                            flash("Cannot save! Check length of elements!", "task")
+                            return render_template("create_task.html", user=current_user, taskForm=taskForm)
+
                         return redirect(url_for("dashboard.index"))
 
                 flash("Ticket does not exists!", "task")
