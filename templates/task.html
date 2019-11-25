@@ -14,6 +14,17 @@
     <div id="form-wrapper">
       <form id="form" method="POST" action="/tasks/{{ taskId }}">
         <p id="form-title">Task</p>
+        {% with messages = get_flashed_messages(with_categories = True) %}
+            {% if messages %}
+                {% for category, message in messages %}
+                    {% if category == "task" %}
+                        <div class="alert">
+                            {{ message }}
+                        </div>
+                    {% endif %}
+                {% endfor %}
+            {% endif %}
+        {% endwith %}
         <div id="tab">
           <input id="detail-butt" class="tab-button" type="button" onclick="selectTab('detail')" value="Detail">
           <input id="content-butt" class="tab-button" type="button" onclick="selectTab('content')" value="Content">

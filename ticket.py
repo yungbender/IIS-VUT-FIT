@@ -46,7 +46,7 @@ def product_ticket(productId, ticketId):
                     imageName = handle_image(commentForm.image)
                 except Exception as e:
                     remove_file(imageName)
-                    return flash("Invalid image uploaded!")
+                    return flash("Invalid image uploaded!", "ticket")
 
                 comment = commentForm.content.data
                 COMMENT_REPO.create_ticket_comment(comment, imageName, ticketId, current_user.id)
@@ -113,7 +113,7 @@ def create_ticket(productId):
         try:
             fileName = handle_image(ticketForm.image)
         except InvalidFile:
-            return flash("Invalid file uploaded!")
+            return flash("Invalid file uploaded!", "ticket")
 
         ticketTitle = ticketForm.title.data
         ticketDesc = ticketForm.description.data

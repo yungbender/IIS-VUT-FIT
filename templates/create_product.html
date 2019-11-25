@@ -28,6 +28,17 @@
       <form id="form" method="POST" action="/products/new" enctype="multipart/form-data">
         <p id="form-title">Create new product</p>
         <div id="form-inner">
+        {% with messages = get_flashed_messages(with_categories = True) %}
+            {% if messages %}
+                {% for category, message in messages %}
+                    {% if category == "product" %}
+                        <div class="alert">
+                            {{ message }}
+                        </div>
+                    {% endif %}
+                {% endfor %}
+            {% endif %}
+        {% endwith %}
           <div class="column-left">
             <img id="product-image" src="/static/uploads/2.jpg">
             <p>

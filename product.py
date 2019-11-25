@@ -1,4 +1,4 @@
-from flask import Blueprint, render_template, url_for, redirect, abort, request
+from flask import Blueprint, render_template, url_for, redirect, abort, request, flash
 from flask_login import login_required, current_user
 from repositories.product_repository import ProductRepository
 from repositories.user_repository import UserRepository
@@ -48,6 +48,11 @@ def create_products():
                     remove_file(productImage)
                     raise(e)
                 return redirect(url_for("dashboard.index"))
+            else:
+                flash("Invalid user selected as manager!", "product")
+        
+        else:
+            flash("Product already exists!", "product")
 
     return render_template("create_product.html", user=current_user, \
                            search_image="/Static/search.png", productForm=productForm, \

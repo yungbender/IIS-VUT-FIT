@@ -79,3 +79,9 @@ class UserRepository():
         user.position_id = positionId
         rows = user.save()
         return True if rows > 0 else False
+
+    def check_mail(self, mail):
+        return User.select() \
+                   .where(User.mail == mail) \
+                   .exists()
+

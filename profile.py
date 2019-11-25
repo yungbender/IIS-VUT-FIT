@@ -48,7 +48,6 @@ def profile_edit(userId):
 
     if user:
         if userFormAdmin.validate_on_submit():
-            print("halo")
             uploadOK = False
             mail = userFormAdmin.mail.data
             name = userFormAdmin.name.data
@@ -58,7 +57,7 @@ def profile_edit(userId):
                 imageName = handle_image(userFormAdmin.image)
                 uploadOK = True
             except Exception as e:
-                flash("Wrong image uploaded!")
+                flash("Wrong image uploaded!", "profile")
                 remove_file(imageName)
             
             if uploadOK and imageName:
@@ -74,7 +73,7 @@ def profile_edit(userId):
                 imageName = handle_image(userForm.image)
                 uploadOK = True
             except Exception as e:
-                flash("Wrong image uploaded!")
+                flash("Wrong image uploaded!", "profile")
                 remove_file(imageName)
             
             if uploadOK:

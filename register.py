@@ -22,9 +22,10 @@ def register():
     if registerForm.validate_on_submit():
         username = registerForm.username.data
         mail = registerForm.mail.data
-        if not USER_REPOSITORY.check_user_username(username):
+        if not USER_REPOSITORY.check_user_username(username) and not USER_REPOSITORY.check_mail(mail):
             pwd_encrypted = sha512((registerForm.password.data + SECRET_KEY).encode("utf-8")).hexdigest()
             USER_REPOSITORY.register_user(username, mail, pwd_encrypted)
-            #login_user(user)
             return redirect(url_for("mainpage.index"))
+        else:
+            flash("User or email already taken!", "register")
     return render_template("register.html", form=registerForm, user=current_user)

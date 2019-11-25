@@ -15,6 +15,17 @@
           <form method="POST" action="/login" id="form" y>
             {{ form.csrf_token }}
             <h2>Sign in</h2>
+            {% with messages = get_flashed_messages(with_categories = True) %}
+            {% if messages %}
+                {% for category, message in messages %}
+                    {% if category == "creditials" %}
+                        <div class="alert" style="color:white;">
+                            {{ message }}
+                        </div>
+                    {% endif %}
+                {% endfor %}
+            {% endif %}
+            {% endwith %}
             <p>{{ form.username(class_="log-form")}}</p>
             <p>{{ form.password(class_="log-form")}}</p>
             <p>

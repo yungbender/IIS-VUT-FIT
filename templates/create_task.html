@@ -29,6 +29,17 @@
       <form id="form" method="POST" action="/tasks/new">
         <p id="form-title">Create new task</p>
         <div id="form-inner">
+        {% with messages = get_flashed_messages(with_categories = True) %}
+            {% if messages %}
+                {% for category, message in messages %}
+                    {% if category == "task" %}
+                        <div class="alert">
+                            {{ message }}
+                        </div>
+                    {% endif %}
+                {% endfor %}
+            {% endif %}
+        {% endwith %}
           <div class="column-left">
             {{ taskForm.csrf_token }}
             <p>{{ taskForm.title(class_="task-form")}}</p>

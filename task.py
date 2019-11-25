@@ -1,4 +1,4 @@
-from flask import Blueprint, render_template, request, redirect, url_for, abort
+from flask import Blueprint, render_template, request, redirect, url_for, abort, flash
 from flask_login import current_user, login_required
 from repositories.task_repository import TaskRepository
 from repositories.user_repository import UserRepository
@@ -52,12 +52,14 @@ def get_specific_task(taskId):
             success = TASK_REPO.update_task(taskId, taskTitle, taskDesc, taskDate, taskState, asignee.id)
             if success:
                 return redirect(url_for("dashboard.index"))
+        else:
+            flash("Asignee does not exist!", "task")
     elif commentForm.validate_on_submit():
         comment = commentForm.content.data
         try:
             image = handle_image(commentForm.image)
         except InvalidFile:
-            return flash("Invalid file uploaded!")
+            return flash("Invalid file uploaded!", "task")
 
         COMMENT_REPO.create_task_comment(comment, image, taskId, current_user.id)
 
@@ -107,5 +109,9 @@ def create_task():
                     if ticket:
                         TASK_REPO.create_task(taskTitle, taskDesc, taskDate, asignee.id, taskCreator, taskState, ticketId)
                         return redirect(url_for("dashboard.index"))
+
+                flash("Ticket does not exists!", "task")
+        else:
+            flash("Asignee does not exists!", "task")
 
     return render_template("create_task.html", user=current_user, taskForm=taskForm)
