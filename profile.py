@@ -77,10 +77,11 @@ def profile_edit(userId):
                 flash("Wrong image uploaded!")
                 remove_file(imageName)
             
-            if uploadOK and imageName:
-                user.image = imageName
-            
-            USER_REPO.update_user(user.id, mail, name, surname, user.position_id.id)
+            if uploadOK:
+                USER_REPO.update_user(user.id, mail, name, surname, user.position_id.id, image=imageName)
+            else:
+                USER_REPO.update_user(user.id, mail, name, surname, user.position_id.id)
+                
 
         return redirect("/profile/" + str(userId))
 

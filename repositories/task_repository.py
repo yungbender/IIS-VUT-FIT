@@ -5,6 +5,8 @@ from models.ticket_model import Ticket
 from models.task_ticket_model import Task_Ticket
 from models.task_state_model import Task_State
 
+TASK_DONE = 4
+
 class TaskRepository():
 
     def get_task(self, taskId):
@@ -63,3 +65,9 @@ class TaskRepository():
     def get_task_states(self):
         return Task_State.select() \
                         .execute()
+
+    def get_user_tasks_open(self, userId):
+        return Task.select() \
+                   .join(Task_State) \
+                   .where((Task.worker_id == userId) & (Task_State.id < TASK_DONE)) \
+                   .execute()

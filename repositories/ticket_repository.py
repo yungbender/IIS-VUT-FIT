@@ -2,6 +2,7 @@ from models.ticket_model import Ticket
 from models.comment_model import Comment
 from models.product_model import Product
 from models.task_ticket_model import Task_Ticket
+from operator import attrgetter
 
 
 class TicketRepository():
@@ -29,12 +30,20 @@ class TicketRepository():
                      .execute()
 
     def get_commented_tickets(self, userId):
-        return Ticket.select() \
-                     .distinct(Ticket.id) \
+        tickets = Ticket.select() \
                      .join(Comment) \
                      .where(Comment.author_id == userId) \
                      .order_by(Comment.creation_date.desc()) \
                      .execute()
+        
+        distinctTickets = []
+        distinctName = []
+        for ticket in tickets:
+            if not ticket.name in distinctName:
+                distinctName.append(ticket.name)
+                distinctTickets.append(ticket)
+
+        return distinctTickets
 
     def get_task_tickets(self, taskId):
         return Ticket.select() \
