@@ -48,6 +48,7 @@ body {
   background-size: cover;
   border-width: 0px;
   cursor: pointer;
+  background-image: url("/static/search.png");
 }
 
 #mainbar ul {
@@ -71,6 +72,9 @@ body {
 a.bar-links:hover {
   background-color: #b3b3b3;
   color: black;
+  border-color: white;
+  border-style: solid;
+  border-width: 1px;
 }
 
 #mainbar h1 {
@@ -82,7 +86,7 @@ a.bar-links:hover {
   margin: 0;
 }
 
-#profile-pic-small{
+#profile-pic-small {
   width: 45px;
   height: 45px;
   margin: 10px 5px;
@@ -92,6 +96,44 @@ a.bar-links:hover {
   border-color: white;
   background-size: cover;
   background-color: white;
-  background-image: url("/static/user.png");
   cursor: pointer;
+}
+
+.dropdown {
+  position: relative;
+  display: inline-block;
+}
+
+.dropdown-content {
+  display: none;
+  position: absolute;
+  background-color: #000f1a;
+  min-width: 130px;
+  box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+  z-index: 1;
+}
+
+.dropdown-content a {
+  color: white;
+  padding: 12px 16px;
+  text-decoration: none;
+  display: block;
+}
+
+.dropdown-content a:hover {
+  background-color: #b3b3b3;
+  color: black;
+  border-color: white;
+  border-style: solid;
+  border-width: 1px;
+}
+
+.dropdown:hover .dropdown-content {
+  display: block;
+}
+
+.dropdown:hover #profile-pic-small {
+  border-color: #1aa3ff;
+  border-style: solid;
+  border-width: 1px;
 }

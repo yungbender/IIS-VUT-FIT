@@ -1,0 +1,30 @@
+#mainpage-wrapper {
+	margin: 0px auto;
+	height: auto;
+	width: 48%;
+	font-family: 'Bitter', serif;
+	color: white;
+}
+
+#mainpage {
+	margin: 140px 0px 0px 0px;
+	background-color: black;
+}
+
+#mainpage-title {
+	font-size: 25px;
+	margin: 0px;
+    padding: 10px;
+    font-weight: bold;
+    text-align: center;
+}
+
+.column-left {
+	float: left;
+	width: 50%;
+}
+
+.column-right {
+	float: right;
+    width: 50%;
+}
