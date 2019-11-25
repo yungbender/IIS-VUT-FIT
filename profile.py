@@ -3,6 +3,7 @@ from flask_login import login_required, current_user
 from models.user import User
 from repositories.user_repository import UserRepository
 from templates.profile import EditProfileForm
+from templates.profile_admin import EditProfileFormAdmin
 from upload_handler import handle_image, remove_file
 from utilities import format_date
 
@@ -15,8 +16,17 @@ ADMIN = 4
 @PROFILE_API.route("/profile/<int:userId>", methods=["GET"])
 def profile(userId):
     user = USER_REPO.get_user(userId)
-    userForm = EditProfileForm()
-    if user:
+    if user and current_user.position_id.id < ADMIN:
+        userForm = EditProfileForm()
+        userForm.mail.data = user.mail
+        userForm.name.data = user.name
+        userForm.surname.data = user.surname
+
+        return render_template("profile.html", user=current_user, userForm=userForm, shownUser=user)
+
+    elif user:
+        print("generujem adminovsku")
+        userForm = EditProfileFormAdmin()
         userForm.mail.data = user.mail
         userForm.name.data = user.name
         userForm.surname.data = user.surname
@@ -33,16 +43,33 @@ def profile_edit(userId):
     if current_user.id != user.id and current_user.position_id.id < ADMIN:
         return abort(HTTP_FORBIDDEN)
 
-    userForm = EditProfileForm() 
+    userForm = EditProfileForm()
+    userFormAdmin = EditProfileFormAdmin()
 
     if user:
-        if userForm.validate_on_submit():
+        if userFormAdmin.validate_on_submit():
+            print("halo")
+            uploadOK = False
+            mail = userFormAdmin.mail.data
+            name = userFormAdmin.name.data
+            surname = userFormAdmin.surname.data
+            position = userFormAdmin.position.data
+            try:
+                imageName = handle_image(userFormAdmin.image)
+                uploadOK = True
+            except Exception as e:
+                flash("Wrong image uploaded!")
+                remove_file(imageName)
+            
+            if uploadOK and imageName:
+                user.image = imageName
+            
+            USER_REPO.update_user(user.id, mail, name, surname, position)
+        elif userForm.validate_on_submit():
             uploadOK = False
             mail = userForm.mail.data
             name = userForm.name.data
             surname = userForm.surname.data
-            birth = userForm.birth.data
-            positionId = userForm.position.data
             try:
                 imageName = handle_image(userForm.image)
                 uploadOK = True
@@ -53,7 +80,8 @@ def profile_edit(userId):
             if uploadOK and imageName:
                 user.image = imageName
             
-            USER_REPO.update_user(user.id, mail, name, surname, birth, positionId)
+            USER_REPO.update_user(user.id, mail, name, surname, user.position_id.id)
 
-            return redirect("/profile/" + str(userId))
+        return redirect("/profile/" + str(userId))
+
     return abort(HTTP_NOT_FOUND)
