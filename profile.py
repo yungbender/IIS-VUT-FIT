@@ -20,7 +20,6 @@ def profile(userId):
         userForm.mail.data = user.mail
         userForm.name.data = user.name
         userForm.surname.data = user.surname
-        userForm.birth.data = str(user.birth.day) + "." + str(user.birth.month) + "." + str(user.birth.year)
         userForm.position.data = user.position_id.id
 
         return render_template("profile.html", user=current_user, userForm=userForm, shownUser=user)
@@ -57,3 +56,4 @@ def profile_edit(userId):
             USER_REPO.update_user(user.id, mail, name, surname, birth, positionId)
 
             return redirect("/profile/" + str(userId))
+    return abort(HTTP_NOT_FOUND)
