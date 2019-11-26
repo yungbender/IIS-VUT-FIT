@@ -66,6 +66,6 @@ class TicketRepository():
             if Ticket.select().where(Ticket.id == id).exists():
                 return True
         except ValueError:
-            tickets = Ticket.select().where(Ticket.name.contains(pattern)).order_by(Ticket.product_id.name).execute()
+            tickets = Ticket.select().where(Ticket.name.contains(pattern)).execute()
             return tickets
 

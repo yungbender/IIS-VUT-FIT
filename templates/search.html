@@ -13,12 +13,12 @@
     {{ super() }}
     <div class="tickets-wrapper">
       <div class="tickets">
-        <h2 id="tickets-title">Tickets of product</h2>
+        <h2 id="tickets-title">Tickets</h2>
         <div class="ticket">
           {% for ticket in tickets %}
             <a href="javascript:redirect_to_ticket({{ ticket.id }});">
               <div class="ticket-text">
-                <p class="ticket-left">Bug <b>{{ ticket.name }}</b></p>
+                <p class="ticket-left">Bug <b>{{ ticket.name }}</b> on <b>{{ ticket.product_id.name }}</b></p>
                 <p class="ticket-right">By <b>{{ ticket.author_id.clientname }}</b> on <b>{{ticket.creation_date}}</b>
                 <div style="clear: both; user-select: auto; border-width: 0px;"></div>
               </div>

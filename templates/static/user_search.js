@@ -20,9 +20,23 @@ async function search_user(position)
     
     userElement.innerHTML = "";
 
-    for(user in json[position])
+    if (position == 99)
     {
-        userElement.innerHTML = userElement.innerHTML + "<p id=\"search-list-item\" onclick=\"select_assignee(this)\">" + json[position][user] + "</p>\n";
+        for(user in json[position])
+        {
+            for(id in json[position][user])
+            {
+                userElement.innerHTML = userElement.innerHTML + "<p id=\"search-list-item\" onclick=\"select_assignee(this)\">" + id + "</p>\n";
+            }
+        }
+    }
+    else if (position == 2)
+    {
+        for(user in json[position])
+        {
+                userElement.innerHTML = userElement.innerHTML + "<p id=\"search-list-item\" onclick=\"select_assignee(this)\">" + json[position][user] + "</p>\n";
+
+        }
     }
 }
 
@@ -38,9 +52,9 @@ async function search_ticket(position)
     
     userElement.innerHTML = "";
 
-    for(user in json[position])
+    for(ticket in json[position])
     {
-        userElement.innerHTML = userElement.innerHTML + "<p id=\"search-list-item\" onclick=\"select_assignee(this)\">" + json[position][user] + "</p>\n";
+        userElement.innerHTML = userElement.innerHTML + "<p id=\"search-list-item\" onclick=\"select_assignee(this)\">" + json[position][ticket] + "</p>\n";
     }
 }
 

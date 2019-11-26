@@ -37,7 +37,9 @@
                 <p><span>Completion date: </span>{{ taskForm.completion_date(class_="task-form")}}</p>
                 <p><span>State: </span>{{ taskForm.state(class_="task-form")}}</p>
                 <p><span>Assigned: </span>{{ taskForm.worker(class_="task-form")}}</p>
-                <a href="/tickets/{{ relatedTickets.product_id.id }}/{{ relatedTickets.id }}"><p>{{ relatedTickets.name }}</p></a>
+                {% for relatedTicket in relatedTickets %}
+                  <a href="/tickets/{{ relatedTicket.product_id.id }}/{{ relatedTicket.id }}"><p>{{ relatedTicket.name }}</p></a>
+                {% endfor %}
               </div>
               <div id="content" style="display: none;">
                 {{ taskForm.description }}

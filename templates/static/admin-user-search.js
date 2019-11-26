@@ -8,7 +8,7 @@ async function perform_search(name, position)
     return response;
 }
 
-async function search_users(position)
+async function search_admin_users(position)
 {
     var managerName = document.getElementById("main-users");
 
@@ -24,16 +24,18 @@ async function search_users(position)
     for(user in json[position])
     {
         for(id in json[position][user])
-        userElement.innerHTML = userElement.innerHTML + "<a href=\"/profile/" + json[position][user][id] + "\">" + id + "</a>\n";
+        {
+            userElement.innerHTML = userElement.innerHTML + "<a href=\"/profile/" + json[position][user][id] + "\">" + id + "</a>\n";
+        }
     }
 
     document.getElementById("main-users").focus();
 }
 
 
-function search_wrap()
+function search_admin_wrap()
 {
-    search_users(99);
+    search_admin_users(99);
 }
 
 function select_assignee(selectedDeveloper)
