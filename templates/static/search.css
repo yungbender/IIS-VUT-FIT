@@ -1,0 +1,58 @@
+.tickets-wrapper {
+	margin: 140px 20px 0px 20px;
+	font-family: 'Bitter', serif;
+}
+
+.tickets {
+	border-radius: 7px;
+	background-color: black;
+	text-align: center;
+	margin: auto;
+	padding: 0px 0px 10px 0px;
+	width: 60%;
+	height: auto;
+	vertical-align: top;
+}
+
+.tickets p{
+	text-align: center;
+	color: white;
+}
+
+.ticket div{
+
+	width: 80%;
+	height: auto;
+	text-align: center;
+	margin: 0px auto;
+	background-color: #004d80;
+	font-size: 12px;
+	border-style: solid;
+	border-radius: 0px;
+	border-width: 0px 0px 7px 0px;
+	border-color: black;
+	align-content: center;
+}
+
+.ticket-left {
+	float: left;
+	padding: 5px;
+	margin: 0px;
+	vertical-align: top;
+	font-size: 14px;
+}
+
+.ticket-right {
+	float: right;
+	padding: 5px;
+	margin: 0px;
+	vertical-align: top;
+	font-size: 14px;
+}
+
+#tickets-title {
+	padding: 10px;
+	font-family: 'Playfair Display', serif;
+	text-align: center;
+	color: white;
+}

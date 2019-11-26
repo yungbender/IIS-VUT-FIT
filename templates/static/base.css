@@ -51,6 +51,24 @@ body {
   background-image: url("/static/search.png");
 }
 
+.main-users {
+  margin: 18px 18px 18px 0px;
+  padding: 0px;
+  height: 18px;
+}
+
+#search-img-reverse {
+  margin: 18px 0px 18px 18px;
+  padding: 0px;
+  height: 34px;
+  width: 34px;
+  background-color: transparent;
+  background-size: cover;
+  border-width: 0px;
+  cursor: pointer;
+  background-image: url("/static/search-reverse.png");
+}
+
 #mainbar ul {
   margin: 0px;
   list-style-type: none;
@@ -136,4 +154,44 @@ a.bar-links:hover {
   border-color: #1aa3ff;
   border-style: solid;
   border-width: 1px;
+}
+
+
+
+.dropdown {
+  position: relative;
+  display: inline-block;
+}
+
+.users {
+  display: none;
+  position: absolute;
+  background-color: #000f1a;
+  min-width: 130px;
+  box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+  z-index: 1;
+  width: 212px;
+}
+
+.users a {
+  color: white;
+  padding: 8px 16px;
+  text-decoration: none;
+  display: block;
+}
+
+.users a:hover {
+  background-color: #b3b3b3;
+  color: black;
+  border-color: white;
+  border-style: solid;
+  border-width: 1px;
+}
+
+.users:hover {
+  display: block;
+}
+
+.main-users:focus + .users{
+  display: block;
 }

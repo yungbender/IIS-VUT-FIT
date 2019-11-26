@@ -54,3 +54,11 @@
     background-color: grey;
     float: left;
   }
+
+  .alert {
+    color: rgb(168, 0, 0);
+    background-color: #1aa3ff;
+    padding: 5px;
+    box-shadow: 1px 1px 5px red, -1px -1px 5px red;
+  }
+  

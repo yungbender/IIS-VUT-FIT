@@ -10,29 +10,48 @@ async function perform_search(name, position)
 
 async function search_user(position)
 {
-    if(position == 2)
-        var managerName = document.getElementById("search-manager-bar-input");
-    else
-        var managerName = document.getElementById("search-developer-bar-input");
+    var managerName = document.getElementById("search-bar-input");
 
     managerName = managerName.value;
 
     var json = await perform_search(managerName, position);
 
-    if(position == 2)
-        var userElement = document.getElementById("search-manager-list");
-    else
-        var userElement = document.getElementById("search-developer-list");
+    var userElement = document.getElementById("search-list");
     
     userElement.innerHTML = "";
 
     for(user in json[position])
     {
-        if(position == 2)
-            userElement.innerHTML = userElement.innerHTML + "<p id=\"search-manager-list-item\" onclick=\"select_manager(this)\">" + json[position][user] + "</p>\n";
-        else
-            userElement.innerHTML = userElement.innerHTML + "<p id=\"search-developer-list-item\" onclick=\"select_developer(this)\">" + json[position][user] + "</p>\n";
+        userElement.innerHTML = userElement.innerHTML + "<p id=\"search-list-item\" onclick=\"select_assignee(this)\">" + json[position][user] + "</p>\n";
     }
+}
+
+async function search_ticket(position)
+{
+    var managerName = document.getElementById("search-ticket-bar-input");
+
+    managerName = managerName.value;
+
+    var json = await perform_search(managerName, position);
+
+    var userElement = document.getElementById("search-ticket-list");
+    
+    userElement.innerHTML = "";
+
+    for(user in json[position])
+    {
+        userElement.innerHTML = userElement.innerHTML + "<p id=\"search-list-item\" onclick=\"select_assignee(this)\">" + json[position][user] + "</p>\n";
+    }
+}
+
+function search_wrap()
+{
+    search_user(99);
+}
+
+function search_ticket_wrap()
+{
+    search_ticket(99);
 }
 
 function search_manager_wrap()
@@ -40,43 +59,65 @@ function search_manager_wrap()
     search_user(2);
 }
 
-function search_developer_wrap()
-{
-    search_user(1);
-}
-
-function search_basedOnCookie_wrap()
-{
-    search_user(99);
-}
-
-function select_manager(selectedManager)
-{
-    managerId = document.getElementById("manager_id");
-    managerId.value = selectedManager.innerHTML;
-    document.getElementById("search-manager-wrapper").style.display = "none";
-}
-
-function select_developer(selectedDeveloper)
+function select_assignee(selectedDeveloper)
 {
     developerId = document.getElementById("worker");
     developerId.value = selectedDeveloper.innerHTML;
-    document.getElementById("search-developer-wrapper").style.display = "none";
+    document.getElementById("search-assignee-wrapper").style.display = "none";
 }
 
-window.onload = function(){
-    if(document.getElementById("search-manager-bar-butt") != null)
-        document.getElementById("search-manager-bar-butt").onclick = search_manager_wrap;
-    if(document.getElementById("search-developer-bar-butt") != null)
-        document.getElementById("search-developer-bar-butt").onclick = search_basedOnCookie_wrap;
+function select_ticket(selectedTicket)
+{
+    developerId = document.getElementById("ticket");
+    developerId.value = selectedTicket;
+    document.getElementById("search-ticket-wrapper").style.display = "none";
 }
 
 function hideSearch()
 {
-  var div = document.getElementById("search-manager-wrapper");
-  if (div.style.display === "none") {
-    div.style.display = "initial";
-  } else {
-    div.style.display = "none";
+    var assignee = document.getElementById("search-assignee-wrapper");
+    if (assignee.style.display === "none")
+    {
+        assignee.style.display = "initial";
+    } 
+    else 
+    {
+        assignee.style.display = "none";
+    }
   }
-} 
+
+function hideSearchAssignee()
+{
+    var ticket = document.getElementById("search-ticket-wrapper");
+    var assignee = document.getElementById("search-assignee-wrapper");
+    if (assignee.style.display === "none")
+    {
+        if (ticket.style.display !== "none")
+        {
+        ticket.style.display = "none";
+        }
+        assignee.style.display = "initial";
+    } 
+    else 
+    {
+        assignee.style.display = "none";
+    }
+  }
+
+function hideSearchTicket()
+{
+  var ticket = document.getElementById("search-ticket-wrapper");
+  var assignee = document.getElementById("search-assignee-wrapper");
+  if (ticket.style.display === "none")
+  {
+    if (assignee.style.display !== "none")
+    {
+        assignee.style.display = "none";
+    }
+    ticket.style.display = "initial";
+  } 
+  else 
+  {
+    ticket.style.display = "none";
+  }
+}

@@ -64,7 +64,7 @@
           {% endif %}
           {% endwith %}
         </div>
-        {% if user.id == ticket.author_id.id %}
+        {% if user.id == ticket.author_id.id and not ticket.closed %}
           {{ ticketForm.description(id = "ticket-description-input")}}
         {% else %}
            <p id="ticket-description">{{ ticket.description }}</p>

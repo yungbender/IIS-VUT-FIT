@@ -9,6 +9,7 @@
 #form {
 	margin: 140px 0px 0px 0px;
 	background-color: black;
+	border-radius: 15px;
 	min-width: 545px;
 }
 
@@ -17,10 +18,6 @@
 	margin: 0px;
 	padding: 10px;
 	font-weight: bold;
-}
-
-#form-inner {
-
 }
 
 #product-image {
@@ -46,7 +43,7 @@
 	background-color: #cccccc;
 	height: 35px;
 	width: 260px;
-	border-radius: 0px;
+	border-radius: 5px;
 	border-width: 0px;
 	margin: 5px;
 }
@@ -87,20 +84,20 @@
 	margin: 20px;
 }
 
-#search-manager-wrapper {
+#search-assignee-wrapper {
 	width: 22%;
 	float: right;
-	margin: 140px 0px 0px 0px;
+	margin: 0px;
 }
 
-#search-manager {
+#search {
 	margin: 0px auto;
 	height: auto;
 	width: 80%;
 	background-color: black;
 }
 
-#search-manager-butt {
+#search-butt {
 	background-color: #1aa3ff;
 	font-weight: bold;
 	width: 200px;
@@ -112,7 +109,7 @@
 	margin: 23px;
 }
 
-#search-manager-bar {
+#search-bar {
 	margin: auto;
 	width: 80%;
 	border-color: white;
@@ -120,7 +117,7 @@
 	border-width: 0px 0px 2px 0px;
 }
 
-#search-manager-bar-input
+#search-bar-input
 {
 	display: inline;
 	padding: 0px;
@@ -129,7 +126,7 @@
 	width: 70%;
 }
 
-#search-manager-bar-butt {
+#search-bar-butt {
 	display: inline;
 	padding: 0px;
 	margin: 10px 0px 10px 0px;
@@ -143,16 +140,24 @@
 }
 
 
-#search-manager-list {
+#search-list {
 	color: white;
 	font-family: 'Bitter', serif;
 	list-style-type: none;
 	padding: 5px;
 }
 
-#search-manager-list-item {
+#search-list-item {
 	background: rgb(0,0,0);
 	background: linear-gradient(90deg, rgba(0,0,0,1) 0%, rgba(204,204,204,0.25) 50%, rgba(0,0,0,1) 100%); 
 	padding: 5px;
 	cursor: pointer;
 }
+
+.alert {
+    color: rgb(168, 0, 0);
+    background-color: #1aa3ff;
+    padding: 5px;
+    box-shadow: 1px 1px 5px red, -1px -1px 5px red;
+}
+  

@@ -26,10 +26,10 @@ def users_json():
         # (Owner can search => owners, managers, developer)
         userPosition = current_user.position_id.id
         users = []
-        for lowerPosition in range(1, (userPosition + 1)):
+        for lowerPosition in range(0, (userPosition + 1)):
             positionUsers = USER_REPO.search_user(userPattern, lowerPosition)
             for positionUser in positionUsers:
-                users.append(positionUser.clientname)
+                users.append({ positionUser.clientname: positionUser.id })
 
         result = {}
         result[COOKIE_POSITION] = users

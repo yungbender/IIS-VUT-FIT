@@ -5,7 +5,8 @@
     {% block head %}
     <link href="https://fonts.googleapis.com/css?family=Playfair+Display&display=swap" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css?family=Bitter&display=swap" rel="stylesheet">
-    <link href="https://fonts.googleapis.com/css?family=Staatliches&display=swap" rel="stylesheet"> 
+    <link href="https://fonts.googleapis.com/css?family=Staatliches&display=swap" rel="stylesheet">
+    <script type="text/javascript" src="/static/admin-user-search.js"></script>
     {% endblock %}
   </head>
   <body>
@@ -20,19 +21,34 @@
         <h4>
           <ul>
             {% if user.is_authenticated %}
-            <li><a class="bar-links" href="/logout">Logout</a></li>
-            <li>
-              <div class="dropdown">
-                  <a href="/profile/{{ user.id }}"><img id="profile-pic-small" src="/static/uploads/{{ user.image }}"></a>
-                  <div class="dropdown-content">
-                      <a href="/dashboard">Dashboard</a>
-                      <a href="/profile/{{ user.id }}">Profile</a>
-                  </div>
-              </div>
-            </li>
+              <li><a class="bar-links" href="/logout">Logout</a></li>
+              <li>
+                <div class="dropdown">
+                    <a href="/profile/{{ user.id }}"><img id="profile-pic-small" src="/static/uploads/{{ user.image }}"></a>
+                    <div class="dropdown-content">
+                        <a href="/dashboard">Dashboard</a>
+                        <a href="/profile/{{ user.id }}">Profile</a>
+                    </div>
+                </div>
+              </li>
+              {% if user.position_id.id == 4 %}
+                <li>
+                    <div class="dropdown">
+                      
+                      <div>
+                        <input id="main-users" class="main-users" name="query" type="text" placeholder="Search for users.." required="required">
+                        <div id="users" class="users">
+                        </div>
+                      </div>
+                    </div>
+                </li>
+                <li>
+                  <input id="search-img-reverse" type="submit" onclick="search_wrap()" value="">
+                </li>
+              {% endif %}
             {% else %}
-            <li><a class="bar-links" href="/register">Sign up</a></li>
-            <li><a class="bar-links" href="/login">Sign in</a></li>
+              <li><a class="bar-links" href="/register">Sign up</a></li>
+              <li><a class="bar-links" href="/login">Sign in</a></li>
             {% endif %}
           </ul>
         </h4>

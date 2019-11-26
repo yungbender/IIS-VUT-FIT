@@ -12,67 +12,74 @@
   <body>
     {% block content %}
     {{ super() }}
-    <div id="search-developer-wrapper" style="display: none;">
-      <div id="search-developer">
-        <div id="search-developer-bar">
-            <input id="search-developer-bar-input" type="text" value="">
-            <input id="search-developer-bar-butt" type="submit" value="">
+    <div id="page-wrapper">
+      <div id="search-ticket-wrapper" style="display: none;">
+          <div id="search">
+            <div id="search-bar">
+                <input id="search-ticket-bar-input" type="text" placeholder="Enter ticket name">
+                <input id="search-bar-butt" type="submit" value="" onclick="search_tickets()">
+            </div>
+            <div id="search-ticket-list">
+              {% for developer in developers %}
+              <p id="search-list-item">{{ developer.clientname }}</p>
+              {% endfor %}
+            </div>
+          </div>
         </div>
-        <div id="search-developer-list">
-          {% for developer in developers %}
-          <p id="search-developer-list-item">{{ developer.clientname }}</p>
-          {% endfor %}
+  
+      <div id="search-assignee-wrapper" style="display: none;">
+        <div id="search">
+          <div id="search-bar">
+              <input id="search-bar-input" type="text" placeholder="Enter assignee name">
+              <input id="search-bar-butt" type="submit" value="" onclick="search_wrap()">
+          </div>
+          <div id="search-list">
+            {% for developer in developers %}
+            <p id="search-list-item">{{ developer.clientname }}</p>
+            {% endfor %}
+          </div>
         </div>
       </div>
-    </div>
-    <div id="form-wrapper">
-      <form id="form" method="POST" action="/tasks/new">
-        <p id="form-title">Create new task</p>
-        <div id="form-inner">
-        {% with messages = get_flashed_messages(with_categories = True) %}
-            {% if messages %}
-                {% for category, message in messages %}
-                    {% if category == "task" %}
-                        <div class="alert">
-                            {{ message }}
-                        </div>
-                    {% endif %}
-                {% endfor %}
-            {% endif %}
-        {% endwith %}
-          <div class="column-left">
-            {{ taskForm.csrf_token }}
-            <p>{{ taskForm.title(class_="task-form")}}</p>
-            <p>{{ taskForm.completion_date(class_="task-form")}}</p>
-          </div>
-          <div class="column-right">
-            <p>{{ taskForm.state(class_="task-form")}}</p>
-            <p>{{ taskForm.worker(class_="task-form")}}</p>
+  
+      <div id="form-wrapper">
+        <form id="form" method="POST" action="/tasks/new">
+          <p id="form-title">Create new task</p>
+          <div id="form-inner">
+          {% with messages = get_flashed_messages(with_categories = True) %}
+              {% if messages %}
+                  {% for category, message in messages %}
+                      {% if category == "task" %}
+                          <div class="alert">
+                              {{ message }}
+                          </div>
+                      {% endif %}
+                  {% endfor %}
+              {% endif %}
+          {% endwith %}
+            <div class="column-left">
+              {{ taskForm.csrf_token }}
+              <p>{{ taskForm.title(class_="task-form")}}</p>
+              <p>{{ taskForm.completion_date(class_="task-form")}}</p>
+              <p>{{ taskForm.ticket(class_="task-form")}}</p>
+              <p>
+                <button id="search-butt" type="button" onclick="hideSearchTicket()">Search for ticket</button>
+              </p> 
+            </div>
+            <div class="column-right">
+              <p>{{ taskForm.state(class_="task-form")}}</p>
+              <p>{{ taskForm.worker(class_="task-form")}}</p>
+              <p>
+                <button id="search-butt" type="button" onclick="hideSearchAssignee()">Search for assignee</button>
+              </p> 
+            </div>
+            <div>
+              {{ taskForm.description }}
+            </div>
             <p>
-              <button id="search-developer-butt" type="button" onclick="hideSearch()">Search for developer</button>
-              <script type='text/javascript'>
-              function hideSearch()
-              {
-                var div = document.getElementById("search-developer-wrapper");
-                if (div.style.display === "none") {
-                  div.style.display = "initial";
-                } else {
-                  div.style.display = "none";
-                }
-              } 
-              </script>
-            </p> 
-          </div>
-          <div>
-            {{ taskForm.description }}
-          </div>
-          <p>
-            <input id="task-submit" type="submit" value="Save task">
-          </p> 
-        
-      </form>
-      </div>
-     </div>
+              <input id="task-submit" type="submit" value="Save task">
+            </p>
+        </form>
+        </div>
     </div>
     {% endblock %}
   </body>

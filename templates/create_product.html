@@ -11,60 +11,62 @@
   <body>
     {% block content %}
     {{ super() }}
-    <div id="search-manager-wrapper" style="display: none;">
-      <div id="search-manager">
-        <div id="search-manager-bar">
-          <form>
-            {{ managerForm.csrf_token }}
-            {{ managerForm.manager }}
+    <div id="page-wrapper">
+      <div id="search-assignee-wrapper" style="display: none;">
+          <div id="search">
+            <div id="search-bar">
+              <form>
+                {{ managerForm.csrf_token }}
+                {{ managerForm.manager }}
+              </form>
+                <input id="search-bar-butt" type="submit" value="" onclick="search_manager_wrap()">
+            </div>
+            <div id="search-list">
+            </div>
+          </div>
+        </div>
+        <div id="form-wrapper">
+          <form id="form" method="POST" action="/products/new" enctype="multipart/form-data">
+            <p id="form-title">Create new product</p>
+            <div id="form-inner">
+            {% with messages = get_flashed_messages(with_categories = True) %}
+                {% if messages %}
+                    {% for category, message in messages %}
+                        {% if category == "product" %}
+                            <div class="alert">
+                                {{ message }}
+                            </div>
+                        {% endif %}
+                    {% endfor %}
+                {% endif %}
+            {% endwith %}
+              <div class="column-left">
+                <img id="product-image" src="/static/uploads/2.jpg">
+                <p>
+                  {{ productForm.image }}
+                </p>
+              </div>
+              <div class="column-right">
+                {{ productForm.csrf_token }}
+                <p>{{ productForm.name(class_="product-form")}}</p>
+                <p>{{ productForm.completion_date(class_="product-form")}}</p>
+                <p>{{ productForm.version(class_="product-form")}}</p>
+                <p>{{ productForm.manager_id(class_="product-form")}}</p>
+                <p>
+                  <button id="search-butt" type="button" onclick="hideSearch()">Search for manager</button>
+                </p> 
+              </div>
+              <div>
+                {{ productForm.description }}
+              </div>
+              <p>
+                <input id="product-submit" type="submit" value="Save product">
+              </p> 
+            
           </form>
-            <input id="search-manager-bar-butt" type="submit" value="">
+          </div>
+          </div>
         </div>
-        <div id="search-manager-list">
-        </div>
-      </div>
-    </div>
-    <div id="form-wrapper">
-      <form id="form" method="POST" action="/products/new" enctype="multipart/form-data">
-        <p id="form-title">Create new product</p>
-        <div id="form-inner">
-        {% with messages = get_flashed_messages(with_categories = True) %}
-            {% if messages %}
-                {% for category, message in messages %}
-                    {% if category == "product" %}
-                        <div class="alert">
-                            {{ message }}
-                        </div>
-                    {% endif %}
-                {% endfor %}
-            {% endif %}
-        {% endwith %}
-          <div class="column-left">
-            <img id="product-image" src="/static/uploads/2.jpg">
-            <p>
-              {{ productForm.image }}
-            </p>
-          </div>
-          <div class="column-right">
-            {{ productForm.csrf_token }}
-            <p>{{ productForm.name(class_="product-form")}}</p>
-            <p>{{ productForm.completion_date(class_="product-form")}}</p>
-            <p>{{ productForm.version(class_="product-form")}}</p>
-            <p>{{ productForm.manager_id(class_="product-form")}}</p>
-            <p>
-              <button id="search-manager-butt" type="button" onclick="hideSearch()">Search for manager</button>
-            </p> 
-          </div>
-          <div>
-            {{ productForm.description }}
-          </div>
-          <p>
-            <input id="product-submit" type="submit" value="Save product">
-          </p> 
-        
-      </form>
-      </div>
-     </div>
     </div>
     {% endblock %}
   </body>

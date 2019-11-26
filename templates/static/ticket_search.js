@@ -9,6 +9,9 @@ async function perform_fetch()
 async function search_tickets()
 {
     response = await perform_fetch();
+    
+    var userElement = document.getElementById("search-ticket-list");
+    userElement.innerHTML = "";
 
     for(var productName in response)
     {
@@ -23,6 +26,7 @@ async function search_tickets()
                 // ticketId == Idčko ticketu z db
                 console.log(ticketName);
                 console.log(ticketId);
+                userElement.innerHTML = userElement.innerHTML + "<p id=\"search-list-item\" onclick=\"select_ticket(" + ticketId + ")\">" + ticketName + "</p>\n";
             }
         }
     }
