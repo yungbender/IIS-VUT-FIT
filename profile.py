@@ -26,7 +26,6 @@ def profile(userId):
         return render_template("profile.html", user=current_user, userForm=userForm, shownUser=user)
 
     elif user:
-        print("generujem adminovsku")
         userForm = EditProfileFormAdmin()
         userForm.mail.data = user.mail
         userForm.name.data = user.name
