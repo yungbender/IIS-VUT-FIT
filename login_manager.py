@@ -1,6 +1,6 @@
 from repositories.user_repository import UserRepository
 from models.user import User
-from flask import abort
+from flask import abort, redirect
 from flask_login import LoginManager, current_user
 
 LOGIN_MANAGER = LoginManager()
@@ -10,3 +10,7 @@ HTTP_NOT_FOUND = 404
 @LOGIN_MANAGER.user_loader
 def load_user(user_id):
     return USER_REPOSITORY.get_user_username(user_id)
+
+@LOGIN_MANAGER.unauthorized_handler
+def redirect_login():
+    return redirect("/login")

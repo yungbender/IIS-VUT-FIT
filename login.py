@@ -1,4 +1,4 @@
-from flask import render_template, Blueprint, redirect, url_for, flash
+from flask import render_template, Blueprint, redirect, url_for, flash, session
 from templates.login import LoginForm
 from templates.register import RegisterForm
 
@@ -25,7 +25,7 @@ def login():
 
             pwd_encrypted = sha512((loginForm.password.data + SECRET_KEY).encode("utf-8")).hexdigest()
             if user.password == pwd_encrypted:
-
+                session.permanent = True
                 login_user(user)
                 return redirect(url_for("dashboard.index"))
         

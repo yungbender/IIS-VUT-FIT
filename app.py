@@ -1,6 +1,7 @@
 from flask import Flask, render_template, request, make_response, render_template
 from flask_login import current_user
 import os
+from datetime import timedelta
 from login_manager import LOGIN_MANAGER
 from mainpage import MAINPAGE_API
 from login import LOGIN_API,SECRET_KEY
@@ -35,6 +36,7 @@ def create_app():
     app.secret_key = SECRET_KEY
     app.config["MAX_CONTENT_LENGTH"] = MAX_UPLOAD_SIZE
     app.config["TRAP_HTTP_EXCEPTIONS"] = True
+    app.config["PERMANENT_SESSION_LIFETIME"] = timedelta(minutes=5)
     LOGIN_MANAGER.init_app(app)
     
     return app
