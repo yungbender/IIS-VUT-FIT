@@ -61,11 +61,13 @@ def profile_edit(userId):
                 flash("Wrong image uploaded!", "profile")
                 remove_file(imageName)
             
-            if uploadOK and imageName:
-                user.image = imageName
+ 
             
             try:
-                USER_REPO.update_user(user.id, mail, name, surname, position)
+                if uploadOK and imageName:
+                    USER_REPO.update_user(user.id, mail, name, surname, position, image=imageName)
+                else:
+                    USER_REPO.update_user(user.id, mail, name, surname, position)
             except PeeweeException:
                 flash("Cannot save! Check length of elements!", "profile")
                 return render_template("profile.html", user=current_user, userForm=userForm, shownUser=user)

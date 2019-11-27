@@ -47,6 +47,7 @@ async function search_ticket(position)
     managerName = managerName.value;
 
     var json = await perform_search(managerName, position);
+    console.log(json);
 
     var userElement = document.getElementById("search-ticket-list");
     

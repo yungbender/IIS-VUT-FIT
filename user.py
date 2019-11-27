@@ -25,6 +25,7 @@ def users_json():
         # performed based on the position of user, who requested the search
         # and lower (So manager can search => managers, developers)
         # (Owner can search => owners, managers, developer)
+        searchPosition = userPosition
         if userPosition == COOKIE_POSITION:
             lowestPosition = 1
         else:
@@ -37,7 +38,10 @@ def users_json():
                 users.append({ positionUser.clientname: positionUser.id })
 
         result = {}
-        result[COOKIE_POSITION] = users
+        if searchPosition == COOKIE_POSITION:
+            result[COOKIE_POSITION] = users
+        else:
+            result[ADMIN_SEARCH] = users
 
         return jsonify(result)
 

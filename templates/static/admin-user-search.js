@@ -17,10 +17,9 @@ async function search_admin_users(position)
     var json = await perform_search(managerName, position);
 
     var userElement = document.getElementById("users");
-    
     userElement.innerHTML = "";
     var clientname;
-
+    
     for(user in json[position])
     {
         for(id in json[position][user])
@@ -28,7 +27,7 @@ async function search_admin_users(position)
             userElement.innerHTML = userElement.innerHTML + "<a href=\"/profile/" + json[position][user][id] + "\">" + id + "</a>\n";
         }
     }
-
+    
     document.getElementById("main-users").focus();
 }
 
