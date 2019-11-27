@@ -109,3 +109,7 @@ a {
 .ticket-form {
 	display: inline;
 }
+
+.ticket-text a:hover {
+	text-decoration: underline;
+}

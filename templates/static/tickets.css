@@ -56,3 +56,21 @@
 	text-align: center;
 	color: white;
 }
+
+#tickets-title-link {
+	text-decoration: none;
+	color: white;
+}
+
+#tickets-title-link:hover {
+	text-decoration: underline;
+}
+
+.ticket-text a {
+	text-decoration: none;
+	color: white;
+}
+
+.ticket-text a:hover {
+	text-decoration: underline;
+}

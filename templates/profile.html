@@ -22,14 +22,25 @@
             </p>
           </div>
           <div class="column-right">
-            {{ userForm.csrf_token }}
-            <p>{{ userForm.mail(class_="profile-form")}}</p>
-            <p>{{ userForm.name(class_="profile-form")}}</p>
-            <p>{{ userForm.surname(class_="profile-form")}}</p>
-            {% if user.position_id.id == 4 %}
-            <p>{{ userForm.position(class_="profile-form")}}</p>
+            {% if user.id == shownUser.id or user.position_id.id == 4 %}
+              {{ userForm.csrf_token }}
+              <p>{{ userForm.mail(class="profile-form")}}</p>
+              <p>{{ userForm.name(class="profile-form")}}</p>
+              <p>{{ userForm.surname(class="profile-form")}}</p>
+              {% if user.position_id.id == 4 %}
+              <p>{{ userForm.position(class="profile-form")}}</p>
+              {% endif %}
+            {% else %}
+              <div id="column-right-text">
+                <p>{{ shownUser.mail }}</p>
+                <p>{{ shownUser.name }}</p>
+                <p>{{ shownUser.surname }}</p>
+                <p>{{ shownUser.position_id.position }}</p>
+              </div>
             {% endif %}
+            {% if user.id == shownUser.id or user.position_id.id == 4 %}
             <p><input id="profile-submit" type="submit" value="Save profile"></p> 
+            {% endif %}
           </div>
           <div style="clear: both; user-select: auto; border-width: 0px;"></div>
       </form>
