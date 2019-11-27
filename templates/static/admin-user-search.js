@@ -35,7 +35,7 @@ async function search_admin_users(position)
 
 function search_admin_wrap()
 {
-    search_admin_users(99);
+    search_admin_users(98);
 }
 
 function select_assignee(selectedDeveloper)

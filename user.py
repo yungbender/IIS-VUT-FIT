@@ -9,6 +9,7 @@ HTTP_WRONG_INPUT = 400
 ADMIN = 4
 CUSTOMER = 0
 COOKIE_POSITION = 99
+ADMIN_SEARCH = 98
 
 @USER_API.route("/users", methods=["GET"])
 @login_required
@@ -19,14 +20,18 @@ def users_json():
     except TypeError:
         abort(HTTP_WRONG_INPUT)
 
-    if userPosition == COOKIE_POSITION:
+    if userPosition == COOKIE_POSITION or userPosition == ADMIN_SEARCH:
         # If there is special flag at position, the user search will be 
         # performed based on the position of user, who requested the search
         # and lower (So manager can search => managers, developers)
         # (Owner can search => owners, managers, developer)
+        if userPosition == COOKIE_POSITION:
+            lowestPosition = 1
+        else:
+            lowestPosition = 0
         userPosition = current_user.position_id.id
         users = []
-        for lowerPosition in range(0, (userPosition + 1)):
+        for lowerPosition in range(lowestPosition, (userPosition + 1)):
             positionUsers = USER_REPO.search_user(userPattern, lowerPosition)
             for positionUser in positionUsers:
                 users.append({ positionUser.clientname: positionUser.id })

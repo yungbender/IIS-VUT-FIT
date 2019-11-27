@@ -96,8 +96,8 @@
 }
 
 #ticket-image {
-    width: 200px;
-    height: 200px;
+    max-width: 80%;
+    max-height: 350;
 }
 
 #new-comment-wrapper {
