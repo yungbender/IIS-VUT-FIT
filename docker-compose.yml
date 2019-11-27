@@ -10,6 +10,8 @@ services:
       dockerfile: Dockerfile-webapp
     ports:
     - "6969:6969"
+    volumes:
+    - ./logs:/iis-webapp/logs:Z
   iis-database:
     image: iis-database
     container_name: iis-database

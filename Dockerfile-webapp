@@ -5,7 +5,7 @@ RUN yum install python3-devel -y && \
 pip3 install pipenv && \
 yum install which -y
 ADD ./ iis-webapp
-RUN chmod 777 iis-webapp
+RUN chmod -R 777 iis-webapp
 ENV LANG=en_US.utf8
 
 CMD cd iis-webapp && bash webapp_run.sh
