@@ -94,3 +94,12 @@
 #content-butt {
 	background-color: white;
 }
+
+#related-tickets {
+	text-decoration: none;
+	color: white;
+}
+
+#related-tickets:hover {
+	text-decoration: underline;
+}

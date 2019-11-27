@@ -16,10 +16,7 @@
     <div id="page-wrapper">
       <div id="search-ticket-wrapper" style="display: none;">
           <div id="search">
-            <div id="search-bar">
-                <input id="search-ticket-bar-input" type="text" placeholder="Enter ticket name">
-                <input id="search-bar-butt" type="submit" value="" onclick="search_tickets()">
-            </div>
+
             <div id="search-ticket-list">
               {% for developer in developers %}
               <p id="search-list-item">{{ developer.clientname }}</p>

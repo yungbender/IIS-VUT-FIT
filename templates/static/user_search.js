@@ -74,10 +74,10 @@ function search_manager_wrap()
     search_user(2);
 }
 
-function select_assignee(selectedDeveloper)
+function select_assignee(selectedWorker)
 {
-    developerId = document.getElementById("worker");
-    developerId.value = selectedDeveloper.innerHTML;
+    workerId = document.getElementById("worker");
+    workerId.value = selectedWorker.innerHTML;
     document.getElementById("search-assignee-wrapper").style.display = "none";
 }
 
@@ -129,6 +129,7 @@ function hideSearchTicket()
     {
         assignee.style.display = "none";
     }
+    search_tickets()
     ticket.style.display = "initial";
   } 
   else 

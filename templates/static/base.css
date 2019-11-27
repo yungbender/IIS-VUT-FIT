@@ -22,6 +22,10 @@ button {
   outline: 0px;
 }
 
+input::-moz-focus-inner { 
+  border: 0; 
+}
+
 #logo {
   background-color: #004d80;
   color: white;

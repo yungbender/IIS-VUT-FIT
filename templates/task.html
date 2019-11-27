@@ -5,7 +5,7 @@
     {% block head %}
     <link rel="stylesheet" href="/static/task.css">
     <script type="text/javascript" src="/static/tab.js"></script>
-    <title>{{{{ taskForm.title }} info</title>
+    <title>Task {{ taskForm.title.data }}</title>
     {{ super() }}
     {% endblock %}
   </head>
@@ -38,8 +38,9 @@
                 <p><span>Completion date: </span>{{ taskForm.completion_date(class_="task-form")}}</p>
                 <p><span>State: </span>{{ taskForm.state(class_="task-form")}}</p>
                 <p><span>Assigned: </span>{{ taskForm.worker(class_="task-form")}}</p>
+                <p>Related tickets:</p>
                 {% for relatedTicket in relatedTickets %}
-                  <a href="/tickets/{{ relatedTicket.product_id.id }}/{{ relatedTicket.id }}"><p>{{ relatedTicket.name }}</p></a>
+                  <a id="related-tickets" href="/tickets/{{ relatedTicket.product_id.id }}/{{ relatedTicket.id }}"><p>{{ relatedTicket.name }}</p></a>
                 {% endfor %}
               </div>
               <div id="content" style="display: none;">
