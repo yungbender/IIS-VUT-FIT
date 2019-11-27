@@ -12,3 +12,6 @@ def wrong_request(e):
 
 def internal_error(e):
     return render_template("500.html", user=current_user), 500
+
+def error(e):
+    return render_template("error.html", user=current_user)

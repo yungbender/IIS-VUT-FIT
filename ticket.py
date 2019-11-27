@@ -74,13 +74,14 @@ def product_ticket(productId, ticketId):
 
 @TICKET_API.route("/tickets/<int:productId>", methods=["GET"])
 def product_tickets(productId):
-    if PRODUCT_REPO.check_product(productId):
+    product = PRODUCT_REPO.get_product(productId)
+    if product:
         tickets = TICKET_REPO.get_product_tickets(productId)
         for ticket in tickets:
             ticket.name = make_thumbnail(ticket.name, TICKET_THUMBNAIL_MAX_LENGTH)
             ticket.author_id.username = make_thumbnail(ticket.author_id.clientname, AUTHOR_THUMBNAIL_MAX_LENGTH)
             format_date(ticket)
-        return render_template("tickets.html", tickets=tickets, user=current_user, productId=productId)
+        return render_template("tickets.html", tickets=tickets, user=current_user, product=product)
     return abort(HTTP_NOT_FOUND)
 
 @TICKET_API.route("/tickets/new", methods=["GET", "POST"])

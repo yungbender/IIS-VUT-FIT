@@ -1,4 +1,5 @@
-from flask import Flask, render_template, request
+from flask import Flask, render_template, request, make_response, render_template
+from flask_login import current_user
 import os
 from login_manager import LOGIN_MANAGER
 from mainpage import MAINPAGE_API
@@ -14,7 +15,7 @@ from task import TASK_API
 from search import SEARCH_API
 from upload_handler import MAX_UPLOAD_SIZE
 
-from errors import not_permitted, page_not_found, wrong_request, internal_error
+from errors import error, not_permitted, page_not_found, wrong_request, internal_error
 
 
 def create_app():
@@ -32,19 +33,28 @@ def create_app():
     app.register_blueprint(TASK_API)
     app.register_blueprint(SEARCH_API)
     app.secret_key = SECRET_KEY
-    app.config["REMEMBER_COOKIE_DURATION"] = 10
-    app.config["TEMPLATES_AUTO_RELOAD"] = True
     app.config["MAX_CONTENT_LENGTH"] = MAX_UPLOAD_SIZE
-    app.register_error_handler(400, wrong_request)
-    app.register_error_handler(404, page_not_found)
-    app.register_error_handler(403, not_permitted)
-    app.register_error_handler(401, not_permitted)
-    app.register_error_handler(500, internal_error)
+    app.config["TRAP_HTTP_EXCEPTIONS"] = True
     LOGIN_MANAGER.init_app(app)
     
     return app
     
 app = create_app()
+
+@app.errorhandler(Exception)
+def handle_error(e):
+    if e.code == 400:
+        return make_response(render_template("400.html", user=current_user), e.code)
+    elif e.code == 401:
+        return make_response(render_template("401.html", user=current_user), e.code)
+    elif e.code == 403:
+        return make_response(render_template("403.html", user=current_user), e.code)
+    elif e.code == 404:
+        return make_response(render_template("404.html", user=current_user), e.code)
+    elif e.code == 500:
+        return make_response(render_template("500.html", user=current_user), e.code)
+    elif e.code > 400:
+        return make_response(render_template("error.html", user=current_user), e.code)
 
 def main():
     app.run(host="0.0.0.0", port=6969)
