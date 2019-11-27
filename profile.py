@@ -83,7 +83,7 @@ def profile_edit(userId):
                 remove_file(imageName)
             
             try:
-                if uploadOK:
+                if uploadOK and imageName:
                     USER_REPO.update_user(user.id, mail, name, surname, user.position_id.id, image=imageName)
                 else:
                     USER_REPO.update_user(user.id, mail, name, surname, user.position_id.id)

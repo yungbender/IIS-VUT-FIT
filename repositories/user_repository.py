@@ -69,13 +69,13 @@ class UserRepository():
                        .execute()
 
     def update_user(self, userId, mail, name, surname, positionId, image=None):
-        user = User()
-        user.id = userId
+        user = User.get(User.id == userId)
         user.mail = mail
         user.name = name
         user.surname = surname
         if image:
             user.image = image
+        
         user.position_id = positionId
         rows = user.save()
         return True if rows > 0 else False

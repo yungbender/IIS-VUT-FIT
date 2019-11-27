@@ -45,11 +45,10 @@ class TaskRepository():
     def create_task(self, title, description, completionDate, workerId, creatorId, state, basedOn):
         newTask = Task.create(title=title, description=description, 
                     completion_date=completionDate, 
-                    state=state, worker_id=workerId, creator_id=creatorId,
-                    based_on=basedOn)
+                    state=state, worker_id=workerId, creator_id=creatorId)
         
         if basedOn:
-            TaskTicket.create(task_id=newTask.id, ticket_id=basedOn)
+            Task_Ticket.create(task_id=newTask.id, ticket_id=basedOn)
 
         return True
 

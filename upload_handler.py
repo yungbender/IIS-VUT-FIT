@@ -18,12 +18,17 @@ def InvalidFile(BaseException):
 def generate_image_name():
     # Sort the list of files in uploads folder desceding
     cwd = getcwd()
-    lastImage = sorted(listdir(cwd + UPLOAD_FOLDER), reverse=True)[0]
+    images = listdir(cwd + UPLOAD_FOLDER)
+    imageNumbers = []
+    for image in images:
+        imageNumbers.append(int(image.split(".")[0]))
+
+    lastImage = sorted(imageNumbers, reverse=True)[0]
     # Split the image name and increment its number name
     # for ex. 10.jpg
     # ["10", "jpg"]
     # increment the number and return it
-    return int(lastImage.split(".")[0]) + 1
+    return lastImage + 1
 
 def handle_image(file):
     # Get filename

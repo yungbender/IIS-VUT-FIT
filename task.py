@@ -94,9 +94,7 @@ def create_task():
     if current_user.position_id.id < MANAGER:
         abort(HTTP_UNAUTHORIZED)
 
-    ticketIdPrefill = request.args.get("ticket")
     taskForm = CreateTaskForm()
-    taskForm.ticket.data = ticketIdPrefill
 
     if taskForm.validate_on_submit():
         ticketId = taskForm.ticket.data

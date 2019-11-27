@@ -86,6 +86,7 @@ CREATE TABLE comment
 
 CREATE TABLE task_ticket
 (
+    id SERIAL PRIMARY KEY,
     task_id INTEGER REFERENCES task(id),
     ticket_id INTEGER REFERENCES ticket(id)
 );
