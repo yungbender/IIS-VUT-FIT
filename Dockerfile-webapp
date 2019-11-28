@@ -4,7 +4,7 @@ EXPOSE 6969
 RUN yum install python3-devel -y && \
 pip3 install pipenv && \
 yum install which -y
-ADD ./ iis-webapp
+ADD ./ /iis-webapp/
 RUN chmod -R 777 iis-webapp
 ENV LANG=en_US.utf8
 

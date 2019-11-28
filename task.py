@@ -90,6 +90,7 @@ def get_specific_task(taskId):
     return render_template("task.html", user=current_user, taskId=taskId, taskForm=taskForm, relatedTickets=relatedTickets, comments=taskComments, commentForm=commentForm)
 
 @TASK_API.route("/tasks/new", methods=["GET", "POST"])
+@login_required
 def create_task():
     if current_user.position_id.id < MANAGER:
         abort(HTTP_UNAUTHORIZED)
