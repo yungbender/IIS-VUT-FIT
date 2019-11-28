@@ -31,7 +31,7 @@
             </div>
             <div id="ticket-header-second-row">
               <span id="ticket-header-left">Author:</span>
-              <span id="ticket-header-left">{{ ticket.author_id.clientname }}</span>
+              <span id="ticket-header-left"><a id="profile-link" href="/profile/{{ ticket.author_id.id }}">{{ ticket.author_id.clientname }}</a></span>
               <span id="ticket-header-right">{{ ticket.creation_date }}</span>
               <span id="ticket-header-right">Creation date:</span>
               <div style="clear: both; user-select: auto; border-width: 0px;"></div>
@@ -47,7 +47,7 @@
           </div>
           <div id="ticket-header-second-row">
             <span id="ticket-header-left">Author:</span>
-            <span id="ticket-header-left">{{ ticket.author_id.clientname }}</span>
+            <span id="ticket-header-left"><a id="profile-link" href="/profile/{{ ticket.author_id.id }}">{{ ticket.author_id.clientname }}</a></span>
             <span id="ticket-header-right">{{ ticket.creation_date }}</span>
             <span id="ticket-header-right">Creation date:</span>
             <div style="clear: both; user-select: auto; border-width: 0px;"></div>
@@ -57,7 +57,7 @@
           {% if messages %}
               {% for category, message in messages %}
                   {% if category == "ticket" %}
-                      <div class="alert" style="color: red;">
+                      <div class="alert">
                           {{ message }}
                       </div>
                   {% endif %}
@@ -103,7 +103,7 @@
             <div id="comment-header-answer">
               <b>Answer</b>
               <span id="comment-header-left">Author:</span>
-              <span id="comment-header-left">{{ comment.author_id.clientname }}</span>
+              <span id="comment-header-left"><a id="profile-link" href="/profile/{{ ticket.author_id.id }}">{{ comment.author_id.clientname }}</a></span>
               <span id="comment-header-right">{{ comment.creation_date }}</span>
               <span id="comment-header-right">Date:</span>
               <div style="clear: both; user-select: auto; border-width: 0px;"></div>
@@ -116,7 +116,7 @@
           <form id="comment" method="POST" action="">
             <div id="comment-header">
               <span id="comment-header-left">Author:</span>
-              <span id="comment-header-left">{{ comment.author_id.clientname }}</span>
+              <span id="comment-header-left"><a id="profile-link" href="/profile/{{ ticket.author_id.id }}">{{ comment.author_id.clientname }}</a></span>
               <span id="comment-header-right">{{ comment.creation_date }}</span>
               <span id="comment-header-right">Date:</span>
               <div style="clear: both; user-select: auto; border-width: 0px;"></div>
