@@ -1,0 +1,67 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html>
+<head>
+    <meta http-equiv="content-type" content="text/html; charset=iso-8859-2"/>
+    <title>Projekt IIS</title>
+    <style type="text/css">
+    	table { border-collapse: collapse; }
+    	td, th { border: 1px solid black; padding: 0.3em 0.5em; text-align: left; }
+    	dt { font-weight: bold; margin-top: 0.5em; }
+    </style>
+</head>
+<body>
+
+<!-- Zkontrolujte prosím nastavení kódování v hlavičce dokumentu 
+     podle použitého editoru -->
+
+<h1>ITS (Issue Tracking System)</h1> <!-- Nahradte názvem svého zadání -->
+
+<dl>
+	<dt>Autori</dt>
+	<dd>Sasák Tomáš <!-- Nahraďte skutečným jménem a e-mailem autora a popisem činnosti -->
+	    <a href="mailto:xsasak01@stud.fit.vutbr.cz">xsasak01@stud.fit.vutbr.cz</a> -
+		Backend, výpomoc s frontendom
+	</dd>
+	<dd>Krajči Martin <!-- Nahraďte skutečným jménem a e-mailem autora a popisem činnosti -->
+	    <a href="mailto:xkrajc21@stud.fit.vutbr.cz">xkrajc21@stud.fit.vutbr.cz</a> - 
+        Frontend, výpomoc s backendom
+	</dd>
+  <dd>Gregorová Jana <!-- Nahraďte skutečným jménem a e-mailem autora a popisem činnosti -->
+	    <a href="mailto:xgrego20@stud.fit.vutbr.cz">xgrego02@stud.fit.vutbr.cz</a> - 
+		Výpomoc s frontendom a backendom
+	</dd>
+	<dt>URL aplikace</dt>
+	<dd><a href="http://104.248.134.232/">104.248.134.232/</a></dd>
+</dl>
+
+<h2>Užívatelia systému pre testovanie</h2>
+<p>Uveďte prosím existujúcich zástupcov <strong>všetkých rolí užívateľov</strong>.</p>
+<table>
+<tr><th>Login</th><th>Heslo</th><th>Role</th></tr>
+<tr><td>admin</td><td>adminananas</td><td>Administrátor</td></tr>
+<tr><td>owner</td><td>ownerananas</td><td>Vedúci</td></tr>
+<tr><td>manager</td><td>managerananas</td><td>Manažér</td></tr>
+<tr><td>developer</td><td>developerananas</td><td>Pracovník</td></tr>
+<tr><td>!user!</td><td>userananas</td><td>Zákazník</td></tr>
+</table>
+
+<h2>Implementace</h2>
+<p>Stručná dokumentace k implementaci, která popisuje, které části projektu (např. PHP skripty) implementují jednotlivé případy použití.</p>
+
+<h3>Databáze</h3>
+
+Zde vložte grafické schéma relační databáze (tabulek v databázi).
+
+<h2>Instalace</h2>
+<ul>
+    <li><b>Najskôr treba vytvoriť a nainicializovať databázu</b></li>
+    <li>Vykonáme tak v priečinku <i>database</i> pomocou:</li>
+    <li>    bash exec_script.sh create_db.sql</li>
+    <li><b>Samotnú aplikáciu spustíme v hlavnom priečinku</b></li>
+    <li>Použijeme na to predpripravený script:</li>
+    <li>./local_start.sh</li>
+</ul>
+
+</body>
+</html>
