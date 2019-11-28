@@ -35,3 +35,12 @@
 	float: right;
     width: 50%;
 }
+
+#tickets-link {
+	font-size: 18px;
+	color: white;
+}
+
+#tickets-link:hover {
+	color: #1aa3ff;
+}

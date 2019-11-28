@@ -30,4 +30,35 @@ async function search_tickets()
             }
         }
     }
+
+    if (userElement.innerHTML == "")
+    {
+        userElement.innerHTML = userElement.innerHTML + "<p>There are no tickets related to you</p>";
+    }
+}
+
+function select_ticket(selectedTicket)
+{
+    developerId = document.getElementById("ticket");
+    developerId.value = selectedTicket;
+    document.getElementById("search-ticket-wrapper").style.display = "none";
+}
+
+function hideSearchTicket()
+{
+  var ticket = document.getElementById("search-ticket-wrapper");
+  var assignee = document.getElementById("search-assignee-wrapper");
+  if (ticket.style.display === "none")
+  {
+    if (assignee.style.display !== "none")
+    {
+        assignee.style.display = "none";
+    }
+    search_tickets()
+    ticket.style.display = "initial";
+  } 
+  else 
+  {
+    ticket.style.display = "none";
+  }
 }

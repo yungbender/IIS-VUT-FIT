@@ -37,6 +37,9 @@
             </div>
         {% endif %}
           <div style="clear: both; user-select: auto; border-width: 0px;"></div>
+          {% if not user.is_authenticated %}
+            <p>Choose product and look for its tickets <a id="tickets-link" href="/tickets">here</a>.</p>
+          {% endif %}
         </div>
       </div>
     {% endblock %}

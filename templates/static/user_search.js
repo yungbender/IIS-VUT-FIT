@@ -40,25 +40,6 @@ async function search_user(position)
     }
 }
 
-async function search_ticket(position)
-{
-    var managerName = document.getElementById("search-ticket-bar-input");
-
-    managerName = managerName.value;
-
-    var json = await perform_search(managerName, position);
-    console.log(json);
-
-    var userElement = document.getElementById("search-ticket-list");
-    
-    userElement.innerHTML = "";
-
-    for(ticket in json[position])
-    {
-        userElement.innerHTML = userElement.innerHTML + "<p id=\"search-list-item\" onclick=\"select_assignee(this)\">" + json[position][ticket] + "</p>\n";
-    }
-}
-
 function search_wrap()
 {
     search_user(99);
@@ -79,13 +60,6 @@ function select_assignee(selectedWorker)
     workerId = document.getElementById("worker");
     workerId.value = selectedWorker.innerHTML;
     document.getElementById("search-assignee-wrapper").style.display = "none";
-}
-
-function select_ticket(selectedTicket)
-{
-    developerId = document.getElementById("ticket");
-    developerId.value = selectedTicket;
-    document.getElementById("search-ticket-wrapper").style.display = "none";
 }
 
 function hideSearch()
@@ -118,22 +92,3 @@ function hideSearchAssignee()
         assignee.style.display = "none";
     }
   }
-
-function hideSearchTicket()
-{
-  var ticket = document.getElementById("search-ticket-wrapper");
-  var assignee = document.getElementById("search-assignee-wrapper");
-  if (ticket.style.display === "none")
-  {
-    if (assignee.style.display !== "none")
-    {
-        assignee.style.display = "none";
-    }
-    search_tickets()
-    ticket.style.display = "initial";
-  } 
-  else 
-  {
-    ticket.style.display = "none";
-  }
-}

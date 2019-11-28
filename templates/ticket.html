@@ -19,30 +19,15 @@
         <div id="ticket-header">
           <div id="ticket-header-first-row">
             <span id="ticket-header-left">Ticket name:</span>
-            {% if user.id == ticket.author_id.id and not ticket.closed %}
-              {{ ticketForm.csrf_token }}
-              {{ ticketForm.title(id = "ticket-name")}}
-              {% if ticket.closed %}
-                <span id="ticket-header-right">State: Closed</span>
-              {% else %}
-                <span id="ticket-header-right">State: Opened</span>
-              {% endif %}
-              <div style="clear: both; user-select: auto; border-width: 0px;"></div>
-            </div>
-            <div id="ticket-header-second-row">
-              <span id="ticket-header-left">Author:</span>
-              <span id="ticket-header-left"><a id="profile-link" href="/profile/{{ ticket.author_id.id }}">{{ ticket.author_id.clientname }}</a></span>
-              <span id="ticket-header-right">{{ ticket.creation_date }}</span>
-              <span id="ticket-header-right">Creation date:</span>
-              <div style="clear: both; user-select: auto; border-width: 0px;"></div>
-            </div>
-          {% else %}
-            <span>{{ ticket.name }}</span>
-            {% if ticket.closed %}
-              <span id="ticket-header-right">State: Closed</span>
-            {% else %}
-              <span id="ticket-header-right">State: Opened</span>
-            {% endif %}
+              {% if user.is_authenticated %}
+                {% if user.id == ticket.author_id.id and not ticket.closed %}
+                  {{ ticketForm.csrf_token }}
+                  {{ ticketForm.title(id = "ticket-name")}}
+                  {% if ticket.closed %}
+                    <span id="ticket-header-right">State: Closed</span>
+                  {% else %}
+                    <span id="ticket-header-right">State: Opened</span>
+                  {% endif %}
             <div style="clear: both; user-select: auto; border-width: 0px;"></div>
           </div>
           <div id="ticket-header-second-row">
@@ -51,8 +36,25 @@
             <span id="ticket-header-right">{{ ticket.creation_date }}</span>
             <span id="ticket-header-right">Creation date:</span>
             <div style="clear: both; user-select: auto; border-width: 0px;"></div>
-          </div> 
-          {% endif %}
+          </div>
+                {% endif %}
+              {% else %}
+                <span>{{ ticket.name }}</span>
+                {% if ticket.closed %}
+                  <span id="ticket-header-right">State: Closed</span>
+                {% else %}
+                  <span id="ticket-header-right">State: Opened</span>
+                {% endif %}
+                <div style="clear: both; user-select: auto; border-width: 0px;"></div>
+          </div>
+                <div id="ticket-header-second-row">
+                  <span id="ticket-header-left">Author:</span>
+                  <span id="ticket-header-left"><a id="profile-link" href="/profile/{{ ticket.author_id.id }}">{{ ticket.author_id.clientname }}</a></span>
+                  <span id="ticket-header-right">{{ ticket.creation_date }}</span>
+                  <span id="ticket-header-right">Creation date:</span>
+                  <div style="clear: both; user-select: auto; border-width: 0px;"></div>
+                </div> 
+              {% endif %}
           {% with messages = get_flashed_messages(with_categories = True) %}
           {% if messages %}
               {% for category, message in messages %}
@@ -65,24 +67,28 @@
           {% endif %}
           {% endwith %}
         </div>
-        {% if user.id == ticket.author_id.id and not ticket.closed %}
-          {{ ticketForm.description(id = "ticket-description-input")}}
+        {% if user.is_authenticated %}
+          {% if user.id == ticket.author_id.id and not ticket.closed %}
+            {{ ticketForm.description(id = "ticket-description-input")}}
+          {% endif %}
         {% else %}
            <p id="ticket-description">{{ ticket.description }}</p>
         {% endif %}
         {% if ticket.image != None %}
           <p><img id="ticket-image" src="/static/uploads/{{ ticket.image }}"></p>
         {% endif %}
-        {% if not ticket.closed %}
+        {% if user.is_authenticated and not ticket.closed %}
           <input id="ticket-butt" type="button" value="Add comment" onclick="add_comment(null)">
         {% endif %}
         {% if ticket.image != None %}
           <input id="ticket-butt" type="button" value="Show images" onclick="show_images()">
         {% endif %}
-        {% if user.id == ticket.author_id.id %}
-        {% if not ticket.closed %}
-            <input id="ticket-butt" type="submit" value="Save ticket">
-            <input id="ticket-butt" type="button" value="Close ticket" onclick="close_ticket()">
+        {% if user.is_authenticated %}
+          {% if user.id == ticket.author_id.id %}
+            {% if not ticket.closed %}
+              <input id="ticket-butt" type="submit" value="Save ticket">
+              <input id="ticket-butt" type="button" value="Close ticket" onclick="close_ticket()">
+            {% endif %}
           {% endif %}
         {% endif %}
         <div style="clear: both; user-select: auto; border-width: 0px;"></div>
@@ -103,7 +109,7 @@
             <div id="comment-header-answer">
               <b>Answer</b>
               <span id="comment-header-left">Author:</span>
-              <span id="comment-header-left"><a id="profile-link" href="/profile/{{ ticket.author_id.id }}">{{ comment.author_id.clientname }}</a></span>
+              <span id="comment-header-left"><a id="profile-link" href="/profile/{{ comment.author_id.id }}">{{ comment.author_id.clientname }}</a></span>
               <span id="comment-header-right">{{ comment.creation_date }}</span>
               <span id="comment-header-right">Date:</span>
               <div style="clear: both; user-select: auto; border-width: 0px;"></div>
@@ -116,14 +122,16 @@
           <form id="comment" method="POST" action="">
             <div id="comment-header">
               <span id="comment-header-left">Author:</span>
-              <span id="comment-header-left"><a id="profile-link" href="/profile/{{ ticket.author_id.id }}">{{ comment.author_id.clientname }}</a></span>
+              <span id="comment-header-left"><a id="profile-link" href="/profile/{{ comment.author_id.id }}">{{ comment.author_id.clientname }}</a></span>
               <span id="comment-header-right">{{ comment.creation_date }}</span>
               <span id="comment-header-right">Date:</span>
               <div style="clear: both; user-select: auto; border-width: 0px;"></div>
             </div>
             <p id="comment-content">{{ comment.content }}</p>
-            {% if ((user.id == ticket.author_id.id) or (user.position_id.id > 1)) and not ticket.closed %}
-              <input id="ticket-butt" type="button" value="Mark as answer" onclick="mark_answer({{ comment.id }})">
+            {% if user.is_authenticated %}
+              {% if ((user.id == ticket.author_id.id) or (user.position_id.id > 1)) and not ticket.closed %}
+                <input id="ticket-butt" type="button" value="Mark as answer" onclick="mark_answer({{ comment.id }})">
+              {% endif %}
             {% endif %}
             <div style="clear: both; user-select: auto; border-width: 0px;"></div>
           </form>
