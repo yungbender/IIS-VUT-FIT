@@ -51,8 +51,7 @@ def product_ticket(productId, ticketId):
                     return abort(HTTP_BAD_REQUEST)
                 try:
                     imageName = handle_image(commentForm.image)
-                except Exception as e:
-                    remove_file(imageName)
+                except InvalidFile:
                     return flash("Invalid image uploaded!", "ticket")
 
                 comment = commentForm.content.data
@@ -125,7 +124,8 @@ def create_ticket(productId):
         try:
             fileName = handle_image(ticketForm.image)
         except InvalidFile:
-            return flash("Invalid file uploaded!", "ticket")
+            flash("Invalid file uploaded!", "ticket")
+            return render_template("create_ticket.html", user=current_user, ticketForm=ticketForm, productId=productId)
 
         ticketTitle = ticketForm.title.data
         ticketDesc = ticketForm.description.data

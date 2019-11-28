@@ -5,7 +5,7 @@ from repositories.user_repository import UserRepository
 from templates.create_product import ProductForm
 from templates.search_manager import SearchManagerForm
 from templates.search_product import SearchProductForm
-from upload_handler import handle_image, remove_file
+from upload_handler import handle_image, remove_file, InvalidFile
 from peewee import PeeweeException
 import os
 
@@ -42,16 +42,14 @@ def create_products():
             productManager = productForm.manager_id.data
             productManager = USER_REPO.get_manager_username(productManager)
             if productManager:
-                productImage = handle_image(productForm.image)
                 try:
+                    productImage = handle_image(productForm.image)
                     PRODUCT_REPO.create_product(productName, productDesc, productCompletion, productVer, current_user.id, productManager.id, productImage)
-                except PeeweeException:
+                except (PeeweeException, InvalidFile):
                     flash("Cannot save! Check length of elements!", "product")
                     return render_template("create_product.html", user=current_user, \
                        search_image="/Static/search.png", productForm=productForm, \
                            managerForm=managerForm, managers=[])
-                except Exception as e:
-                    remove_file(productImage)
                 return redirect(url_for("dashboard.index"))
             else:
                 flash("Invalid user selected as manager!", "product")

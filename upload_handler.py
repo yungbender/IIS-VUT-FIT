@@ -12,7 +12,7 @@ UPLOAD_FOLDER = "/templates/static/uploads/"
 # 1 is reserved for default profile picture
 # 2 is reserved for default product picture
 
-def InvalidFile(BaseException):
+class InvalidFile(BaseException):
     pass
 
 def generate_image_name():

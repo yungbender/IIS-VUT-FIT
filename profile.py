@@ -4,7 +4,7 @@ from models.user import User
 from repositories.user_repository import UserRepository
 from templates.profile import EditProfileForm
 from templates.profile_admin import EditProfileFormAdmin
-from upload_handler import handle_image, remove_file
+from upload_handler import handle_image, remove_file, InvalidFile
 from utilities import format_date
 from peewee import PeeweeException
 
@@ -17,15 +17,16 @@ ADMIN = 4
 @PROFILE_API.route("/profile/<int:userId>", methods=["GET"])
 def profile(userId):
     user = USER_REPO.get_user(userId)
-    if user and current_user.position_id.id < ADMIN:
-        userForm = EditProfileForm()
-        userForm.mail.data = user.mail
-        userForm.name.data = user.name
-        userForm.surname.data = user.surname
+    if current_user.is_authenticated:
+        if user and current_user.position_id.id < ADMIN:
+            userForm = EditProfileForm()
+            userForm.mail.data = user.mail
+            userForm.name.data = user.name
+            userForm.surname.data = user.surname
 
-        return render_template("profile.html", user=current_user, userForm=userForm, shownUser=user)
+            return render_template("profile.html", user=current_user, userForm=userForm, shownUser=user)
 
-    elif user:
+    if user:
         userForm = EditProfileFormAdmin()
         userForm.mail.data = user.mail
         userForm.name.data = user.name
@@ -56,12 +57,10 @@ def profile_edit(userId):
             try:
                 imageName = handle_image(userFormAdmin.image)
                 uploadOK = True
-            except Exception as e:
+            except InvalidFile:
                 flash("Wrong image uploaded!", "profile")
-                remove_file(imageName)
-            
- 
-            
+                return render_template("profile.html", user=current_user, userForm=userFormAdmin, shownUser=user)
+
             try:
                 if uploadOK and imageName:
                     USER_REPO.update_user(user.id, mail, name, surname, position, image=imageName)
@@ -69,7 +68,7 @@ def profile_edit(userId):
                     USER_REPO.update_user(user.id, mail, name, surname, position)
             except PeeweeException:
                 flash("Cannot save! Check length of elements!", "profile")
-                return render_template("profile.html", user=current_user, userForm=userForm, shownUser=user)
+                return render_template("profile.html", user=current_user, userForm=userFormAdmin, shownUser=user)
 
         elif userForm.validate_on_submit():
             uploadOK = False
@@ -79,9 +78,9 @@ def profile_edit(userId):
             try:
                 imageName = handle_image(userForm.image)
                 uploadOK = True
-            except Exception as e:
+            except InvalidFile:
                 flash("Wrong image uploaded!", "profile")
-                remove_file(imageName)
+                return render_template("profile.html", user=current_user, userForm=userForm, shownUser=user)
             
             try:
                 if uploadOK and imageName:
