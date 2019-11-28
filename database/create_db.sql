@@ -114,7 +114,8 @@ INSERT INTO client (clientname, mail, password, name, surname, birth, position_i
 VALUES ('manager', 'manager@manager.com', 'cae12350c78a0286469d505800a02243b3e6bb9845e2b631fe553669a6ba9900dc79aaee7574afd1203110f775bcdff203789bde5130da4694fa3934823f199a', 'manager', 'ananas', CURRENT_TIMESTAMP, 2);
 INSERT INTO client (clientname, mail, password, name, surname, birth, position_id) 
 VALUES ('developer', 'developer@developer.com', 'c8c4a6fab60b52a0f8c6e7ea6f122aab50191f2104535a1daf4b7546db01b73033e10941ccf3e20a3b578175ed443643dcda723becd7d3d0bc8eaa246176442c', 'developer', 'ananas', CURRENT_TIMESTAMP, 1);
-
+INSERT INTO client (clientname, mail, password, name, surname, birth, position_id)
+VALUES ('user', 'user@user.com', 'e839943f0bda1fe81e85969449b09644e1c7ea4cd8c1b75e56fe390a0843505892b68fb0cd5a6e0b4ae64f8e72adbb07966d6b781df300b367101e7f31b1cd76', 'user', 'ananas', CURRENT_TIMESTAMP, 0);
 
 -- Create DB account for webapp to select, delete, etc
 CREATE USER iis_webapp WITH ENCRYPTED PASSWORD 'iis_passwd';

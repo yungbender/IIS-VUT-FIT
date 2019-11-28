@@ -36,32 +36,85 @@
 </dl>
 
 <h2>U¾ívatelia systému pre testovanie</h2>
-<p>Uveïte prosím existujúcich zástupcov <strong>v¹etkých rolí u¾ívateµov</strong>.</p>
 <table>
 <tr><th>Login</th><th>Heslo</th><th>Role</th></tr>
 <tr><td>admin</td><td>adminananas</td><td>Administrátor</td></tr>
 <tr><td>owner</td><td>ownerananas</td><td>Vedúci</td></tr>
 <tr><td>manager</td><td>managerananas</td><td>Mana¾ér</td></tr>
 <tr><td>developer</td><td>developerananas</td><td>Pracovník</td></tr>
-<tr><td>!user!</td><td>userananas</td><td>Zákazník</td></tr>
+<tr><td>user</td><td>userananas</td><td>Zákazník</td></tr>
 </table>
 
-<h2>Implementace</h2>
-<p>Struèná dokumentace k implementaci, která popisuje, které èásti projektu (napø. PHP skripty) implementují jednotlivé pøípady pou¾ití.</p>
+<h2>Implementácia</h2>
+<h3>Backend</h3>
+<p>Ako implementaèná jazyk, sme si vybrali jazyk Python3. Python3 má dostupný framework pre programovanie
+	webových slu¾iem menom Flask, ktorý sme pou¾ili. Pre implementáciu pou¾ívame návrhový vzor Mode-View-Controller.
+	Pre jednotnos» a udr¾ovanie jednotnosti Python3 modulov, pou¾ívame tool Pipenv, pou¾ívané moduly sú v súbore Pipfile.
+	<h4>Model</h4>
+	Model, databáza a jej tabuµky sú namapované pomocou ORM frameworku Peewee. Tieto modely sú namapované na tabuµky v prieèinku /models.
+	Pre èistotu kódu a pou¾iteµnos», sme sa rozhodli implementova» nad vrstvu modelu návrhový vzor repozitár. Tento návrhový vzor obsahuje
+	zjednotené dotazy na databázu, aby pri ka¾dom dotaze v inom controlleri nebolo nutné písa» dotazy znova a znova.
+	<h5>Repozitár</h5>
+	Ako vy¹¹ie spomínané, pou¾íva sa pre jednoduchos» dotazovania a nereprodukovania rovnakého kódu. Ka¾dý model, má nad sebou navrhnutý repozitár
+	 v ktorom sú napísané dotazy, ktoré sa týkajú daného modelu. Repozitáre je mo¾né nájs» v prieèinku /repositories, v koreòovom adresári projektu.
+	<h4>View</h4>
+	Vaè¹í popis o tejto èasti je mo¾né nájs» v následujúcej èasti frontend. Z pohµadu backendu, sú HTML templates ulo¾ené v prieèinku /templates v 
+	koreòovom adresári projektu. Templaty, sú napísané pomocu CSS a HTML, majú v sebe ¹peciálne miesta, kde sa generujú prvky a informácie dynamicky.
+	Tieto dynamické èasti a prvky, spracováva a prepisuje webový templatovací engine Jinja. Server prepisuje tieto miesta a vkladá prvky.
+	<h4>Controller</h4>
+	Logika celého projektu, v¹etky controlleri sa nachádzajú v koreòovom prieèinku /  , s príponami .py. WSGI poèúva naslúcha na dotazy od u¾ivatela a
+	na základe zadanej cesty, ktorú u¾ivateµ má zadanú v prehlidaèi, spustí danú funkciu controllera. Ka¾dý controller má na zaèiatku nainicializovaný 
+	urèitý nutný repozitár, pre dotaz na databázu a vybratie danej informácie z databáze. Vykoná urèitú logiku, výpoèet, vybere HTML view (template), ktorý sa bude
+	renderova» pre odpoveï a odo¹le mu dané modely, z ktorých sa èerpajú informácie pre vygenerovanie viewu. Po vygenerovaní viewu sa dané HTML, CSS a JavaScript sa odo¹le
+	u¾ivatelovi ako odpoveï na jeho dotaz.<br><br>
+	Potom architektúra aplikácie vyzerá následovne.<br>
+	<image src="./documentation/architecture.png"></image>
+	<h4>Upload</h4>
+	V aplikácií umo¾òujeme u¾ivatelom nahranie profilovej fotky, alebo fotky do ticketu. Nahrávanie spracováva server a ka¾dý jeden nahratý obrázok ukladá do
+	prieèinku /templates/static/uploads, kde ka¾dá fotka sa premenuje na èíslo a príponu súboru. Potom toto celé meno je ulo¾ené ako text do databáze. Pri zobrazovaní
+	daných obrázkov sa názov obrázku bere z databázi a obsah obrázka sa bere z daného prieèinku.
+</p>
+<h3>Frontend</h3>
+<h3>Databáza</h3>
+Pre databázu sme si vybrali SØBD PostgreSQL. Inicializaèný SQL skript databáze sa nachádza v prieèinku /database, súbor create_db.sql. Pre databázu sme vytvorili nasledujúci ER diagaram
+<br>
+<image src="./documentation/er.png"></image><br><br>
+Pre komunikáciu s webovou aplikáciou, je v incializaènom SQL skripte uvedený u¾ivatel iis-webapp, ktorý patrí webovej aplikácií a ma prístup pre zápis a èítanie. Existuje e¹te 
+admin úèet, iis_admin, ktorý je pre ¹peciálny prístup (napr. z psql CLI).
+U¾ivatelské heslá, sú hashované pomocou hashovacieho algoritmu SHA-512, ku tomu sa e¹te prikladá tajný klúè, ktorý sa skonkatenuje s vybraným heslom pri registrácií, salting.
+<h3>Zjednotenie aplikácie</h3>
+Preto¾e SØBD a aplikácia sú dve odli¹né èasti, ktoré vzájomne potrebujú komunikova» pre dosiahnutie funkcionality danej aplikácie, sme sa rozhodli
+pre skontajnerovanie týchto dvoch èastí. Aplikácia sa teda skladá z dvoch kontajnerov prvý kontajner je webová aplikácia a druhá databáza. Kontajnerovací
+software sme si vybrali Docker. Webová aplikácia má svoj nadefinovaný kontajner v súbor Dockerifle-webapp. Databáza ma svoj nadefinovaný kontajner v súbore 
+Dockerfile-database.<br><br>
+Tieto dva kontajneri bolo nutné nastavi» v rámci svojej sieti, v ktorej mô¾u komunikova» medzi sebou. Na toto sa pou¾il software docker-compose, ktorý spravuje
+kontajneri v rámci skupiny, a povoluje rôzne nastavenia, medzi nimi. Nastavenie tejto dvojice sa nachádza v súbore docker-compose.yml v koreòovom adresári.<br>
+Potom èasti vyzerajú následovne <br>
+<image src="./documentation/containers.png"></image><br>
+Je e¹te nutné doda», ¾e kontajner s aplikáciou poèúva von na globalnej sieti na porte 80.
 
-<h3>Databáze</h3>
-
-Zde vlo¾te grafické schéma relaèní databáze (tabulek v databázi).
+<br><br>
+V prieèinku /enviroment sa nachádzajú premenné pre daný kontajner, ktoré obsahujú prihlasovacie údaje do databáze.
 
 <h2>Instalace</h2>
+<h3>Prerekvizity</h3>
 <ul>
-    <li><b>Najskôr treba vytvori» a nainicializova» databázu</b></li>
-    <li>Vykonáme tak v prieèinku <i>database</i> pomocou:</li>
-    <li>    bash exec_script.sh create_db.sql</li>
-    <li><b>Samotnú aplikáciu spustíme v hlavnom prieèinku</b></li>
-    <li>Pou¾ijeme na to predpripravený script:</li>
-    <li>./local_start.sh</li>
+	<li>Pripojenie ku internetu</li>
+	<li>Nain¹talovaný Docker</li>
+	<li>Nain¹talovaný Docker-compose</li>
+	<li>Volný port 80 a 5432</li>
 </ul>
-
+<p>Ako je vy¹¹ie spomínané, celá aplikácia je ulo¾ená do dvoch kontajnerov pomocou 
+	kontajnerovacieho software Docker. Pre spustenie aplikácie: <br><br>
+	<b>docker-compose up --build</b><br><br>
+	Docker pos»ahuje obrazy a spojazdní aplikáciu, po inicializácií WSGI gunicorn vypí¹e PID
+	¹tyroch procesov, ktoré poèúvajú na HTTP dotazy. To znamená ¾e aplikácia a databáza be¾í.<br>
+	Aplikácia existuje a be¾í, databáza tie¾, e¹te je nutné nainicializova» databázovú schému.
+	Pre toto existuje script v prieèinku database menom <b>exec_script.sh</b>, skript funguje tak,
+	¾e ako prvý parameter bere SQL skript, ktorého obsah vlo¾í do kontajneru s databázou.
+	Pre inicliazáciu databáze je nutné spusti».<br><br>
+	<b>bash exec_script.sh create_db.sql</b><br><br>
+	Dataáze je nainicializovaná, aplikácia be¾í. Mô¾me zaèa» aplikáciu pou¾íva».
+</p>
 </body>
 </html>

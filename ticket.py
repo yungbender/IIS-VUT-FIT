@@ -100,7 +100,6 @@ def create_ticket_products():
     return render_template("product_choice.html", products=products, user=current_user, productForm=productForm)
 
 @TICKET_API.route("/tickets", methods=["GET", "POST"])
-@login_required
 def show_ticket_products():
     productForm = SearchProductForm()
     # If user searched for product
