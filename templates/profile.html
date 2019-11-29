@@ -18,14 +18,16 @@
             <p id="form-title">{{ shownUser.clientname }}</p>
             <img id="profile-image" src="/static/uploads/{{ shownUser.image }}">
             {% if user.is_authenticated %}
-              {% if user.id == shownUser.id or user.position_id.id == 4 %}
-                <p>{{ userForm.image(id="choose-image")}}</p>
-              {% endif %}
+            {% if user.id == shownUser.id or user.position_id.id == 4 %}
+            <p>{{ userForm.image(id="choose-image")}}</p>
+            {% endif %}
             {% endif %}
           </div>
           <div class="column-right">
+            {% set wasPrinted = namespace(value=0) %}
             {% if user.is_authenticated %}
               {% if user.id == shownUser.id or user.position_id.id == 4 %}
+                {% set wasPrinted.value = 1 %}
                 {{ userForm.csrf_token }}
                 <p>{{ userForm.mail(class="profile-form")}}</p>
                 <p>{{ userForm.name(class="profile-form")}}</p>
@@ -34,7 +36,8 @@
                 <p>{{ userForm.position(class="profile-form")}}</p>
                 {% endif %}
               {% endif %}
-            {% else %}
+            {% endif %}
+            {% if wasPrinted.value == 0 %}
               <div id="column-right-text">
                 <p>{{ shownUser.mail }}</p>
                 <p>{{ shownUser.name }}</p>

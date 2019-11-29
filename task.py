@@ -107,7 +107,7 @@ def create_task():
         taskWorker = taskForm.worker.data
         asignee = USER_REPO.get_user_username(taskWorker)
         if asignee:
-            if ticketId is None:
+            if ticketId == '':
                 try:
                     success = TASK_REPO.create_task(taskTitle, taskDesc, taskDate, asignee.id, taskCreator, taskState, ticketId)
                 except PeeweeException:
